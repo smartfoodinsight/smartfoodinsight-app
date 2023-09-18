@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartfoodinsight_app/common/app_settings.dart';
+import 'package:smartfoodinsight_app/common/utils/app_settings.dart';
 import 'package:smartfoodinsight_app/models/models.dart';
 
 class SideMenu extends StatefulWidget {

@@ -5,7 +5,8 @@ class Routes {
   static const home = '/';
 
   static final appRoutes = GoRouter(initialLocation: home, routes: [
-    GoRoute(path: home, builder: (context, state) => const SideMenu())
+    GoRoute(path: home, builder: (context, state) => const LoginPage())
+    //GoRoute(path: home, builder: (context, state) => const SideMenu()),
   ]);
 
   // static const initialRoute = home;
