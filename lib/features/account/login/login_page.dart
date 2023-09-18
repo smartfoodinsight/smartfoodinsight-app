@@ -36,14 +36,10 @@ class LoginPage extends StatelessWidget {
                     // Campos de usuario y contraseña
                     const CustomTextFormField(
                         label: 'Correo', icon: Icon(Icons.email)),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: 'Contraseña',
+                    const CustomTextFormField(
+                        label: 'Contraseña',
                         icon: Icon(Icons.lock),
-                      ),
-                      obscureText: true, // Ocultar la contraseña
-                      // Manejo de entrada de la contraseña
-                    ),
+                        isPassword: true),
 
                     // Botón de inicio de sesión
                     ElevatedButton(
