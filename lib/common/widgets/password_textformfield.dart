@@ -13,7 +13,7 @@ class PasswordTextFormField extends StatefulWidget {
 }
 
 class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
-  bool showPassword = false;
+  bool showPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +25,11 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
           style: TextStyle(color: Colors.grey[770]),
         ),
         suffixIcon: IconButton(
-          icon: Icon(showPassword ? Icons.visibility_off : Icons.visibility),
+          icon: Icon(showPassword ? Icons.visibility : Icons.visibility_off),
           onPressed: _togglePasswordVisibility,
         ),
       ),
-      obscureText: !showPassword,
+      obscureText: showPassword,
     );
   }
 
