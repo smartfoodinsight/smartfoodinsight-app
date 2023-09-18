@@ -44,11 +44,11 @@ class _NormalTextFormField extends State<NormalTextFormField> {
             widget.label,
             style: TextStyle(color: Colors.grey[770]),
           ),
-          suffixIcon: _buildSuffixIcon()),
+          suffixIcon: _suffixIcon()),
     );
   }
 
-  Widget? _buildSuffixIcon() {
+  Widget? _suffixIcon() {
     return showClearButton
         ? IconButton(
             icon: const Icon(Icons.clear),

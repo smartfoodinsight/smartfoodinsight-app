@@ -24,12 +24,16 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
           widget.label,
           style: TextStyle(color: Colors.grey[770]),
         ),
-        suffixIcon: IconButton(
-          icon: Icon(showPassword ? Icons.visibility : Icons.visibility_off),
-          onPressed: _togglePasswordVisibility,
-        ),
+        suffixIcon: _suffixIcon(),
       ),
       obscureText: showPassword,
+    );
+  }
+
+  Widget _suffixIcon() {
+    return IconButton(
+      icon: Icon(showPassword ? Icons.visibility : Icons.visibility_off),
+      onPressed: _togglePasswordVisibility,
     );
   }
 
