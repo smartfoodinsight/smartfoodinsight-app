@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
-import 'package:smartfoodinsight_app/common/widgets/custom_textformfield.dart';
+import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -34,13 +34,9 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   children: [
                     // Campos de usuario y contraseña
-                    const CustomTextFormField(
+                    const NormalTextFormField(
                         label: 'Correo', icon: Icon(Icons.email)),
-                    const CustomTextFormField(
-                        label: 'Contraseña',
-                        icon: Icon(Icons.lock),
-                        isPassword: true),
-
+                    const PasswordTextFormField(label: 'Contraseña'),
                     // Botón de inicio de sesión
                     ElevatedButton(
                       onPressed: () {
