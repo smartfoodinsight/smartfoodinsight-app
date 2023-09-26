@@ -2,10 +2,13 @@ import 'package:go_router/go_router.dart';
 import 'package:smartfoodinsight_app/features/features.dart';
 
 class Routes {
+  static const signup = '/signup';
+  static const login = '/login';
   static const home = '/';
 
   static final appRoutes = GoRouter(initialLocation: home, routes: [
-    GoRoute(path: home, builder: (context, state) => const LoginPage())
+    GoRoute(path: signup, builder: (context, state) => const RegisterPage()),
+    GoRoute(path: home, builder: (context, state) => const LoginPage()),
     //GoRoute(path: home, builder: (context, state) => const SideMenu()),
   ]);
 

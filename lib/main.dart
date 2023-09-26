@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:smartfoodinsight_app/common/themes/app_theme.dart';
 import 'package:smartfoodinsight_app/router/routes.dart';
 
@@ -14,8 +17,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-        routerConfig: Routes.appRoutes,
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme().theme());
+      routerConfig: Routes.appRoutes,
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme().theme(),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('es', 'ES'),
+        Locale('en'),
+      ],
+    );
   }
 }

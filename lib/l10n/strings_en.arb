@@ -1,0 +1,52 @@
+{
+  "titleApp": "Translations!",
+  "@titleApp": {
+    "type": "text",
+    "description": "The title of the app"
+  },
+  "passwordEmail": "We will send you an email with instructions to recover your password",
+  "@passwordEmail": {
+    "type": "text",
+    "description": "We will send you an email with instructions to recover your password"
+  },
+  "send": "Send",
+  "@send": {
+    "type": "text",
+    "description": "Send"
+  },
+  "name": "Name",
+  "@name": {
+    "type": "text",
+    "description": "Full name"
+  },
+  "forgotPassowrd": "Forgot Password?",
+  "@forgotPassowrd": {
+    "type": "text",
+    "description": "Forgot Password"
+  },
+  "dontAccount": "Don't have an account?",
+  "@dontAccount": {
+    "type": "text",
+    "description": "Don't have an account"
+  },
+  "email": "Email",
+  "@email": {
+    "type": "text",
+    "description": "Email field"
+  },
+  "password": "Password",
+  "@password": {
+    "type": "text",
+    "description": "Password field"
+  },
+  "login": "Login",
+  "@login": {
+    "type": "text",
+    "description": "Login to the app"
+  },
+  "signup": "Signup",
+  "@signup": {
+    "type": "text",
+    "description": "Signup to the app"
+  }
+}

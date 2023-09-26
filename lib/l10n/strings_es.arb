@@ -1,0 +1,11 @@
+{
+    "passwordEmail": "Te enviaremos un correo con las instrucciones para recuperar tu contraseña",
+    "send": "Enviar",
+    "name": "Nombre",
+    "forgotPassowrd": "¿Has olvidado la contraseña?",
+    "dontAccount": "¿No tienes una cuenta?",
+    "password": "Contraseña",
+    "email": "Correo",
+    "login": "Iniciar sesión",
+    "signup": "Regístrate"
+}
