@@ -3,7 +3,7 @@ import 'package:smartfoodinsight_app/common/utils/utis.dart';
 
 final colors = <Color>[
   HexColor("#aac6f9"),
-  HexColor("#fed8c3"),
+  HexColor("#FF998C"),
   HexColor("#88ba5d"),
   HexColor("#ffe9b0")
 ];

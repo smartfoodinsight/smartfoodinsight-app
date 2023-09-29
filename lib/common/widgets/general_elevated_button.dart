@@ -13,7 +13,7 @@ class GeneralElevatedButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           fixedSize: const Size(200, 45),
-          backgroundColor: HexColor("#faa28b"),
+          backgroundColor: HexColor("#FF998C"),
           foregroundColor: Colors.white,
           textStyle: const TextStyle(fontWeight: FontWeight.w900)),
       onPressed: onPressed,

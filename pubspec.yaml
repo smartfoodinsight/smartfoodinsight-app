@@ -33,6 +33,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.3.2
   flutter_riverpod: ^2.4.0
   font_awesome_flutter: ^10.5.0
   go_router: ^10.1.2
@@ -43,6 +44,15 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/splash.png
+  android_12: 
+    image: assets/images/splash.png
+  android: true
+  ios: true
+        
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
