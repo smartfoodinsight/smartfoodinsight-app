@@ -1,4 +1,6 @@
 {
+    "emailIsNotValid": "Does not have email format",
+    "fieldIsEmpty": "The field is required",
     "passwordEmail": "Te enviaremos un correo con las instrucciones para recuperar tu contraseña",
     "send": "Enviar",
     "name": "Nombre",

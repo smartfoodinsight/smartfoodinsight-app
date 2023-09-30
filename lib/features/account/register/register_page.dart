@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
+import 'package:smartfoodinsight_app/extensions/app_localizations_extension.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -31,17 +32,16 @@ class RegisterPage extends StatelessWidget {
                   child: Column(
                     children: [
                       NormalTextFormField(
-                          label: AppLocalizations.of(context)!.name,
+                          label: context.loc.name,
                           icon: const Icon(Icons.person)),
                       NormalTextFormField(
-                          label: AppLocalizations.of(context)!.email,
+                          label: context.loc.email,
                           icon: const Icon(Icons.email)),
-                      PasswordTextFormField(
-                          label: AppLocalizations.of(context)!.password),
+                      PasswordTextFormField(label: context.loc.password),
                       const SizedBox(height: 16),
                       GeneralElevatedButton(
                           onPressed: () => null,
-                          child: Text(AppLocalizations.of(context)!.signup)),
+                          child: Text(context.loc.signup)),
                     ],
                   ))
             ],

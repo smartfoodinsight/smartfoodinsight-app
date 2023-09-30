@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
+import 'package:smartfoodinsight_app/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/router/routes.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends ConsumerWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginPageState = ref.watch(loginPageNotifierProvider);
+    final email = loginPageState.email;
+    final password = loginPageState.password;
+    final isFormPosted = loginPageState.isFormPosted;
+    final loginPageNotifier = ref.read(loginPageNotifierProvider.notifier);
+
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
     double imageHeight = height * 0.35;
     double sizedBoxHeight = height - imageHeight;
     //double paddingTop = height - MediaQuery.viewPaddingOf(context).top;
-
     return Scaffold(
       backgroundColor: HexColor("#aac6f9"),
       extendBodyBehindAppBar: true,
@@ -37,15 +45,24 @@ class LoginPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: Column(children: [
                     NormalTextFormField(
-                        label: AppLocalizations.of(context)!.email,
-                        icon: const Icon(Icons.email)),
+                      label: context.loc.email,
+                      icon: const Icon(Icons.email),
+                      textInputType: TextInputType.emailAddress,
+                      onChanged: loginPageNotifier.onEmailChange,
+                      errorMessage:
+                          isFormPosted ? email.errorMessage(context) : null,
+                    ),
                     PasswordTextFormField(
-                        label: AppLocalizations.of(context)!.password),
+                        label: context.loc.password,
+                        onChanged: loginPageNotifier.onPasswordChanged,
+                        errorMessage: isFormPosted
+                            ? password.errorMessage(context)
+                            : null),
                     const _ForgotPasswordButton(),
                     const SizedBox(height: 16),
                     GeneralElevatedButton(
-                        onPressed: () => null,
-                        child: Text(AppLocalizations.of(context)!.login)),
+                        onPressed: () => loginPageNotifier.onFormSubmit(),
+                        child: Text(context.loc.login)),
                     const SizedBox(height: 16),
                     _dividerOr(),
                     const _SocialButtons(),
@@ -72,7 +89,7 @@ class _SignUpQuestion extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          AppLocalizations.of(context)!.dontAccount,
+          context.loc.dontAccount,
           style: const TextStyle(
             fontFamily: 'PT-Sans',
             fontSize: 16,
@@ -82,7 +99,7 @@ class _SignUpQuestion extends StatelessWidget {
         const SizedBox(width: 4),
         GestureDetector(
           child: Text(
-            AppLocalizations.of(context)!.signup,
+            context.loc.signup,
             style: const TextStyle(
               fontFamily: 'PT-Sans',
               fontSize: 16,
@@ -106,7 +123,7 @@ class _ForgotPasswordButton extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: TextButton(
         child: Text(
-          AppLocalizations.of(context)!.forgotPassowrd,
+          context.loc.forgotPassowrd,
           style: const TextStyle(
             fontFamily: 'PT-Sans',
             fontSize: 14,
@@ -132,15 +149,15 @@ class _ForgotPasswordButton extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
                   child: Column(
                     children: [
-                      Text(AppLocalizations.of(context)!.passwordEmail),
+                      Text(context.loc.passwordEmail),
                       const SizedBox(height: 16),
                       NormalTextFormField(
-                          label: AppLocalizations.of(context)!.email,
+                          label: context.loc.email,
                           icon: const Icon(Icons.email)),
                       const SizedBox(height: 16),
                       GeneralElevatedButton(
                           onPressed: () => Navigator.pop(context),
-                          child: Text(AppLocalizations.of(context)!.send))
+                          child: Text(context.loc.send))
                     ],
                   ),
                 )),

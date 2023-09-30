@@ -4,6 +4,16 @@
     "type": "text",
     "description": "The title of the app"
   },
+  "emailIsNotValid": "Does not have email format",
+  "@emailIsNotValid": {
+    "type": "text",
+    "description": "Does not have email format"
+  },
+  "fieldIsEmpty": "The field is required",
+  "@fieldIsEmpty": {
+    "type": "text",
+    "description": "The field is required"
+  },
   "passwordEmail": "We will send you an email with instructions to recover your password",
   "@passwordEmail": {
     "type": "text",

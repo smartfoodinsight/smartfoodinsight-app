@@ -1,0 +1,53 @@
+import 'package:smartfoodinsight_app/common/utils/utis.dart';
+import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
+import 'package:smartfoodinsight_app/services/services.dart';
+import 'package:dio/dio.dart';
+
+class SmartFoodInsightApiService extends ISmartFoodIngishtService {
+  var options = Options(headers: {"requiresToken": false});
+  final dio = Dio(BaseOptions(baseUrl: AppSettings.apiUrl));
+
+  SmartFoodInsightApiService() {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          // get access_token
+          options.headers['Authorization'] = 'Bearer your_access_token';
+          return handler.next(options);
+        },
+        onError: (DioException e, handler) async {
+          if (!isLogin(e.requestOptions)) {
+            if (e.response?.statusCode == 401 ||
+                e.response?.statusCode == 403) {
+              // get referesh_token
+              //String newAccessToken = await refreshToken();
+              //e.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
+              return handler.resolve(await dio.fetch(e.requestOptions));
+            }
+          }
+          return handler.next(e);
+        },
+      ),
+    );
+  }
+
+  @override
+  Future<GenericResponse<LoginResponse>> loginAsync(
+      LoginRequest loginRequest) async {
+    final response = await dio.post<GenericResponse<LoginResponse>>(
+        '/api/auth/login',
+        data: loginRequest.toJson(),
+        options: options);
+
+    return response.data!;
+  }
+
+  @override
+  Future<void> registerAsync(RegisterRequest registerRequest) {
+    throw UnimplementedError();
+  }
+
+  bool isLogin(RequestOptions options) {
+    return options.path == '/api/auth/login';
+  }
+}
