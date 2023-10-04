@@ -33,9 +33,11 @@ class RegisterPage extends StatelessWidget {
                     children: [
                       NormalTextFormField(
                           label: context.loc.name,
+                          textInputType: TextInputType.name,
                           icon: const Icon(Icons.person)),
                       NormalTextFormField(
                           label: context.loc.email,
+                          textInputType: TextInputType.emailAddress,
                           icon: const Icon(Icons.email)),
                       PasswordTextFormField(label: context.loc.password),
                       const SizedBox(height: 16),

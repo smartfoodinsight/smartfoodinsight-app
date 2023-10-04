@@ -1,5 +1,6 @@
-class GenericResponse<T> {
-  bool? success;
-  int? statusCode;
-  T? data;
+class ApiUtils {
+  static T parseData<T>(
+      Map<String, dynamic> json, T Function(dynamic) fromJsonT) {
+    return fromJsonT(json['data']);
+  }
 }

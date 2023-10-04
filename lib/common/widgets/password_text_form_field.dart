@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartfoodinsight_app/common/utils/utis.dart';
 
 class PasswordTextFormField extends StatefulWidget {
   final String label;
@@ -33,6 +34,8 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
             widget.label,
             style: TextStyle(color: Colors.grey[770]),
           ),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: HexColor("#001f3f"))),
           suffixIcon: _suffixIcon(),
           errorText: widget.errorMessage),
       obscureText: showPassword,
@@ -40,8 +43,10 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   }
 
   Widget _suffixIcon() {
+    Color? color = Colors.grey[700];
     return IconButton(
-      icon: Icon(showPassword ? Icons.visibility : Icons.visibility_off),
+      icon: Icon(showPassword ? Icons.visibility : Icons.visibility_off,
+          color: color),
       onPressed: _togglePasswordVisibility,
     );
   }

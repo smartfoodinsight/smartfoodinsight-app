@@ -32,14 +32,13 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
   }
 
   @override
-  Future<GenericResponse<LoginResponse>> loginAsync(
-      LoginRequest loginRequest) async {
-    final response = await dio.post<GenericResponse<LoginResponse>>(
-        '/api/auth/login',
-        data: loginRequest.toJson(),
-        options: options);
-
-    return response.data!;
+  Future<LoginResponse> loginAsync(LoginRequest loginRequest) async {
+    final json = loginRequest.toJson();
+    final response =
+        await dio.post('/api/auth/login', data: json, options: options);
+    final apiResponse = ApiUtils.parseData(
+        response.data, (json) => LoginResponse.fromJson(json));
+    return apiResponse;
   }
 
   @override

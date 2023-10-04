@@ -4,6 +4,11 @@
     "type": "text",
     "description": "The title of the app"
   },
+  "loginError": "Username or password incorrect",
+  "@loginError": {
+    "type": "text",
+    "description": "Username or password incorrect"
+  },
   "emailIsNotValid": "Does not have email format",
   "@emailIsNotValid": {
     "type": "text",

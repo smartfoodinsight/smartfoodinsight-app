@@ -1,14 +1,18 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:formz/formz.dart';
 import 'package:smartfoodinsight_app/common/validations/validations.dart';
-import 'package:smartfoodinsight_app/features/account/login/login_page_state.dart';
+import 'package:smartfoodinsight_app/features/auth/auth_provider.dart';
+import 'package:smartfoodinsight_app/features/auth/login/login_page_state.dart';
+import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
-final loginPageNotifierProvider =
-    StateNotifierProvider<LoginPageNotifier, LoginPageState>(
-        (ref) => LoginPageNotifier());
+part 'login_page_provider.g.dart';
 
-class LoginPageNotifier extends StateNotifier<LoginPageState> {
-  LoginPageNotifier() : super(const LoginPageState());
+@riverpod
+class LoginPageNotifier extends _$LoginPageNotifier {
+  @override
+  LoginPageState build() {
+    return const LoginPageState();
+  }
 
   bool validate({EmailFormz? email, PasswordFormz? password}) {
     return Formz.validate([email ?? state.email, password ?? state.password]);
@@ -30,7 +34,10 @@ class LoginPageNotifier extends StateNotifier<LoginPageState> {
 
     if (!state.isValid) return;
 
-    // await loginUserCallback(state.email.value, state.password.value);
+    var loginRequest =
+        LoginRequest(email: state.email.value, password: state.password.value);
+    final authNotifier = ref.read(authNotifierProvider.notifier);
+    await authNotifier.loginAsync(loginRequest);
   }
 
   _touchEveryField() {

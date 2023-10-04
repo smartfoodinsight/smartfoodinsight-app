@@ -6,19 +6,15 @@ import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 import 'package:smartfoodinsight_app/extensions/extensions.dart';
+import 'package:smartfoodinsight_app/features/auth/auth_provider.dart';
+import 'package:smartfoodinsight_app/features/auth/auth_state.dart';
 import 'package:smartfoodinsight_app/router/routes.dart';
 
-class LoginPage extends ConsumerWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final loginPageState = ref.watch(loginPageNotifierProvider);
-    final email = loginPageState.email;
-    final password = loginPageState.password;
-    final isFormPosted = loginPageState.isFormPosted;
-    final loginPageNotifier = ref.read(loginPageNotifierProvider.notifier);
-
+  Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
     double imageHeight = height * 0.35;
@@ -43,33 +39,7 @@ class LoginPage extends ConsumerWidget {
                 height: sizedBoxHeight,
                 child: Padding(
                   padding: const EdgeInsets.all(16),
-                  child: Column(children: [
-                    NormalTextFormField(
-                      label: context.loc.email,
-                      icon: const Icon(Icons.email),
-                      textInputType: TextInputType.emailAddress,
-                      onChanged: loginPageNotifier.onEmailChange,
-                      errorMessage:
-                          isFormPosted ? email.errorMessage(context) : null,
-                    ),
-                    PasswordTextFormField(
-                        label: context.loc.password,
-                        onChanged: loginPageNotifier.onPasswordChanged,
-                        errorMessage: isFormPosted
-                            ? password.errorMessage(context)
-                            : null),
-                    const _ForgotPasswordButton(),
-                    const SizedBox(height: 16),
-                    GeneralElevatedButton(
-                        onPressed: () => loginPageNotifier.onFormSubmit(),
-                        child: Text(context.loc.login)),
-                    const SizedBox(height: 16),
-                    _dividerOr(),
-                    const _SocialButtons(),
-                    const Spacer(),
-                    const _SignUpQuestion(),
-                    const SizedBox(height: 16)
-                  ]),
+                  child: _FormLogin(),
                 ),
               )
             ],
@@ -77,6 +47,60 @@ class LoginPage extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+class _FormLogin extends ConsumerWidget {
+  void showSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginPageState = ref.watch(loginPageNotifierProvider);
+    final email = loginPageState.email;
+    final password = loginPageState.password;
+    final isFormPosted = loginPageState.isFormPosted;
+    final loginPageNotifier = ref.read(loginPageNotifierProvider.notifier);
+
+    ref.listen(authNotifierProvider, (_, state) {
+      if (!state.isLoading && state.hasError) {
+        showSnackbar(context, context.loc.loginError);
+      }
+    });
+
+    final authSate = ref.watch(authNotifierProvider);
+
+    return Column(children: [
+      NormalTextFormField(
+        label: context.loc.email,
+        icon: const Icon(Icons.email),
+        textInputType: TextInputType.emailAddress,
+        onChanged: loginPageNotifier.onEmailChange,
+        errorMessage: isFormPosted ? email.errorMessage(context) : null,
+      ),
+      PasswordTextFormField(
+          label: context.loc.password,
+          onChanged: loginPageNotifier.onPasswordChanged,
+          errorMessage: isFormPosted ? password.errorMessage(context) : null),
+      const _ForgotPasswordButton(),
+      const SizedBox(height: 16),
+      GeneralElevatedButton(
+          onPressed: authSate.isLoading
+              ? null
+              : () => loginPageNotifier.onFormSubmit(),
+          child: authSate.isLoading
+              ? const CircularProgressIndicator()
+              : Text(context.loc.login)),
+      const SizedBox(height: 16),
+      _dividerOr(),
+      const _SocialButtons(),
+      const Spacer(),
+      const _SignUpQuestion(),
+      const SizedBox(height: 16)
+    ]);
   }
 }
 

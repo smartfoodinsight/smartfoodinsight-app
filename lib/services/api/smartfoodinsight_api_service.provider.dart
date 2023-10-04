@@ -1,4 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:smartfoodinsight_app/services/api/smartfoodinsight_api_service.dart';
 
-final apiServiceProvider = Provider((ref) => SmartFoodInsightApiService());
+part 'smartfoodinsight_api_service.provider.g.dart';
+
+@riverpod
+SmartFoodInsightApiService apiService(ApiServiceRef ref) {
+  return SmartFoodInsightApiService();
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartfoodinsight_app/common/utils/utis.dart';
 
 class NormalTextFormField extends StatefulWidget {
   final String label;
@@ -55,19 +56,23 @@ class _NormalTextFormField extends State<NormalTextFormField> {
             widget.label,
             style: TextStyle(color: Colors.grey[770]),
           ),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: HexColor("#001f3f"))),
           suffixIcon: _suffixIcon(),
           errorText: widget.errorMessage),
     );
   }
 
   Widget? _suffixIcon() {
+    Color? color = Colors.grey[700];
     return showClearButton
-        ? IconButton(icon: const Icon(Icons.clear), onPressed: () => _clear())
+        ? IconButton(
+            icon: Icon(Icons.clear, color: color), onPressed: () => _clear())
         : null;
   }
 
   void _clear() {
     textEditingController.clear();
-    widget.onChanged!('');
+    if (widget.onChanged != null) widget.onChanged!('');
   }
 }
