@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:formz/formz.dart';
+import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/validations/validations.dart';
-import 'package:smartfoodinsight_app/features/auth/auth_provider.dart';
 import 'package:smartfoodinsight_app/features/auth/login/login_page_state.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 

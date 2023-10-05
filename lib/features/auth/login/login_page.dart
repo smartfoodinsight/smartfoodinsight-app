@@ -5,10 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
-import 'package:smartfoodinsight_app/extensions/extensions.dart';
-import 'package:smartfoodinsight_app/features/auth/auth_provider.dart';
-import 'package:smartfoodinsight_app/features/auth/auth_state.dart';
-import 'package:smartfoodinsight_app/router/routes.dart';
+import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -51,12 +48,6 @@ class LoginPage extends StatelessWidget {
 }
 
 class _FormLogin extends ConsumerWidget {
-  void showSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loginPageState = ref.watch(loginPageNotifierProvider);
@@ -65,11 +56,8 @@ class _FormLogin extends ConsumerWidget {
     final isFormPosted = loginPageState.isFormPosted;
     final loginPageNotifier = ref.read(loginPageNotifierProvider.notifier);
 
-    ref.listen(authNotifierProvider, (_, state) {
-      if (!state.isLoading && state.hasError) {
-        showSnackbar(context, context.loc.loginError);
-      }
-    });
+    ref.listen(authNotifierProvider,
+        (_, state) => state.showSnackbarError(context, context.loc.loginError));
 
     final authSate = ref.watch(authNotifierProvider);
 
@@ -131,7 +119,7 @@ class _SignUpQuestion extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          onTap: () => context.push(Routes.signup),
+          onTap: () => context.push(AppSettings.signup),
         ),
       ],
     );

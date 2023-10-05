@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
-import 'package:smartfoodinsight_app/extensions/app_localizations_extension.dart';
+import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});

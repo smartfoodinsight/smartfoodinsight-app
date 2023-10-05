@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
-import 'package:smartfoodinsight_app/extensions/app_localizations_extension.dart';
+import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 
 enum EmailError { empty, format }
 
