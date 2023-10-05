@@ -17,8 +17,7 @@ class AuthNotifier extends _$AuthNotifier {
     state = await AsyncValue.guard(() async {
       final keyStorageService = ref.read(keyStorageServiceProvider);
       await keyStorageService.removeKey('token');
-      return const AuthState(
-          authStatus: AuthStatus.notAuthenticated, loginResponse: null);
+      return const AuthState(authenticated: false, loginResponse: null);
     });
   }
 
@@ -30,8 +29,7 @@ class AuthNotifier extends _$AuthNotifier {
       final response = await apiService.loginAsync(loginRequest);
       String json = jsonEncode(response.toJson());
       await keyStorageService.setKeyValue('auth', json);
-      return AuthState(
-          authStatus: AuthStatus.authenticated, loginResponse: response);
+      return AuthState(authenticated: true, loginResponse: response);
     });
   }
 }

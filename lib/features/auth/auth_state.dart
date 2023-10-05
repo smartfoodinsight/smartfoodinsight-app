@@ -6,9 +6,8 @@ part 'auth_state.freezed.dart';
 @freezed
 class AuthState with _$AuthState {
   const factory AuthState(
-          {LoginResponse? loginResponse,
-          @Default(AuthStatus.notAuthenticated) AuthStatus authStatus}) =
-      _AuthState;
+      {LoginResponse? loginResponse,
+      @Default(false) bool authenticated}) = _AuthState;
 }
 
 enum AuthStatus { authenticated, notAuthenticated }

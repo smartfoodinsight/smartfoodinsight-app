@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:smartfoodinsight_app/common/providers/providers.dart';
 
 part 'app_router_listenable.g.dart';
 
@@ -28,13 +29,8 @@ class RouterListenable extends _$RouterListenable implements Listenable {
 
   @override
   Future<void> build() async {
-    // One could watch more providers and write logic accordingly
-
-    _isAuth = await ref.watch(
-      authControllerProvider.selectAsync(
-        (data) => data.map(signedIn: (_) => true, signedOut: (_) => false),
-      ),
-    );
+    _isAuth = await ref
+        .watch(authNotifierProvider.selectAsync((data) => data.authenticated));
 
     ref.listenSelf((_, __) {
       // One could write more conditional logic for when to call redirection
@@ -44,7 +40,13 @@ class RouterListenable extends _$RouterListenable implements Listenable {
   }
 
   /// Redirects the user when our authentication changes
-  String? redirect(BuildContext context, GoRouterState state) {}
+  String? redirect(BuildContext context, GoRouterState state) {
+    if (this.state.isLoading || this.state.hasError) return null;
+
+    final isGoingTo = state.matchedLocation;
+
+    return null;
+  }
 
   /// Adds [GoRouter]'s listener as specified by its [Listenable].
   /// [GoRouteInformationProvider] uses this method on creation to handle its
