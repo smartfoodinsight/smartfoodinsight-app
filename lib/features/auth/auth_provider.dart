@@ -6,7 +6,7 @@ import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
 part 'auth_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 class AuthNotifier extends _$AuthNotifier {
   @override
   FutureOr<AuthState> build() {

@@ -9,5 +9,3 @@ class AuthState with _$AuthState {
       {LoginResponse? loginResponse,
       @Default(false) bool authenticated}) = _AuthState;
 }
-
-enum AuthStatus { authenticated, notAuthenticated }
