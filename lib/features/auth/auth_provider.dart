@@ -8,10 +8,23 @@ part 'auth_provider.g.dart';
 
 @Riverpod()
 class AuthNotifier extends _$AuthNotifier {
+  static const _sharedPrefsKey = 'auth';
   @override
   FutureOr<AuthState> build() {
-    //_persistenceRefreshLogic();
-    return const AuthState();
+    _persistenceRefreshLogic();
+    return _loginRecoveryAttempt();
+  }
+
+  Future<AuthState> _loginRecoveryAttempt() async {
+    try {
+      final loginReponse = await _tokenAsync();
+      if (loginReponse == null) return const AuthState();
+
+      return AuthState(authenticated: true, loginResponse: loginReponse);
+    } catch (_, __) {
+      await _clearTokenAsync();
+      return const AuthState();
+    }
   }
 
   Future<void> logoutAsync() async {
@@ -28,23 +41,32 @@ class AuthNotifier extends _$AuthNotifier {
       final keyStorageService = ref.read(keyStorageServiceProvider);
       final response = await apiService.loginAsync(loginRequest);
       String json = jsonEncode(response.toJson());
-      await keyStorageService.setKeyValue('auth', json);
+      await keyStorageService.setKeyValue(_sharedPrefsKey, json);
       return AuthState(authenticated: true, loginResponse: response);
     });
   }
 
-  // void _persistenceRefreshLogic() {
-  //   ref.listenSelf((_, next) async {
-  //     if (next.isLoading) return;
-  //     if (next.hasError) {
-  //       await _clearTokenAsync();
-  //       return;
-  //     }
-  //   });
-  // }
+  void _persistenceRefreshLogic() {
+    ref.listenSelf((_, next) async {
+      if (next.isLoading) return;
+      if (next.hasError) {
+        await _clearTokenAsync();
+        return;
+      }
+    });
+  }
+
+  Future<LoginResponse?> _tokenAsync() async {
+    final keyStorageService = ref.read(keyStorageServiceProvider);
+    String? json = await keyStorageService.getValue<String>(_sharedPrefsKey);
+    if (json != null) {
+      return LoginResponse.fromJson(jsonDecode(json));
+    }
+    return null;
+  }
 
   Future<void> _clearTokenAsync() async {
     final keyStorageService = ref.read(keyStorageServiceProvider);
-    await keyStorageService.removeKey('token');
+    await keyStorageService.removeKey(_sharedPrefsKey);
   }
 }

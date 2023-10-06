@@ -10,7 +10,6 @@ part 'app_router_provider.g.dart';
 GoRouter appRouter(AppRouterRef ref) {
   final routerListenable = ref.watch(routerListenableProvider.notifier);
   return GoRouter(
-      initialLocation: AppSettings.login,
       refreshListenable: routerListenable,
       redirect: routerListenable.redirect,
       routes: [
