@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
+import 'package:smartfoodinsight_app/common/utils/app_settings.dart';
 
 part 'app_router_listenable.g.dart';
 
@@ -29,8 +30,12 @@ class RouterListenable extends _$RouterListenable implements Listenable {
 
   @override
   Future<void> build() async {
-    _isAuth = await ref
-        .watch(authNotifierProvider.selectAsync((data) => data.authenticated));
+    try {
+      _isAuth = await ref.watch(
+          authNotifierProvider.selectAsync((data) => data.authenticated));
+    } catch (e) {
+      _isAuth = false;
+    }
 
     ref.listenSelf((_, __) {
       // One could write more conditional logic for when to call redirection
@@ -44,6 +49,16 @@ class RouterListenable extends _$RouterListenable implements Listenable {
     if (this.state.isLoading || this.state.hasError) return null;
 
     final isGoingTo = state.matchedLocation;
+
+    if (!_isAuth &&
+        (isGoingTo != AppSettings.login && isGoingTo != AppSettings.signup)) {
+      return AppSettings.login;
+    }
+
+    if (_isAuth &&
+        (isGoingTo == AppSettings.login || isGoingTo == AppSettings.signup)) {
+      return AppSettings.home;
+    }
 
     return null;
   }

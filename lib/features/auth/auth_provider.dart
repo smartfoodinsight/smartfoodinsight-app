@@ -10,13 +10,13 @@ part 'auth_provider.g.dart';
 class AuthNotifier extends _$AuthNotifier {
   @override
   FutureOr<AuthState> build() {
+    //_persistenceRefreshLogic();
     return const AuthState();
   }
 
   Future<void> logoutAsync() async {
     state = await AsyncValue.guard(() async {
-      final keyStorageService = ref.read(keyStorageServiceProvider);
-      await keyStorageService.removeKey('token');
+      await _clearTokenAsync();
       return const AuthState(authenticated: false, loginResponse: null);
     });
   }
@@ -31,5 +31,20 @@ class AuthNotifier extends _$AuthNotifier {
       await keyStorageService.setKeyValue('auth', json);
       return AuthState(authenticated: true, loginResponse: response);
     });
+  }
+
+  // void _persistenceRefreshLogic() {
+  //   ref.listenSelf((_, next) async {
+  //     if (next.isLoading) return;
+  //     if (next.hasError) {
+  //       await _clearTokenAsync();
+  //       return;
+  //     }
+  //   });
+  // }
+
+  Future<void> _clearTokenAsync() async {
+    final keyStorageService = ref.read(keyStorageServiceProvider);
+    await keyStorageService.removeKey('token');
   }
 }

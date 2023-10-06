@@ -8,17 +8,20 @@ part 'app_router_provider.g.dart';
 
 @riverpod
 GoRouter appRouter(AppRouterRef ref) {
-  final notifier = ref.watch(routerListenableProvider.notifier);
+  final routerListenable = ref.watch(routerListenableProvider.notifier);
   return GoRouter(
-      initialLocation: AppSettings.home,
-      refreshListenable: notifier,
-      redirect: notifier.redirect,
+      initialLocation: AppSettings.login,
+      refreshListenable: routerListenable,
+      redirect: routerListenable.redirect,
       routes: [
+        GoRoute(
+            path: AppSettings.home,
+            builder: (context, state) => const HomeSideMenu()),
         GoRoute(
             path: AppSettings.signup,
             builder: (context, state) => const RegisterPage()),
         GoRoute(
-            path: AppSettings.home,
+            path: AppSettings.login,
             builder: (context, state) => const LoginPage()),
         //GoRoute(path: home, builder: (context, state) => const SideMenu()),
       ]);

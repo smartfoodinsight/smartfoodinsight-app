@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:smartfoodinsight_app/common/utils/app_settings.dart';
 import 'package:smartfoodinsight_app/models/models.dart';
 
-class SideMenu extends StatefulWidget {
-  const SideMenu({super.key});
+class HomeSideMenu extends StatefulWidget {
+  const HomeSideMenu({super.key});
 
   @override
-  State<SideMenu> createState() => _SideMenuState();
+  State<HomeSideMenu> createState() => _HomeSideMenu();
 }
 
-class _SideMenuState extends State<SideMenu> {
+class _HomeSideMenu extends State<HomeSideMenu> {
   int navDrawerIndex = 0;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
