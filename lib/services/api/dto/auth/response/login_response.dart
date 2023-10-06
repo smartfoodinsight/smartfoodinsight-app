@@ -1,20 +1,14 @@
-class LoginResponse {
-  final String? accessToken;
-  final String? refreshToken;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  LoginResponse({required this.accessToken, required this.refreshToken});
+part 'login_response.freezed.dart';
 
-  factory LoginResponse.fromJson(Map<String, dynamic> json) {
-    return LoginResponse(
-      accessToken: json['accessToken'],
-      refreshToken: json['refreshToken'],
-    );
-  }
+@freezed
+class LoginResponse with _$LoginResponse {
+  const factory LoginResponse({
+    String? accesToken,
+    String? refreshToken,
+  }) = _LoginResponse;
 
-  Map<String, dynamic> toJson() {
-    return {
-      'accessToken': accessToken,
-      'refreshToken': refreshToken,
-    };
-  }
+  factory LoginResponse.fromJson(Map<String, Object?> json) =>
+      _$LoginResponseFromJson(json);
 }
