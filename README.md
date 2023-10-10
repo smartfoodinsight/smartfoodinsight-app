@@ -1,16 +1,16 @@
-# smartfoodinsight_app
+# Smart Food Insight
 
 A new Flutter project.
 
-## Getting Started
+# Architecture
+The application has a clean and tidy architecture, applying the best practices, and pattern feature-oriented.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Tools used
+* [Flutter](https://flutter.dev/)
+* [Riverpod](https://pub.dev/packages/riverpod)
+* [Freezed](https://pub.dev/packages/freezed)
+* [Dio](https://pub.dev/packages/dio)
+* [Formz](https://pub.dev/packages/formz)
+* [GoRouter](https://pub.dev/packages/go_router)
+* [Internationalization](https://docs.flutter.dev/ui/accessibility-and-localization/internationalization)
+* [Flutter native splash](https://pub.dev/packages/flutter_native_splash)
