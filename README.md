@@ -5,7 +5,7 @@ A new Flutter project.
 # Tools used
 * [Flutter](https://flutter.dev/)
 * [Riverpod](https://pub.dev/packages/riverpod)
-* [Freezed](https://pub.dev/packages/formz)
+* [Freezed](https://pub.dev/packages/freezed)
 * [Formz](https://pub.dev/packages/formz)
 * [GoRouter](https://pub.dev/packages/go_router)
 * [Intl](https://pub.dev/packages/intl)
