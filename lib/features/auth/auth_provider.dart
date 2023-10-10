@@ -6,7 +6,7 @@ import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
 part 'auth_provider.g.dart';
 
-@Riverpod()
+@riverpod
 class AuthNotifier extends _$AuthNotifier {
   static const _sharedPrefsKey = 'auth';
   @override
@@ -20,7 +20,8 @@ class AuthNotifier extends _$AuthNotifier {
       final loginReponse = await _tokenAsync();
       if (loginReponse == null) return const AuthState();
 
-      return AuthState(authenticated: true, loginResponse: loginReponse);
+      return AuthState(
+          authStatus: AuthStatus.authenticated, loginResponse: loginReponse);
     } catch (_, __) {
       await _clearTokenAsync();
       return const AuthState();
@@ -30,7 +31,16 @@ class AuthNotifier extends _$AuthNotifier {
   Future<void> logoutAsync() async {
     state = await AsyncValue.guard(() async {
       await _clearTokenAsync();
-      return const AuthState(authenticated: false, loginResponse: null);
+      return const AuthState();
+    });
+  }
+
+  Future<void> registerAsync(RegisterRequest registerRequest) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final apiService = ref.read(apiServiceProvider);
+      await apiService.registerAsync(registerRequest);
+      return const AuthState(authStatus: AuthStatus.registrated);
     });
   }
 
@@ -42,7 +52,8 @@ class AuthNotifier extends _$AuthNotifier {
       final response = await apiService.loginAsync(loginRequest);
       String json = jsonEncode(response.toJson());
       await keyStorageService.setKeyValue(_sharedPrefsKey, json);
-      return AuthState(authenticated: true, loginResponse: response);
+      return AuthState(
+          authStatus: AuthStatus.authenticated, loginResponse: response);
     });
   }
 

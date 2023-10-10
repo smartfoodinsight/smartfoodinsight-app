@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/app_settings.dart';
+import 'package:smartfoodinsight_app/features/auth/auth_state.dart';
 
 part 'app_router_listenable.g.dart';
 
@@ -26,15 +27,15 @@ part 'app_router_listenable.g.dart';
 @riverpod
 class RouterListenable extends _$RouterListenable implements Listenable {
   VoidCallback? _routerListener;
-  bool _isAuth = false; // Useful for our global redirect function
+  AuthStatus _authStatus = AuthStatus.nothing;
 
   @override
   Future<void> build() async {
     try {
-      _isAuth = await ref.watch(
-          authNotifierProvider.selectAsync((data) => data.authenticated));
+      _authStatus = await ref
+          .watch(authNotifierProvider.selectAsync((data) => data.authStatus));
     } catch (e) {
-      _isAuth = false;
+      _authStatus = AuthStatus.nothing;
     }
 
     ref.listenSelf((_, __) {
@@ -50,12 +51,12 @@ class RouterListenable extends _$RouterListenable implements Listenable {
 
     final isGoingTo = state.matchedLocation;
 
-    if (!_isAuth &&
+    if (_authStatus == AuthStatus.nothing &&
         (isGoingTo != AppSettings.login && isGoingTo != AppSettings.signup)) {
       return AppSettings.login;
     }
 
-    if (_isAuth &&
+    if (_authStatus == AuthStatus.authenticated &&
         (isGoingTo == AppSettings.login || isGoingTo == AppSettings.signup)) {
       return AppSettings.home;
     }

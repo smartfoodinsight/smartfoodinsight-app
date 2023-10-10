@@ -15,9 +15,11 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appRoutes = ref.watch(appRouterProvider);
+    final scaffoldMessengerKey = ref.watch(scaffoldMessengerProvider);
 
     return MaterialApp.router(
       routerConfig: appRoutes,
+      scaffoldMessengerKey: scaffoldMessengerKey,
       debugShowCheckedModeBanner: false,
       theme: AppTheme().theme(),
       localizationsDelegates: const [

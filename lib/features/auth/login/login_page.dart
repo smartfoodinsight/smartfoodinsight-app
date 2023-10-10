@@ -6,6 +6,7 @@ import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
+import 'package:smartfoodinsight_app/features/auth/exceptions/auth_exceptions.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -34,8 +35,8 @@ class LoginPage extends StatelessWidget {
                   fit: BoxFit.fill, height: imageHeight, width: width),
               SizedBox(
                 height: sizedBoxHeight,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
+                child: const Padding(
+                  padding: EdgeInsets.all(16),
                   child: _FormLogin(),
                 ),
               )
@@ -48,6 +49,8 @@ class LoginPage extends StatelessWidget {
 }
 
 class _FormLogin extends ConsumerWidget {
+  const _FormLogin();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loginPageState = ref.watch(loginPageNotifierProvider);
@@ -56,8 +59,15 @@ class _FormLogin extends ConsumerWidget {
     final isFormPosted = loginPageState.isFormPosted;
     final loginPageNotifier = ref.read(loginPageNotifierProvider.notifier);
 
-    ref.listen(authNotifierProvider,
-        (_, state) => state.showSnackbarError(context, context.loc.loginError));
+    ref.listen(authNotifierProvider, (previous, next) {
+      if (!next.isLoading && next.hasError) {
+        if (next.error is WrongCredentials) {
+          final loc = ref.read(appLocalizationsProvider);
+          final snackBarUtil = ref.read(snackbarUtilProvider);
+          snackBarUtil.showErrorMessage(loc.loginError);
+        }
+      }
+    });
 
     final authSate = ref.watch(authNotifierProvider);
 
@@ -66,7 +76,7 @@ class _FormLogin extends ConsumerWidget {
         label: context.loc.email,
         icon: const Icon(Icons.email),
         textInputType: TextInputType.emailAddress,
-        onChanged: loginPageNotifier.onEmailChange,
+        onChanged: loginPageNotifier.onEmailChanged,
         errorMessage: isFormPosted ? email.errorMessage(context) : null,
       ),
       PasswordTextFormField(
@@ -83,7 +93,7 @@ class _FormLogin extends ConsumerWidget {
               ? const CircularProgressIndicator()
               : Text(context.loc.login)),
       const SizedBox(height: 16),
-      _dividerOr(),
+      const _DivederOr(),
       const _SocialButtons(),
       const Spacer(),
       const _SignUpQuestion(),
@@ -92,11 +102,10 @@ class _FormLogin extends ConsumerWidget {
   }
 }
 
-class _SignUpQuestion extends StatelessWidget {
+class _SignUpQuestion extends ConsumerWidget {
   const _SignUpQuestion();
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -110,17 +119,19 @@ class _SignUpQuestion extends StatelessWidget {
         ),
         const SizedBox(width: 4),
         GestureDetector(
-          child: Text(
-            context.loc.signup,
-            style: const TextStyle(
-              fontFamily: 'PT-Sans',
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+            child: Text(
+              context.loc.signup,
+              style: const TextStyle(
+                fontFamily: 'PT-Sans',
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-          ),
-          onTap: () => context.push(AppSettings.signup),
-        ),
+            onTap: () {
+              ref.invalidate(loginPageNotifierProvider);
+              context.push(AppSettings.signup);
+            }),
       ],
     );
   }
@@ -215,24 +226,29 @@ class _SocialButtons extends StatelessWidget {
   }
 }
 
-Widget _dividerOr() {
-  return Row(children: [
-    Expanded(
-      child: Container(
-          margin: const EdgeInsets.only(left: 5.0, right: 5.0),
-          child: const Divider(
-            color: Colors.black,
-            height: 36,
-          )),
-    ),
-    const Text("O"),
-    Expanded(
-      child: Container(
-          margin: const EdgeInsets.only(left: 5.0, right: 5.0),
-          child: const Divider(
-            color: Colors.black,
-            height: 36,
-          )),
-    ),
-  ]);
+class _DivederOr extends StatelessWidget {
+  const _DivederOr();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: [
+      Expanded(
+        child: Container(
+            margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+            child: const Divider(
+              color: Colors.black,
+              height: 36,
+            )),
+      ),
+      const Text("O"),
+      Expanded(
+        child: Container(
+            margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+            child: const Divider(
+              color: Colors.black,
+              height: 36,
+            )),
+      ),
+    ]);
+  }
 }

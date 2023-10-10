@@ -4,6 +4,16 @@
     "type": "text",
     "description": "The title of the app"
   },
+  "registerSucess": "We have sent an email to the indicated address, check your inbox or spam folder and follow the prompts",
+  "@registerSucess": {
+    "type": "text",
+    "description": "We have sent an email to the indicated address, check your inbox or spam folder and follow the prompts"
+  },
+  "registerError": "An error occurred while registering your account",
+  "@registerError": {
+    "type": "text",
+    "description": "An error occurred while registering your account"
+  },
   "loginError": "Username or password incorrect",
   "@loginError": {
     "type": "text",

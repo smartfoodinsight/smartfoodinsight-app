@@ -1,4 +1,5 @@
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
+import 'package:smartfoodinsight_app/features/auth/exceptions/auth_exceptions.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 import 'package:smartfoodinsight_app/services/services.dart';
 import 'package:dio/dio.dart';
@@ -33,18 +34,26 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
 
   @override
   Future<LoginResponse> loginAsync(LoginRequest loginRequest) async {
-    final json = loginRequest.toJson();
-    final response =
-        await dio.post(AppSettings.apiLogin, data: json, options: options);
-    final apiResponse = ApiUtils.parseData(
-        response.data, (json) => LoginResponse.fromJson(json));
-    return apiResponse;
+    try {
+      final json = loginRequest.toJson();
+      final response =
+          await dio.post(AppSettings.apiLogin, data: json, options: options);
+      final apiResponse = ApiUtils.parseData(
+          response.data, (json) => LoginResponse.fromJson(json));
+      return apiResponse;
+    } catch (e) {
+      throw WrongCredentials();
+    }
   }
 
   @override
   Future<void> registerAsync(RegisterRequest registerRequest) async {
-    final json = registerRequest.toJson();
-    await dio.post(AppSettings.apiRegister, data: json, options: options);
+    try {
+      final json = registerRequest.toJson();
+      await dio.post(AppSettings.apiRegister, data: json, options: options);
+    } catch (e) {
+      throw WrongRegistration();
+    }
   }
 
   bool isLogin(RequestOptions options) {

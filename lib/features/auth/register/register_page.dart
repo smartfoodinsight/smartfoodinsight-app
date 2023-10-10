@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
+import 'package:smartfoodinsight_app/features/auth/auth_state.dart';
+import 'package:smartfoodinsight_app/features/auth/exceptions/auth_exceptions.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -27,29 +32,78 @@ class RegisterPage extends StatelessWidget {
             children: [
               Image.asset('assets/images/fooddelivery.png',
                   fit: BoxFit.fill, height: height, width: width),
-              Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      NormalTextFormField(
-                          label: context.loc.name,
-                          textInputType: TextInputType.name,
-                          icon: const Icon(Icons.person)),
-                      NormalTextFormField(
-                          label: context.loc.email,
-                          textInputType: TextInputType.emailAddress,
-                          icon: const Icon(Icons.email)),
-                      PasswordTextFormField(label: context.loc.password),
-                      const SizedBox(height: 16),
-                      GeneralElevatedButton(
-                          onPressed: () => null,
-                          child: Text(context.loc.signup)),
-                    ],
-                  ))
+              const Padding(padding: EdgeInsets.all(16), child: _FormRegister())
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _FormRegister extends ConsumerWidget {
+  const _FormRegister();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authFormsState = ref.watch(registerPageNotifierProvider);
+    final name = authFormsState.name;
+    final email = authFormsState.email;
+    final password = authFormsState.password;
+    final isFormPosted = authFormsState.isFormPosted;
+
+    final registerPageNotifier =
+        ref.read(registerPageNotifierProvider.notifier);
+
+    ref.listen(authNotifierProvider, (previous, next) {
+      final loc = ref.read(appLocalizationsProvider);
+      final snackBarUtil = ref.read(snackbarUtilProvider);
+      next.when(
+          data: (data) {
+            if (data.authStatus == AuthStatus.registrated) {
+              snackBarUtil.showSuccessMessage(loc.registerSucess);
+              context.pop();
+            }
+          },
+          error: (error, stackTrace) {
+            if (!next.isLoading && next.hasError) {
+              if (next.error is WrongRegistration) {
+                snackBarUtil.showErrorMessage(loc.registerError);
+              }
+            }
+          },
+          loading: () {});
+    });
+
+    final authSate = ref.watch(authNotifierProvider);
+
+    return Column(
+      children: [
+        NormalTextFormField(
+            label: context.loc.name,
+            textInputType: TextInputType.name,
+            icon: const Icon(Icons.person),
+            onChanged: registerPageNotifier.onNameChanged,
+            errorMessage: isFormPosted ? name.errorMessage(context) : null),
+        NormalTextFormField(
+            label: context.loc.email,
+            textInputType: TextInputType.emailAddress,
+            icon: const Icon(Icons.email),
+            onChanged: registerPageNotifier.onEmailChanged,
+            errorMessage: isFormPosted ? email.errorMessage(context) : null),
+        PasswordTextFormField(
+            label: context.loc.password,
+            onChanged: registerPageNotifier.onPasswordChanged,
+            errorMessage: isFormPosted ? password.errorMessage(context) : null),
+        const SizedBox(height: 16),
+        GeneralElevatedButton(
+            onPressed: authSate.isLoading
+                ? null
+                : () => registerPageNotifier.onFormSubmit(),
+            child: authSate.isLoading
+                ? const CircularProgressIndicator()
+                : Text(context.loc.signup))
+      ],
     );
   }
 }
