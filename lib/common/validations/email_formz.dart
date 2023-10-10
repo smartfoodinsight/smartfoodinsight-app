@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
-import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
+import 'package:smartfoodinsight_app/common/utils/utis.dart';
 
 enum EmailError { empty, format }
 
@@ -12,14 +11,14 @@ class EmailFormz extends FormzInput<String, EmailError> {
   const EmailFormz.pure() : super.pure('');
   const EmailFormz.dirty(String value) : super.dirty(value);
 
-  String? errorMessage(BuildContext context) {
+  String? errorMessage(AppLocalizations loc) {
     if (isValid || isPure) return null;
 
     if (displayError == EmailError.empty) {
-      return context.loc.fieldIsEmpty;
+      return loc.fieldIsEmpty;
     }
     if (displayError == EmailError.format) {
-      return context.loc.emailIsNotValid;
+      return loc.emailIsNotValid;
     }
 
     return null;

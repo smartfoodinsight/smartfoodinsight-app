@@ -52,11 +52,12 @@ class _FormRegister extends ConsumerWidget {
     final password = authFormsState.password;
     final isFormPosted = authFormsState.isFormPosted;
 
+    final loc = ref.read(appLocalizationsProvider);
+
     final registerPageNotifier =
         ref.read(registerPageNotifierProvider.notifier);
 
     ref.listen(authNotifierProvider, (previous, next) {
-      final loc = ref.read(appLocalizationsProvider);
       final snackBarUtil = ref.read(snackbarUtilProvider);
       next.when(
           data: (data) {
@@ -84,17 +85,17 @@ class _FormRegister extends ConsumerWidget {
             textInputType: TextInputType.name,
             icon: const Icon(Icons.person),
             onChanged: registerPageNotifier.onNameChanged,
-            errorMessage: isFormPosted ? name.errorMessage(context) : null),
+            errorMessage: isFormPosted ? name.errorMessage(loc) : null),
         NormalTextFormField(
             label: context.loc.email,
             textInputType: TextInputType.emailAddress,
             icon: const Icon(Icons.email),
             onChanged: registerPageNotifier.onEmailChanged,
-            errorMessage: isFormPosted ? email.errorMessage(context) : null),
+            errorMessage: isFormPosted ? email.errorMessage(loc) : null),
         PasswordTextFormField(
             label: context.loc.password,
             onChanged: registerPageNotifier.onPasswordChanged,
-            errorMessage: isFormPosted ? password.errorMessage(context) : null),
+            errorMessage: isFormPosted ? password.errorMessage(loc) : null),
         const SizedBox(height: 16),
         GeneralElevatedButton(
             onPressed: authSate.isLoading

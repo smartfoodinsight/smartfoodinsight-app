@@ -1,6 +1,5 @@
-import 'package:flutter/widgets.dart';
 import 'package:formz/formz.dart';
-import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
+import 'package:smartfoodinsight_app/common/utils/utis.dart';
 
 enum PasswordError { empty, length, format }
 
@@ -12,10 +11,10 @@ class PasswordFormz extends FormzInput<String, PasswordError> {
   const PasswordFormz.pure() : super.pure('');
   const PasswordFormz.dirty(String value) : super.dirty(value);
 
-  String? errorMessage(BuildContext context) {
+  String? errorMessage(AppLocalizations loc) {
     if (isValid || isPure) return null;
 
-    if (displayError == PasswordError.empty) return context.loc.fieldIsEmpty;
+    if (displayError == PasswordError.empty) return loc.fieldIsEmpty;
     // if (displayError == PasswordError.length) return 'Mínimo 6 caracteres';
     // if (displayError == PasswordError.format)
     //   return 'Debe de tener Mayúscula, letras y un número';

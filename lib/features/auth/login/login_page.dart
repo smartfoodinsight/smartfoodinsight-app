@@ -59,10 +59,11 @@ class _FormLogin extends ConsumerWidget {
     final isFormPosted = loginPageState.isFormPosted;
     final loginPageNotifier = ref.read(loginPageNotifierProvider.notifier);
 
+    final loc = ref.read(appLocalizationsProvider);
+
     ref.listen(authNotifierProvider, (previous, next) {
       if (!next.isLoading && next.hasError) {
         if (next.error is WrongCredentials) {
-          final loc = ref.read(appLocalizationsProvider);
           final snackBarUtil = ref.read(snackbarUtilProvider);
           snackBarUtil.showErrorMessage(loc.loginError);
         }
@@ -77,12 +78,12 @@ class _FormLogin extends ConsumerWidget {
         icon: const Icon(Icons.email),
         textInputType: TextInputType.emailAddress,
         onChanged: loginPageNotifier.onEmailChanged,
-        errorMessage: isFormPosted ? email.errorMessage(context) : null,
+        errorMessage: isFormPosted ? email.errorMessage(loc) : null,
       ),
       PasswordTextFormField(
           label: context.loc.password,
           onChanged: loginPageNotifier.onPasswordChanged,
-          errorMessage: isFormPosted ? password.errorMessage(context) : null),
+          errorMessage: isFormPosted ? password.errorMessage(loc) : null),
       const _ForgotPasswordButton(),
       const SizedBox(height: 16),
       GeneralElevatedButton(

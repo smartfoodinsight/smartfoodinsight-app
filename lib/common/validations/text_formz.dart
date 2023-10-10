@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
-import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
+import 'package:smartfoodinsight_app/common/utils/utis.dart';
 
 enum TextError { empty }
 
@@ -8,11 +7,11 @@ class TextFormz extends FormzInput<String, TextError> {
   const TextFormz.pure() : super.pure('');
   const TextFormz.dirty(String value) : super.dirty(value);
 
-  String? errorMessage(BuildContext context) {
+  String? errorMessage(AppLocalizations loc) {
     if (isValid || isPure) return null;
 
     if (displayError == TextError.empty) {
-      return context.loc.fieldIsEmpty;
+      return loc.fieldIsEmpty;
     }
 
     return null;
