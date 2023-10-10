@@ -2,6 +2,9 @@
 
 A new Flutter project.
 
+# Architecture
+The application has a clean and tidy architecture, applying the best practices, and pattern feature-oriented.
+
 # Tools used
 * [Flutter](https://flutter.dev/)
 * [Riverpod](https://pub.dev/packages/riverpod)
