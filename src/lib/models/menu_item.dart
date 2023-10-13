@@ -16,6 +16,6 @@ List<MenuItem> menuItems = [
       icon: Icons.shopping_cart),
   MenuItem(
       title: 'Products',
-      page: const ScanProductPage(),
+      page: const ProductsPage(),
       icon: Icons.production_quantity_limits)
 ];

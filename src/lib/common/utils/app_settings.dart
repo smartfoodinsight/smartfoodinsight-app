@@ -8,6 +8,8 @@ class AppSettings {
   static const String apiLogin = "/api/auth/login";
 
   //ROUTES
+  static const productDetails = '/product-details/';
+  static const scan = '/scan';
   static const signup = '/signup';
   static const login = '/login';
   static const home = '/';

@@ -15,6 +15,15 @@ GoRouter appRouter(AppRouterRef ref) {
       redirect: routerListenable.redirect,
       routes: [
         GoRoute(
+          path: '/product-details/:ean',
+          builder: (context, state) => ProductDetailsPage(
+            ean: state.pathParameters['ean'] ?? 'no-id',
+          ),
+        ),
+        GoRoute(
+            path: AppSettings.scan,
+            builder: (context, state) => const ScanPage()),
+        GoRoute(
             path: AppSettings.home,
             builder: (context, state) => const HomeSideMenu()),
         GoRoute(
