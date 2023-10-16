@@ -25,7 +25,7 @@ class _ScanPageState extends State<ScanPage> {
   ];
 
   MobileScannerController mobileScannerController = MobileScannerController(
-      formats: _barcodeFormats, detectionSpeed: DetectionSpeed.noDuplicates);
+      formats: _barcodeFormats, detectionTimeoutMs: 1000);
 
   @override
   void dispose() {

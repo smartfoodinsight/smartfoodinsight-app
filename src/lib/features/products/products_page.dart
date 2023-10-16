@@ -11,7 +11,8 @@ class ProductsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-        body: const Padding(padding: EdgeInsets.all(16), child: Text('h')),
+        body: const Padding(
+            padding: EdgeInsets.all(16), child: Text('Productos')),
         floatingActionButton: ElevatedButton(
           onPressed: () => context.push(AppSettings.scan),
           style: ElevatedButton.styleFrom(

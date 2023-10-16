@@ -1,11 +1,12 @@
 import 'package:openfoodfacts/openfoodfacts.dart';
 
 class OpenFoodFactsApiService {
-  Future<Product?> getProduct(String eancode) async {
+  Future<Product?> getProductAsync(String ean) async {
     OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'Smart Food Insight');
+    OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.SPAIN;
 
     final ProductQueryConfiguration configuration = ProductQueryConfiguration(
-        eancode,
+        ean,
         country: OpenFoodFactsCountry.SPAIN,
         language: OpenFoodFactsLanguage.SPANISH,
         fields: [ProductField.ALL],
@@ -17,7 +18,7 @@ class OpenFoodFactsApiService {
     if (result.status == ProductResultV3.statusSuccess) {
       return result.product;
     } else {
-      throw Exception('product not found, please insert data for $eancode');
+      throw Exception('product not found, please insert data for $ean');
     }
   }
 }
