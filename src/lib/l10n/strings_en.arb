@@ -1,8 +1,53 @@
-{
-  "titleApp": "Translations!",
-  "@titleApp": {
+{ 
+  "per": "Per",
+  "@per": {
     "type": "text",
-    "description": "The title of the app"
+    "description": "Per"
+  },
+  "salt": "Salt",
+  "@salt": {
+    "type": "text",
+    "description": "Salt"
+  },
+  "proteins": "Proteins",
+  "@proteins": {
+    "type": "text",
+    "description": "Proteins"
+  },
+  "fiber": "Fiber",
+  "@fiber": {
+    "type": "text",
+    "description": "Fiber"
+  },
+  "sugars": "Sugars",
+  "@sugars": {
+    "type": "text",
+    "description": "Sugars"
+  }, 
+  "carbohydrates": "Carbohydrates",
+  "@carbohydrates": {
+    "type": "text",
+    "description": "Carbohydrates"
+  }, 
+  "saturatedFats": "Saturated fats",
+  "@saturatedFats": {
+    "type": "text",
+    "description": "Saturated fats"
+  }, 
+  "fats": "Fats",
+  "@fats": {
+    "type": "text",
+    "description": "Fats"
+  },
+  "calories": "Calories",
+  "@calories": {
+    "type": "text",
+    "description": "Calories"
+  },
+  "nutriInfo": "Nutritional information",
+  "@nutriInfo": {
+    "type": "text",
+    "description": "Nutritional information"
   },
   "registerSucess": "We have sent an email to the indicated address, check your inbox or spam folder and follow the prompts",
   "@registerSucess": {
