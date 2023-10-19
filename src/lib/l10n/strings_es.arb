@@ -22,6 +22,7 @@
     "dontAccount": "¿No tienes una cuenta?",
     "password": "Contraseña",
     "email": "Correo",
+    "logout": "Cerrar sesión",
     "login": "Iniciar sesión",
     "signup": "Regístrate"
 }

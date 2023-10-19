@@ -86,37 +86,11 @@ class _ProductDetails extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.all(16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Image.asset(
-                  'assets/images/nutriscore-${product.nutriscore ?? 'unknown'}.png',
-                  height: imageHeight,
-                ),
-              ),
-              const SizedBox(width: 8.0),
-              Expanded(
-                child: Image.asset(
-                  'assets/images/nova-group-${product.novaGroup ?? 'unknown'}.png',
-                  height: imageHeight,
-                ),
-              ),
-              const SizedBox(width: 8.0),
-              Expanded(
-                child: SvgPicture.asset(
-                    'assets/images/ecoscore-${product.ecoscoreGrade ?? 'unknown'}.svg',
-                    height: imageHeight),
-              )
-            ],
-          ),
-          const SizedBox(height: 16),
           Row(children: [
             Text(context.loc.nutriInfo),
             const Spacer(),
             Text('${context.loc.per} ${product.nutrimentDataPer!}')
           ]),
-          const SizedBox(height: 16),
           _CustomIconTitle(
               iconData: FontAwesomeIcons.fire,
               firstText: context.loc.calories,
@@ -149,6 +123,30 @@ class _ProductDetails extends StatelessWidget {
               iconData: FontAwesomeIcons.cookie,
               firstText: context.loc.salt,
               secondText: salt),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Image.asset(
+                  'assets/images/nutriscore-${product.nutriscore ?? 'unknown'}.png',
+                  height: imageHeight,
+                ),
+              ),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: Image.asset(
+                  'assets/images/nova-group-${product.novaGroup ?? 'unknown'}.png',
+                  height: imageHeight,
+                ),
+              ),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: SvgPicture.asset(
+                    'assets/images/ecoscore-${product.ecoscoreGrade ?? 'unknown'}.svg',
+                    height: imageHeight),
+              )
+            ],
+          ),
           const SizedBox(height: 20),
           Text(context.loc.openFoodFactsInfo),
           GestureDetector(
@@ -194,6 +192,10 @@ class _CustomSliverAppBar extends ConsumerWidget {
     final size = MediaQuery.sizeOf(context);
 
     return SliverAppBar(
+      actions: [
+        IconButton(
+            onPressed: () async => {}, icon: const Icon(Icons.favorite_border))
+      ],
       backgroundColor: Colors.black,
       expandedHeight: size.height * 0.5,
       foregroundColor: Colors.white,

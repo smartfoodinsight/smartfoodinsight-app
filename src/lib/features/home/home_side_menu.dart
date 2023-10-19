@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smartfoodinsight_app/common/extensions/app_localizations_extension.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/app_settings.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
@@ -19,8 +20,8 @@ class HomeSideMenuState extends ConsumerState<HomeSideMenu> {
   @override
   Widget build(BuildContext context) {
     final authNotifier = ref.read(authNotifierProvider.notifier);
-
     final hasNotch = MediaQuery.viewPaddingOf(context).top > 35;
+
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(title: Text(menuItems[navDrawerIndex].title)),
@@ -41,7 +42,7 @@ class HomeSideMenuState extends ConsumerState<HomeSideMenu> {
                 padding: EdgeInsets.fromLTRB(29, hasNotch ? 16 : 20, 16, 10),
                 child: GeneralElevatedButton(
                     onPressed: () async => authNotifier.logoutAsync(),
-                    child: const Text('Cerrar sesión'))),
+                    child: Text(context.loc.logout))),
           ]),
       body: menuItems[navDrawerIndex].page,
     );

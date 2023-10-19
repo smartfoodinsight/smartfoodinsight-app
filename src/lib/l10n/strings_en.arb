@@ -114,6 +114,11 @@
     "type": "text",
     "description": "Password field"
   },
+  "logout": "Logout",
+  "@logout": {
+    "type": "text",
+    "description": "Logout to the app"
+  },
   "login": "Login",
   "@login": {
     "type": "text",
