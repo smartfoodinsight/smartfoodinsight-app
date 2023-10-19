@@ -5,7 +5,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:smartfoodinsight_app/common/extensions/app_localizations_extension.dart';
+import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/features/products/products_details_page_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailsPage extends ConsumerWidget {
   final String ean;
@@ -82,7 +84,7 @@ class _ProductDetails extends StatelessWidget {
         'g');
 
     return Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,7 +148,18 @@ class _ProductDetails extends StatelessWidget {
           _CustomIconTitle(
               iconData: FontAwesomeIcons.cookie,
               firstText: context.loc.salt,
-              secondText: salt)
+              secondText: salt),
+          const SizedBox(height: 20),
+          Text(context.loc.openFoodFactsInfo),
+          GestureDetector(
+              onTap: () async {
+                Uri uri = Uri.parse(AppSettings.openFoodFacts);
+                if (await canLaunchUrl(uri)) {
+                  await launchUrl(uri);
+                }
+              },
+              child: const Text(AppSettings.openFoodFacts,
+                  style: TextStyle(decoration: TextDecoration.underline))),
         ]));
   }
 }

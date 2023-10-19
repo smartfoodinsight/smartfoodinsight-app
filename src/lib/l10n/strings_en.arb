@@ -1,4 +1,9 @@
 { 
+  "openFoodFactsInfo": "Information provided by Open Food Facts",
+  "@openFoodFactsInfo": {
+    "type": "text",
+    "description": "Information provided by Open Food Facts"
+  },
   "per": "Per",
   "@per": {
     "type": "text",
