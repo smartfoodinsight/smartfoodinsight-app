@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:openfoodfacts/openfoodfacts.dart';
-import 'package:smartfoodinsight_app/common/extensions/app_localizations_extension.dart';
+import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
+import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
-import 'package:smartfoodinsight_app/features/products/products_details_page_provider.dart';
+
+import 'package:smartfoodinsight_app/models/models.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailsPage extends ConsumerWidget {
@@ -39,7 +40,7 @@ class ProductDetailsPage extends ConsumerWidget {
 }
 
 class _ProductDetails extends StatelessWidget {
-  final Product product;
+  final ProductDetail product;
 
   const _ProductDetails({required this.product});
 
@@ -47,102 +48,65 @@ class _ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     double imageHeight = 65;
 
-    String kCal = formatNutrient(
-        product.nutriments
-            ?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams),
-        'kcal');
-
-    String fats = formatNutrient(
-        product.nutriments?.getValue(Nutrient.fat, PerSize.oneHundredGrams),
-        'g');
-
-    String saturatedFats = formatNutrient(
-        product.nutriments
-            ?.getValue(Nutrient.saturatedFat, PerSize.oneHundredGrams),
-        'g');
-
-    String carbohydrates = formatNutrient(
-        product.nutriments
-            ?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams),
-        'g');
-
-    String sugars = formatNutrient(
-        product.nutriments?.getValue(Nutrient.sugars, PerSize.oneHundredGrams),
-        'g');
-
-    String fiber = formatNutrient(
-        product.nutriments?.getValue(Nutrient.fiber, PerSize.oneHundredGrams),
-        'g');
-
-    String proteins = formatNutrient(
-        product.nutriments
-            ?.getValue(Nutrient.proteins, PerSize.oneHundredGrams),
-        'g');
-
-    String salt = formatNutrient(
-        product.nutriments?.getValue(Nutrient.salt, PerSize.oneHundredGrams),
-        'g');
-
     return Padding(
         padding: const EdgeInsets.all(16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
             Text(context.loc.nutriInfo),
             const Spacer(),
-            Text('${context.loc.per} ${product.nutrimentDataPer!}')
+            Text('${context.loc.per} ${product.nutrimentDataPer}')
           ]),
           _CustomIconTitle(
               iconData: FontAwesomeIcons.fire,
               firstText: context.loc.calories,
-              secondText: kCal),
+              secondText: product.kCal),
           _CustomIconTitle(
               iconData: Icons.fastfood,
               firstText: context.loc.fats,
-              secondText: fats),
+              secondText: product.fats),
           _CustomIconTitle(
               iconData: FontAwesomeIcons.bacon,
               firstText: context.loc.saturatedFats,
-              secondText: saturatedFats),
+              secondText: product.saturatedFats),
           _CustomIconTitle(
               iconData: FontAwesomeIcons.breadSlice,
               firstText: context.loc.carbohydrates,
-              secondText: carbohydrates),
+              secondText: product.carbohydrates),
           _CustomIconTitle(
               iconData: FontAwesomeIcons.candyCane,
               firstText: context.loc.sugars,
-              secondText: sugars),
+              secondText: product.sugars),
           _CustomIconTitle(
               iconData: FontAwesomeIcons.wheatAwn,
               firstText: context.loc.fiber,
-              secondText: fiber),
+              secondText: product.fiber),
           _CustomIconTitle(
               iconData: FontAwesomeIcons.drumstickBite,
               firstText: context.loc.proteins,
-              secondText: proteins),
+              secondText: product.proteins),
           _CustomIconTitle(
               iconData: FontAwesomeIcons.cookie,
               firstText: context.loc.salt,
-              secondText: salt),
+              secondText: product.salt),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Image.asset(
-                  'assets/images/nutriscore-${product.nutriscore ?? 'unknown'}.png',
+                  product.nutriscore,
                   height: imageHeight,
                 ),
               ),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Image.asset(
-                  'assets/images/nova-group-${product.novaGroup ?? 'unknown'}.png',
+                  product.novaGroup,
                   height: imageHeight,
                 ),
               ),
               const SizedBox(width: 8.0),
               Expanded(
-                child: SvgPicture.asset(
-                    'assets/images/ecoscore-${product.ecoscoreGrade ?? 'unknown'}.svg',
+                child: SvgPicture.asset(product.ecoscoreGrade,
                     height: imageHeight),
               )
             ],
@@ -183,7 +147,7 @@ class _CustomIconTitle extends StatelessWidget {
 }
 
 class _CustomSliverAppBar extends ConsumerWidget {
-  final Product product;
+  final ProductDetail product;
 
   const _CustomSliverAppBar({required this.product});
 
@@ -201,7 +165,7 @@ class _CustomSliverAppBar extends ConsumerWidget {
       foregroundColor: Colors.white,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        title: Text('${product.productName} ${product.quantity}'),
+        title: Text('${product.name} ${product.quantity}'),
         background: Stack(children: [
           SizedBox.expand(
               child: product.imageFrontUrl != null
@@ -255,15 +219,5 @@ class _CustomGradient extends StatelessWidget {
           gradient: LinearGradient(
               begin: begin, end: end, stops: stops, colors: colors)),
     ));
-  }
-}
-
-String formatNutrient(double? value, String unit) {
-  if (value != null) {
-    String formattedValue =
-        value % 1 == 0 ? value.toInt().toString() : value.toString();
-    return '$formattedValue $unit';
-  } else {
-    return '?';
   }
 }

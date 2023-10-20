@@ -1,7 +1,9 @@
 import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:smartfoodinsight_app/models/models.dart';
+import 'package:smartfoodinsight_app/services/openfoodfacts/mappers/product_mapper.dart';
 
 class OpenFoodFactsApiService {
-  Future<Product?> getProductAsync(String ean) async {
+  Future<ProductDetail> getProductAsync(String ean) async {
     OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'Smart Food Insight');
     OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.SPAIN;
 
@@ -16,7 +18,7 @@ class OpenFoodFactsApiService {
         await OpenFoodAPIClient.getProductV3(configuration);
 
     if (result.status == ProductResultV3.statusSuccess) {
-      return result.product;
+      return ProductMapper.toProductDetail(result.product!);
     } else {
       throw Exception('product not found, please insert data for $ean');
     }
