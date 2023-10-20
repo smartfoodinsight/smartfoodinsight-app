@@ -1,5 +1,7 @@
 import 'package:isar/isar.dart';
 
+part 'product_detail.g.dart';
+
 @collection
 class ProductDetail {
   Id? isarId;

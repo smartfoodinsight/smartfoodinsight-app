@@ -1,9 +1,28 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:isar/isar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartfoodinsight_app/services/openfoodfacts/models/product_detail.dart';
 import 'package:smartfoodinsight_app/services/services.dart';
+import 'package:path_provider/path_provider.dart';
 
 class KeyStorageService extends IKeyStorageService {
+  late Future<Isar> db;
+
+  KeyStorageService() {
+    db = openDB();
+  }
+
+  Future<Isar> openDB() async {
+    final dir = await getApplicationDocumentsDirectory();
+
+    if (Isar.instanceNames.isEmpty) {
+      return await Isar.open([ProductDetailSchema],
+          inspector: true, directory: dir.path);
+    }
+
+    return Future.value(Isar.getInstance());
+  }
+
   final _storage = const FlutterSecureStorage();
 
   AndroidOptions _getAndroidOptions() => const AndroidOptions(

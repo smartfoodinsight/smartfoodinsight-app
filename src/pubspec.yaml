@@ -51,6 +51,7 @@ dependencies:
   json_annotation: ^4.8.1
   mobile_scanner: ^3.4.1
   openfoodfacts: ^3.0.0
+  path_provider: ^2.1.1
   riverpod_annotation: ^2.1.4
   shared_preferences: ^2.2.1
   url_launcher: ^6.1.14
