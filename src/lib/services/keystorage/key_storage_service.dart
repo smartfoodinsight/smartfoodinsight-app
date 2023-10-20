@@ -1,9 +1,51 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smartfoodinsight_app/services/openfoodfacts/models/product_detail.dart';
 import 'package:smartfoodinsight_app/services/services.dart';
 
 class KeyStorageService extends IKeyStorageService {
+  final _storage = const FlutterSecureStorage();
+
+  AndroidOptions _getAndroidOptions() => const AndroidOptions(
+        encryptedSharedPreferences: true,
+      );
+
   Future<SharedPreferences> getSharedPrefs() async {
     return await SharedPreferences.getInstance();
+  }
+
+  @override
+  Future<bool> isProductFavoriteAsync(int productDetailId) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<ProductDetail>> loadProductsAsync(
+      {int limit = 10, int offset = 0}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> toggleFavoriteAsync(ProductDetail productDetail) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> writeSecureData(String key, String value) async {
+    await _storage.write(
+        key: key, value: value, aOptions: _getAndroidOptions());
+  }
+
+  @override
+  Future<String?> readSecureData(String key) async {
+    var readData =
+        await _storage.read(key: key, aOptions: _getAndroidOptions());
+    return readData;
+  }
+
+  @override
+  Future<void> deleteSecureData(String key) async {
+    await _storage.delete(key: key, aOptions: _getAndroidOptions());
   }
 
   @override
