@@ -14,6 +14,7 @@ The application has a clean and tidy architecture, applying the best practices, 
 * [GoRouter](https://pub.dev/packages/go_router)
 * [Internationalization](https://docs.flutter.dev/ui/accessibility-and-localization/internationalization)
 * [Isar](https://pub.dev/packages/isar)
+* [Path provider](https://pub.dev/packages/path_provider)
 * [Flutter native splash](https://pub.dev/packages/flutter_native_splash)
 * [Flutter shared preferences](https://pub.dev/packages/shared_preferences)
 * [Flutter secure storage](https://pub.dev/packages/flutter_secure_storage)
