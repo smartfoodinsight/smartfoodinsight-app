@@ -1,9 +1,10 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:isar/isar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smartfoodinsight_app/services/openfoodfacts/models/product_detail.dart';
-import 'package:smartfoodinsight_app/services/services.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'package:smartfoodinsight_app/models/models.dart';
+import 'package:smartfoodinsight_app/services/services.dart';
 
 class KeyStorageService extends IKeyStorageService {
   late Future<Isar> db;
@@ -34,19 +35,36 @@ class KeyStorageService extends IKeyStorageService {
   }
 
   @override
-  Future<bool> isProductFavoriteAsync(int productDetailId) {
-    throw UnimplementedError();
+  Future<bool> isFavoriteProductAsync(String barCode) async {
+    final isar = await db;
+
+    final ProductDetail? isFavoriteProduct =
+        await isar.productDetails.filter().barCodeEqualTo(barCode).findFirst();
+
+    return isFavoriteProduct != null;
   }
 
   @override
   Future<List<ProductDetail>> loadProductsAsync(
-      {int limit = 10, int offset = 0}) {
-    throw UnimplementedError();
+      {int limit = 10, int offset = 0}) async {
+    final isar = await db;
+    return isar.productDetails.where().offset(offset).limit(limit).findAll();
   }
 
   @override
-  Future<void> toggleFavoriteAsync(ProductDetail productDetail) {
-    throw UnimplementedError();
+  Future<void> toggleProductAsync(ProductDetail productDetail) async {
+    final isar = await db;
+    final existsProduct = await isar.productDetails
+        .filter()
+        .barCodeEqualTo(productDetail.barCode)
+        .findFirst();
+
+    if (existsProduct != null) {
+      isar.writeTxnSync(
+          () => isar.productDetails.deleteSync(existsProduct.isarId!));
+    } else {
+      isar.writeTxnSync(() => isar.productDetails.putSync(productDetail));
+    }
   }
 
   @override

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
-import 'package:smartfoodinsight_app/common/utils/app_settings.dart';
+import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/features/auth/auth_state.dart';
 
 part 'app_router_listenable.g.dart';

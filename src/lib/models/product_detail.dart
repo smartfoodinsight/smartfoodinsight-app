@@ -6,6 +6,7 @@ part 'product_detail.g.dart';
 class ProductDetail {
   Id? isarId;
 
+  final String barCode;
   final String name;
   final String quantity;
   final String nutrimentDataPer;
@@ -23,7 +24,8 @@ class ProductDetail {
   final String? imageFrontUrl;
 
   ProductDetail(
-      {required this.imageFrontUrl,
+      {required this.barCode,
+      required this.imageFrontUrl,
       required this.name,
       required this.quantity,
       required this.nutrimentDataPer,

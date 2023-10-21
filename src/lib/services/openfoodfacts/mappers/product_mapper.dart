@@ -40,6 +40,7 @@ class ProductMapper {
         'g');
 
     return ProductDetail(
+        barCode: product.barcode!,
         name: product.productName ?? '?',
         quantity: product.quantity ?? '?',
         nutrimentDataPer: product.nutrimentDataPer ?? '?',

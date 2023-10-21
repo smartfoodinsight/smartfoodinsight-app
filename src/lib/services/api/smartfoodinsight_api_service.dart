@@ -1,8 +1,9 @@
+import 'package:dio/dio.dart';
+
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/features/auth/exceptions/auth_exceptions.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 import 'package:smartfoodinsight_app/services/services.dart';
-import 'package:dio/dio.dart';
 
 class SmartFoodInsightApiService extends ISmartFoodIngishtService {
   var options = Options(headers: {"requiresToken": false});

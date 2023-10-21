@@ -7,6 +7,16 @@ class SnackbarUtil {
 
   SnackbarUtil(this.scaffoldMessengerKey);
 
+  void showActionMessage(String message, String label, VoidCallback onPressed) {
+    scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(
+      content: Text(message),
+      action: SnackBarAction(
+        label: label,
+        onPressed: onPressed,
+      ),
+    ));
+  }
+
   void showSuccessMessage(String message) {
     scaffoldMessengerKey.currentState?.showSnackBar(
         SnackBar(content: Text(message), backgroundColor: Colors.green));

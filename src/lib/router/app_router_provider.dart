@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/features/features.dart';
@@ -32,6 +33,5 @@ GoRouter appRouter(AppRouterRef ref) {
         GoRoute(
             path: AppSettings.login,
             builder: (context, state) => const LoginPage()),
-        //GoRoute(path: home, builder: (context, state) => const SideMenu()),
       ]);
 }

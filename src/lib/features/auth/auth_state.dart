@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
 part 'auth_state.freezed.dart';

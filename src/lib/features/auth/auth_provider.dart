@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/features/auth/auth_state.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';

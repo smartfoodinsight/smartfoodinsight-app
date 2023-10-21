@@ -1,4 +1,19 @@
 { 
+  "productsEmpty": "Oops! Scan a product and add it to your favorites.",
+  "@productsEmpty": {
+    "type": "text",
+    "description": "Oops! Scan a product and add it to your favorites."
+  },
+  "undo": "Undo",
+  "@undo": {
+    "type": "text",
+    "description": "Undo"
+  },
+  "deletedItem": "Deleted item",
+  "@deletedItem": {
+    "type": "text",
+    "description": "Deleted item"
+  },
   "openFoodFactsInfo": "Information provided by Open Food Facts",
   "@openFoodFactsInfo": {
     "type": "text",

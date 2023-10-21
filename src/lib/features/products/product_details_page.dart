@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
-
 import 'package:smartfoodinsight_app/models/models.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailsPage extends ConsumerWidget {
   final String ean;
@@ -32,7 +32,10 @@ class ProductDetailsPage extends ConsumerWidget {
                 ],
               ),
             ),
-        error: (error, stackTrace) => const Text('error'),
+        error: (error, stackTrace) => Scaffold(
+              appBar: AppBar(),
+              body: const Center(child: Text('Error')),
+            ),
         loading: () => const Scaffold(
               body: Center(child: CircularProgressIndicator()),
             ));
@@ -155,10 +158,14 @@ class _CustomSliverAppBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.sizeOf(context);
 
+    final productsNotifier = ref.read(productsNotifierProvider.notifier);
+
     return SliverAppBar(
       actions: [
         IconButton(
-            onPressed: () async => {}, icon: const Icon(Icons.favorite_border))
+            onPressed: () async =>
+                {await productsNotifier.toggleProductAsync(product)},
+            icon: const Icon(Icons.favorite_border))
       ],
       backgroundColor: Colors.black,
       expandedHeight: size.height * 0.5,

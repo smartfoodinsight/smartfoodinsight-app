@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:smartfoodinsight_app/features/features.dart';
 
 class MenuItem {

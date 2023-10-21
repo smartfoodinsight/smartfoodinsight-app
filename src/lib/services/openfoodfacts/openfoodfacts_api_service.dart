@@ -1,4 +1,5 @@
 import 'package:openfoodfacts/openfoodfacts.dart';
+
 import 'package:smartfoodinsight_app/models/models.dart';
 import 'package:smartfoodinsight_app/services/openfoodfacts/mappers/product_mapper.dart';
 
