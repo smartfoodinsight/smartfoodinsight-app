@@ -78,7 +78,7 @@ class CustomCard extends ConsumerWidget {
       direction: DismissDirection.endToStart,
       background: Container(
         alignment: AlignmentDirectional.centerEnd,
-        color: Colors.redAccent,
+        color: Colors.red,
         child: const Padding(
           padding: EdgeInsets.all(16),
           child: Icon(
