@@ -90,7 +90,7 @@ class CustomCard extends ConsumerWidget {
       onDismissed: (direction) {
         productsNotifier.toggleProductAsync(product);
         snackBarUtil.showActionMessage(
-            context.loc.deletedItem,
+            context.loc.deletedProduct,
             context.loc.undo,
             () => productsNotifier.toggleProductAsync(product));
       },

@@ -9,10 +9,10 @@
     "type": "text",
     "description": "Undo"
   },
-  "deletedItem": "Deleted item",
-  "@deletedItem": {
+  "deletedProduct": "Product deleted",
+  "@deletedProduct": {
     "type": "text",
-    "description": "Deleted item"
+    "description": "Product deleted"
   },
   "openFoodFactsInfo": "Information provided by Open Food Facts",
   "@openFoodFactsInfo": {
