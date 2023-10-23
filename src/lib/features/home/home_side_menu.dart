@@ -1,42 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smartfoodinsight_app/common/extensions/app_localizations_extension.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/app_settings.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
-import 'package:smartfoodinsight_app/models/models.dart';
 
-class HomeSideMenu extends ConsumerStatefulWidget {
+class HomeSideMenu extends ConsumerWidget {
   const HomeSideMenu({super.key});
 
   @override
-  HomeSideMenuState createState() => HomeSideMenuState();
-}
-
-class HomeSideMenuState extends ConsumerState<HomeSideMenu> {
-  int navDrawerIndex = 0;
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedIndex = ref.watch(homeSideMenuNotifierProvider);
     final authNotifier = ref.read(authNotifierProvider.notifier);
-    final hasNotch = MediaQuery.viewPaddingOf(context).top > 35;
+    final homeSideMenuNotifier =
+        ref.read(homeSideMenuNotifierProvider.notifier);
+    final menuItems = ref.read(menuItemsProvider);
 
+    final hasNotch = MediaQuery.viewPaddingOf(context).top > 35;
     return Scaffold(
-      key: scaffoldKey,
-      appBar: AppBar(title: Text(menuItems[navDrawerIndex].title)),
+      appBar: AppBar(title: Text(menuItems[selectedIndex].title)),
       drawer: NavigationDrawer(
           elevation: 1,
-          selectedIndex: navDrawerIndex,
-          onDestinationSelected: (value) => onDestinationSelected(value),
+          selectedIndex: selectedIndex,
+          onDestinationSelected: (value) => {
+                homeSideMenuNotifier.onDestinationSelected(value),
+                context.pop()
+              },
           children: [
             Padding(
                 padding: EdgeInsets.fromLTRB(29, hasNotch ? 16 : 20, 16, 10),
                 child: const Text(AppSettings.appName)),
             const Divider(),
-            ...menuItems.sublist(0, 2).map((item) =>
-                NavigationDrawerDestination(
-                    icon: Icon(item.icon), label: Text(item.title))),
+            ...menuItems
+                .map((item) => NavigationDrawerDestination(
+                    icon: Icon(item.icon), label: Text(item.title)))
+                .toList(),
             const Divider(),
             Padding(
                 padding: EdgeInsets.fromLTRB(29, hasNotch ? 16 : 20, 16, 10),
@@ -44,14 +43,7 @@ class HomeSideMenuState extends ConsumerState<HomeSideMenu> {
                     onPressed: () async => authNotifier.logoutAsync(),
                     child: Text(context.loc.logout))),
           ]),
-      body: menuItems[navDrawerIndex].page,
+      body: menuItems[selectedIndex].page,
     );
-  }
-
-  void onDestinationSelected(int value) {
-    setState(() {
-      navDrawerIndex = value;
-    });
-    scaffoldKey.currentState?.closeDrawer();
   }
 }

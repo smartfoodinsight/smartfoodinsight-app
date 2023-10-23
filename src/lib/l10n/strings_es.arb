@@ -13,6 +13,8 @@
     "fats": "Grasas",
     "calories": "Calorías",
     "nutriInfo": "Información nutricional",
+    "myFridge": "Mi nevera",
+    "products": "Productos",
     "registerSucess": "Hemos enviado un correo a la dirección indicada, revise su bandeja de entrada o la carpeta de spam y siga las indicaciones",
     "registerError": "Se produjo un error al registrar su cuenta",
     "loginError": "Usuario o contraseña incorrectos",

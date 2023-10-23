@@ -69,6 +69,16 @@
     "type": "text",
     "description": "Nutritional information"
   },
+  "myFridge": "My fridge",
+  "@myFridge": {
+    "type": "text",
+    "description": "My fridge"
+  },
+  "products": "Products",
+  "@products": {
+    "type": "text",
+    "description": "Products"
+  },
   "registerSucess": "We have sent an email to the indicated address, check your inbox or spam folder and follow the prompts",
   "@registerSucess": {
     "type": "text",

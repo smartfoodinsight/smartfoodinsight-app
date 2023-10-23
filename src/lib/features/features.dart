@@ -1,4 +1,4 @@
-export 'package:smartfoodinsight_app/features/shopping_list/shopping_list_page.dart';
+export 'package:smartfoodinsight_app/features/my_fridge/my_fridge_page.dart';
 
 export 'package:smartfoodinsight_app/features/products/product_details_page.dart';
 export 'package:smartfoodinsight_app/features/products/scan_page.dart';

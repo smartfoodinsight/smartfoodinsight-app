@@ -102,18 +102,29 @@ class CustomCard extends ConsumerWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             elevation: 1,
             child: ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: AspectRatio(
-                  aspectRatio: 1,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                    child: Image.network(
-                      product.imageFrontUrl!,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+              title: Text(product.name),
+              leading: AspectRatio(
+                aspectRatio: 1,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                  child:
+                      Image.network(product.imageFrontUrl!, fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress != null) {
+                      return const Center(
+                          child: SizedBox(
+                              height: 35,
+                              width: 35,
+                              child: CircularProgressIndicator()));
+                    }
+                    return child;
+                  }),
                 ),
-                title: Text(product.name))),
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context
+                  .push('${AppSettings.productDetails}${product.barCode}'),
+            )),
       ),
     );
   }
