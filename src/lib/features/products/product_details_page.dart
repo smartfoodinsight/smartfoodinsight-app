@@ -164,7 +164,7 @@ class _CustomSliverAppBar extends ConsumerWidget {
       actions: [
         IconButton(
             onPressed: () async =>
-                {await productsNotifier.toggleProductAsync(product)},
+                await productsNotifier.toggleProductAsync(product),
             icon: const Icon(Icons.favorite_border))
       ],
       backgroundColor: Colors.black,

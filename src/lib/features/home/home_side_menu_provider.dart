@@ -28,9 +28,7 @@ List<MenuItem> menuItems(MenuItemsRef ref) {
         page: const ProductsPage(),
         icon: Icons.production_quantity_limits),
     MenuItem(
-        title: loc.myFridge,
-        page: const ShoppingListPage(),
-        icon: Icons.kitchen),
+        title: loc.myFridge, page: const MyFridgePage(), icon: Icons.kitchen),
   ];
 
   return menuItems;

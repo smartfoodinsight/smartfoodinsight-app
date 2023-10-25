@@ -16,14 +16,27 @@ GoRouter appRouter(AppRouterRef ref) {
       redirect: routerListenable.redirect,
       routes: [
         GoRoute(
-          path: '/product-details/:ean',
+          path: '${AppSettings.addProductMyFridge}:ean',
+          builder: (context, state) => AddProductMyFridgePage(
+            ean: state.pathParameters['ean'] ?? 'no-id',
+          ),
+        ),
+        GoRoute(
+          path: '${AppSettings.productDetails}:ean',
           builder: (context, state) => ProductDetailsPage(
             ean: state.pathParameters['ean'] ?? 'no-id',
           ),
         ),
         GoRoute(
-            path: AppSettings.scan,
-            builder: (context, state) => const ScanPage()),
+            path: AppSettings.scanfridge,
+            builder: (context, state) => ScanPage(
+                action: (barcode) => context.pushReplacement(
+                    '${AppSettings.addProductMyFridge}$barcode'))),
+        GoRoute(
+            path: AppSettings.scandetails,
+            builder: (context, state) => ScanPage(
+                action: (barcode) => context
+                    .pushReplacement('${AppSettings.productDetails}$barcode'))),
         GoRoute(
             path: AppSettings.home,
             builder: (context, state) => const HomeSideMenu()),

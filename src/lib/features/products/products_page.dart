@@ -10,14 +10,14 @@ import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/models/models.dart';
 
 class ProductsPage extends StatelessWidget {
-  const ProductsPage({Key? key}) : super(key: key);
+  const ProductsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: const _ShowProducts(),
         floatingActionButton: ElevatedButton(
-          onPressed: () => context.push(AppSettings.scan),
+          onPressed: () => context.push(AppSettings.scandetails),
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),
             backgroundColor: HexColor("#aac6f9"),

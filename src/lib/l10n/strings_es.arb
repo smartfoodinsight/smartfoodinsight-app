@@ -1,4 +1,6 @@
 {
+    "scanProduct": "Escanea un producto",
+    "myFridgeProducts": "Añade productos contra el desperdicio alimentario para cuidar el planeta",
     "productsEmpty": "¡Ups! Escanea un producto y agrégalo a tus favoritos.",
     "undo": "Deshacer",
     "deletedProduct": "Producto eliminado",

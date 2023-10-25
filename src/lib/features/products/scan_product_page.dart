@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-
-import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/features/products/qr_overlay.dart';
 
 class ScanPage extends StatefulWidget {
-  const ScanPage({Key? key}) : super(key: key);
+  final Function(String? barcode) action;
+  const ScanPage({Key? key, required this.action}) : super(key: key);
 
   @override
   State<ScanPage> createState() => _ScanPageState();
@@ -39,8 +37,7 @@ class _ScanPageState extends State<ScanPage> {
       onDetect: (barcodeCapture) async {
         final barcode = barcodeCapture.barcodes.firstOrNull;
         if (barcode != null) {
-          context.pushReplacement(
-              '${AppSettings.productDetails}${barcode.rawValue}');
+          widget.action(barcode.rawValue);
         }
       },
       controller: mobileScannerController,

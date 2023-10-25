@@ -12,8 +12,10 @@ class AppSettings {
   static const String apiLogin = "/api/auth/login";
 
   //ROUTES
+  static const addProductMyFridge = '/add-product-my-fridge/';
   static const productDetails = '/product-details/';
-  static const scan = '/scan';
+  static const scanfridge = '/scan-fridge';
+  static const scandetails = '/scan-details';
   static const signup = '/signup';
   static const login = '/login';
   static const home = '/';

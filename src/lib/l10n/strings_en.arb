@@ -1,8 +1,18 @@
-{ 
-  "productsEmpty": "Oops! Scan a product and add it to your favorites.",
+{
+  "scanProduct": "Scan a product",
+  "@scanProduct": {
+    "type": "text",
+    "description": "Scan a product"
+  },
+  "myFridgeProducts": "Add products against food waste to take care of the planet",
+  "@myFridgeProducts": {
+    "type": "text",
+    "description": "Add products against food waste to take care of the planet"
+  },
+  "productsEmpty": "Oops! Scan a product and add it to your favorites",
   "@productsEmpty": {
     "type": "text",
-    "description": "Oops! Scan a product and add it to your favorites."
+    "description": "Oops! Scan a product and add it to your favorites"
   },
   "undo": "Undo",
   "@undo": {
