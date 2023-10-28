@@ -12,21 +12,29 @@ class AddProductMyFridgePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final productAsync = ref.watch(myFridgeNotifierProvider(ean));
-    final myFridgeNotifier = ref.read(myFridgeNotifierProvider(ean).notifier);
+    final productFridgeAsync = ref.watch(addMyFridgeNotifierProvider(ean));
+    final addMyFridgeNotifier =
+        ref.read(addMyFridgeNotifierProvider(ean).notifier);
     final cameraGalleryService = ref.read(cameraGalleryServiceProvider);
+    final myFridgeNotifier = ref.read(myFridgeNotifierProvider.notifier);
 
-    return productAsync.when(
-        data: (product) {
+    return productFridgeAsync.when(
+        data: (productFridge) {
           return Scaffold(
               appBar: AppBar(actions: [
-                IconButton(onPressed: () => {}, icon: const Icon(Icons.save_as))
+                IconButton(
+                    onPressed: () async => {
+                          await myFridgeNotifier
+                              .toggleProductFridgeAsync(productFridge)
+                              .whenComplete(() => context.pop())
+                        },
+                    icon: const Icon(Icons.save_as))
               ]),
               body: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(children: [
                   GestureDetector(
-                    child: _selectImage(product.image),
+                    child: _selectImage(productFridge.image),
                     onTap: () {
                       showModalBottomSheet<void>(
                           context: context,
@@ -50,7 +58,7 @@ class AddProductMyFridgePage extends ConsumerWidget {
                                               await cameraGalleryService
                                                   .takePhotoAsync();
                                           if (imagePath == null) return;
-                                          myFridgeNotifier
+                                          addMyFridgeNotifier
                                               .updateImage(imagePath);
                                         }),
                                     ListTile(
@@ -62,7 +70,7 @@ class AddProductMyFridgePage extends ConsumerWidget {
                                               await cameraGalleryService
                                                   .selectPhotoAsync();
                                           if (imagePath == null) return;
-                                          myFridgeNotifier
+                                          addMyFridgeNotifier
                                               .updateImage(imagePath);
                                         }),
                                   ],
@@ -73,13 +81,13 @@ class AddProductMyFridgePage extends ConsumerWidget {
                     },
                   ),
                   NormalTextFormField(
-                      initValue: product.name,
+                      initValue: productFridge.name,
                       label: context.loc.name,
-                      onChanged: myFridgeNotifier.onNameChanged,
+                      onChanged: addMyFridgeNotifier.onNameChanged,
                       icon: Icons.edit_document),
                   const SizedBox(height: 16),
                   DateTextFormField(
-                    onChanged: myFridgeNotifier.onDateChanged,
+                    onChanged: addMyFridgeNotifier.onDateChanged,
                     label: context.loc.useByDate,
                   )
                 ]),

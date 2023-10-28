@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
+import 'package:smartfoodinsight_app/models/models.dart';
 
 class MyFridgePage extends StatelessWidget {
   const MyFridgePage({super.key});
@@ -65,26 +68,95 @@ class _ShowProducts extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Placeholder();
-    // final productsAsync = ref.watch(productsNotifierProvider);
+    final productsFridge = ref.watch(myFridgeNotifierProvider);
 
-    // return productsAsync.when(
-    //     data: (products) {
-    //       if (products.isEmpty) {
-    //         return Padding(
-    //           padding: const EdgeInsets.all(16),
-    //           child: Text(context.loc.myFridgeProducts),
-    //         );
-    //       } else {
-    //         return ListView.builder(
-    //             itemCount: products.length,
-    //             itemBuilder: (context, index) {
-    //               final product = products[index];
-    //               return CustomCard(product: product);
-    //             });
-    //       }
-    //     },
-    //     error: (error, stackTrace) => const Text('error'),
-    //     loading: () => const Center(child: CircularProgressIndicator()));
+    return productsFridge.when(
+        data: (productsFridge) {
+          if (productsFridge.isEmpty) {
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(context.loc.myFridgeProducts),
+            );
+          } else {
+            return ListView.builder(
+                itemCount: productsFridge.length,
+                itemBuilder: (context, index) {
+                  final productFridge = productsFridge[index];
+                  return _CustomCard(productFridge: productFridge);
+                });
+          }
+        },
+        error: (error, stackTrace) => const Text('error'),
+        loading: () => const Center(child: CircularProgressIndicator()));
+  }
+}
+
+class _CustomCard extends ConsumerWidget {
+  const _CustomCard({
+    required this.productFridge,
+  });
+
+  final ProductFridge productFridge;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final myFridgeNotifier = ref.read(myFridgeNotifierProvider.notifier);
+    final snackBarUtil = ref.read(snackbarUtilProvider);
+
+    return Dismissible(
+      direction: DismissDirection.endToStart,
+      background: Container(
+        alignment: AlignmentDirectional.centerEnd,
+        color: Colors.red,
+        child: const Padding(
+          padding: EdgeInsets.all(16),
+          child: Icon(
+            FontAwesomeIcons.trash,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      onDismissed: (direction) {
+        myFridgeNotifier.toggleProductFridgeAsync(productFridge);
+        snackBarUtil.showActionMessage(
+            context.loc.deletedProduct,
+            context.loc.undo,
+            () => myFridgeNotifier.toggleProductFridgeAsync(productFridge));
+      },
+      key: UniqueKey(),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 1,
+            child: ListTile(
+                title: Text(productFridge.name!),
+                subtitle: Text(productFridge.date!),
+                leading: AspectRatio(
+                  aspectRatio: 1,
+                  child: ClipRRect(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(4.0)),
+                      child: _selectImage(productFridge.image!)),
+                ))),
+      ),
+    );
+  }
+
+  Widget _selectImage(String image) {
+    if (image.startsWith('http')) {
+      return Image.network(productFridge.image!, fit: BoxFit.cover,
+          loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress != null) {
+          return const Center(
+              child: SizedBox(
+                  height: 35, width: 35, child: CircularProgressIndicator()));
+        }
+        return child;
+      });
+    }
+
+    return Image.file(File(image));
   }
 }

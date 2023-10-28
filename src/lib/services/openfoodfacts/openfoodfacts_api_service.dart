@@ -5,10 +5,6 @@ import 'package:smartfoodinsight_app/services/openfoodfacts/mappers/product_mapp
 
 class OpenFoodFactsApiService {
   Future<ProductFridge> getProductFridgeAsync(String ean) async {
-    if (ean == "new") {
-      return ProductFridge();
-    }
-
     final productDetail = await getProductAsync(ean);
     return ProductMapper.toProductFridge(productDetail);
   }

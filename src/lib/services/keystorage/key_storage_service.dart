@@ -17,7 +17,7 @@ class KeyStorageService extends IKeyStorageService {
     final dir = await getApplicationDocumentsDirectory();
 
     if (Isar.instanceNames.isEmpty) {
-      return await Isar.open([ProductDetailSchema],
+      return await Isar.open([ProductDetailSchema, ProductFridgeSchema],
           inspector: true, directory: dir.path);
     }
 
@@ -32,6 +32,29 @@ class KeyStorageService extends IKeyStorageService {
 
   Future<SharedPreferences> getSharedPrefs() async {
     return await SharedPreferences.getInstance();
+  }
+
+  @override
+  Future<List<ProductFridge>> loadProductsFridgeAsync(
+      {int limit = 10, int offset = 0}) async {
+    final isar = await db;
+    return isar.productFridges.where().offset(offset).limit(limit).findAll();
+  }
+
+  @override
+  Future<void> toggleProductFridgeAsync(ProductFridge productFridge) async {
+    final isar = await db;
+    final existsProduct = await isar.productFridges
+        .filter()
+        .isarIdEqualTo(productFridge.isarId)
+        .findFirst();
+
+    if (existsProduct != null) {
+      isar.writeTxnSync(
+          () => isar.productFridges.deleteSync(existsProduct.isarId!));
+    } else {
+      isar.writeTxnSync(() => isar.productFridges.putSync(productFridge));
+    }
   }
 
   @override

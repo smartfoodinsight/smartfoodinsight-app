@@ -1,6 +1,10 @@
 import 'package:smartfoodinsight_app/models/models.dart';
 
 abstract class IKeyStorageService {
+  Future<void> toggleProductFridgeAsync(ProductFridge productFridge);
+  Future<List<ProductFridge>> loadProductsFridgeAsync(
+      {int limit = 10, int offset = 0});
+
   Future<void> toggleProductAsync(ProductDetail productDetail);
   Future<bool> isFavoriteProductAsync(String barCode);
   Future<List<ProductDetail>> loadProductsAsync(

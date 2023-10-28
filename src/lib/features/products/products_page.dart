@@ -52,7 +52,7 @@ class _ShowProducts extends ConsumerWidget {
                 itemCount: products.length,
                 itemBuilder: (context, index) {
                   final product = products[index];
-                  return CustomCard(product: product);
+                  return _CustomCard(product: product);
                 });
           }
         },
@@ -61,9 +61,8 @@ class _ShowProducts extends ConsumerWidget {
   }
 }
 
-class CustomCard extends ConsumerWidget {
-  const CustomCard({
-    super.key,
+class _CustomCard extends ConsumerWidget {
+  const _CustomCard({
     required this.product,
   });
 
