@@ -2,11 +2,9 @@ import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:smartfoodinsight_app/models/models.dart';
 
 class ProductMapper {
-  static ProductFridge toProductFridge(Product product, DateTime date) {
+  static ProductFridge toProductFridge(ProductDetail productDetail) {
     return ProductFridge(
-        name: product.productName ?? '?',
-        imageFrontUrl: product.imageFrontUrl,
-        date: date);
+        name: productDetail.name, image: productDetail.imageFrontUrl);
   }
 
   static ProductDetail toProductDetail(Product product) {

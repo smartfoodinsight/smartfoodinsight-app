@@ -3,7 +3,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:smartfoodinsight_app/features/products/qr_overlay.dart';
 
 class ScanPage extends StatefulWidget {
-  final Function(String? barcode) action;
+  final void Function(String? barcode) action;
   const ScanPage({Key? key, required this.action}) : super(key: key);
 
   @override
@@ -38,6 +38,7 @@ class _ScanPageState extends State<ScanPage> {
         final barcode = barcodeCapture.barcodes.firstOrNull;
         if (barcode != null) {
           widget.action(barcode.rawValue);
+          mobileScannerController.dispose();
         }
       },
       controller: mobileScannerController,

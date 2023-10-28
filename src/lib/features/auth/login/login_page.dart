@@ -76,7 +76,7 @@ class _FormLogin extends ConsumerWidget {
     return Column(children: [
       NormalTextFormField(
         label: context.loc.email,
-        icon: const Icon(Icons.email),
+        icon: Icons.email,
         textInputType: TextInputType.emailAddress,
         onChanged: loginPageNotifier.onEmailChanged,
         errorMessage: isFormPosted ? email.errorMessage(loc) : null,
@@ -177,8 +177,7 @@ class _ForgotPasswordButton extends StatelessWidget {
                       Text(context.loc.passwordEmail),
                       const SizedBox(height: 16),
                       NormalTextFormField(
-                          label: context.loc.email,
-                          icon: const Icon(Icons.email)),
+                          label: context.loc.email, icon: Icons.email),
                       const SizedBox(height: 16),
                       GeneralElevatedButton(
                           onPressed: () => Navigator.pop(context),

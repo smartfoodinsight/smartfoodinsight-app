@@ -3,21 +3,23 @@ import 'package:smartfoodinsight_app/common/utils/utis.dart';
 
 class NormalTextFormField extends StatefulWidget {
   final String label;
-  final Icon? icon;
+  final String? initValue;
+  final IconData? icon;
   final String? errorMessage;
-  final Function(String)? onChanged;
+  final void Function(String)? onChanged;
   final String? Function(String?)? validator;
   final TextInputType? textInputType;
 
   const NormalTextFormField({
-    Key? key,
+    super.key,
     required this.label,
     this.icon,
     this.errorMessage,
     this.onChanged,
     this.validator,
     this.textInputType,
-  }) : super(key: key);
+    this.initValue,
+  });
 
   @override
   State<NormalTextFormField> createState() => _NormalTextFormField();
@@ -30,6 +32,7 @@ class _NormalTextFormField extends State<NormalTextFormField> {
   @override
   void initState() {
     super.initState();
+    textEditingController.text = widget.initValue ?? '';
     textEditingController.addListener(() {
       setState(() {
         showClearButton = textEditingController.text.isNotEmpty;
@@ -51,7 +54,7 @@ class _NormalTextFormField extends State<NormalTextFormField> {
       controller: textEditingController,
       keyboardType: widget.textInputType,
       decoration: InputDecoration(
-          icon: widget.icon,
+          icon: Icon(widget.icon),
           label: Text(
             widget.label,
             style: TextStyle(color: Colors.grey[770]),

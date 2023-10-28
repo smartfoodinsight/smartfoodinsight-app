@@ -45,6 +45,7 @@ dependencies:
   freezed_annotation: ^2.4.1
   go_router: ^11.1.2
   hexcolor: ^3.0.1
+  image_picker: ^1.0.4
   intl: any
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1

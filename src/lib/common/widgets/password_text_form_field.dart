@@ -4,7 +4,7 @@ import 'package:smartfoodinsight_app/common/utils/utis.dart';
 class PasswordTextFormField extends StatefulWidget {
   final String label;
   final String? errorMessage;
-  final Function(String)? onChanged;
+  final void Function(String)? onChanged;
   final String? Function(String?)? validator;
 
   const PasswordTextFormField({

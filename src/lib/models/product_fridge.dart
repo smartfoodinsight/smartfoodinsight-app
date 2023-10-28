@@ -5,10 +5,9 @@ part 'product_fridge.g.dart';
 @collection
 class ProductFridge {
   Id? isarId;
-  final String name;
-  final String? imageFrontUrl;
-  final DateTime date;
+  String? name;
+  String? image;
+  String? date;
 
-  ProductFridge(
-      {required this.name, required this.imageFrontUrl, required this.date});
+  ProductFridge({this.name, this.image, this.date});
 }

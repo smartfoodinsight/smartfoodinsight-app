@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
-import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 
 class MyFridgePage extends StatelessWidget {
   const MyFridgePage({super.key});
@@ -32,20 +32,29 @@ class MyFridgePage extends StatelessWidget {
           return Padding(
             padding: MediaQuery.viewInsetsOf(context),
             child: SizedBox(
-                height: 250,
-                width: double.infinity,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
-                  child: Column(
-                    children: [
-                      GeneralFilledIconButton(
-                          label: Text(context.loc.scanProduct),
-                          onPressed: () => context.push(AppSettings.scanfridge),
-                          icon: const Icon(Icons.search))
-                    ],
-                  ),
-                )),
+              height: 150,
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ListTile(
+                      title: Text(context.loc.scanProduct),
+                      leading: const Icon(FontAwesomeIcons.barcode),
+                      onTap: () => {
+                            context.push(AppSettings.scanfridge),
+                            context.pop()
+                          }),
+                  ListTile(
+                      title: Text(context.loc.addProductManually),
+                      leading: const Icon(Icons.edit_document),
+                      onTap: () => {
+                            context
+                                .push('${AppSettings.addProductMyFridge}new'),
+                            context.pop(),
+                          }),
+                ],
+              ),
+            ),
           );
         });
   }

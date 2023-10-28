@@ -84,13 +84,13 @@ class _FormRegister extends ConsumerWidget {
         NormalTextFormField(
             label: context.loc.name,
             textInputType: TextInputType.name,
-            icon: const Icon(Icons.person),
+            icon: Icons.person,
             onChanged: registerPageNotifier.onNameChanged,
             errorMessage: isFormPosted ? name.errorMessage(loc) : null),
         NormalTextFormField(
             label: context.loc.email,
             textInputType: TextInputType.emailAddress,
-            icon: const Icon(Icons.email),
+            icon: Icons.email,
             onChanged: registerPageNotifier.onEmailChanged,
             errorMessage: isFormPosted ? email.errorMessage(loc) : null),
         PasswordTextFormField(
