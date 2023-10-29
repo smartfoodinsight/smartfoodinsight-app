@@ -62,10 +62,10 @@ class _DateTextFormField extends State<DateTextFormField> {
     );
 
     if (picked != null) {
-      String formattedDate = DateFormat('dd-MM-yyyy').format(picked);
+      String formattedDate = DateFormat('dd/MM/yyyy').format(picked);
       return formattedDate;
     }
 
-    return DateFormat('dd-MM-yyyy').format(DateTime.now());
+    return DateFormat('dd/MM/yyyy').format(DateTime.now());
   }
 }

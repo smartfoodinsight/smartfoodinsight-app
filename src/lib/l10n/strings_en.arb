@@ -1,4 +1,49 @@
 {
+  "years": "years",
+  "@years": {
+    "type": "text",
+    "description": "years"
+  },
+  "expiresYear": "Expires in 1 year",
+  "@expiresYear": {
+    "type": "text",
+    "description": "Expires in 1 year"
+  },
+  "months": "months",
+  "@months": {
+    "type": "text",
+    "description": "months"
+  },
+  "expiresMonth": "Expires in 1 month",
+  "@expiresMonth": {
+    "type": "text",
+    "description": "Expires in 1 month"
+  },
+  "days": "days",
+  "@days": {
+    "type": "text",
+    "description": "days"
+  },
+  "expiresDay": "Expires in 1 day",
+  "@expiresDay": {
+    "type": "text",
+    "description": "Expires in 1 day"
+  },
+  "expired": "Expired",
+  "@expired": {
+    "type": "text",
+    "description": "Expired"
+  },
+  "expiresIn": "Expires in",
+  "@expiresIn": {
+    "type": "text",
+    "description": "Expires in"
+  },
+  "expiresToday": "Expires Today",
+  "@expiresToday": {
+    "type": "text",
+    "description": "Expires Today"
+  },
   "gallery": "Gallery",
   "@gallery": {
     "type": "text",

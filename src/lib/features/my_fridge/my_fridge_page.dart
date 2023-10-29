@@ -102,6 +102,9 @@ class _CustomCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final myFridgeNotifier = ref.read(myFridgeNotifierProvider.notifier);
     final snackBarUtil = ref.read(snackbarUtilProvider);
+    final loc = ref.read(appLocalizationsProvider);
+    final expirationResult =
+        Helper().calculateExpiration(productFridge.date!, loc);
 
     return Dismissible(
       direction: DismissDirection.endToStart,
@@ -132,7 +135,13 @@ class _CustomCard extends ConsumerWidget {
             elevation: 1,
             child: ListTile(
                 title: Text(productFridge.name!),
-                subtitle: Text(productFridge.date!),
+                subtitle: Row(children: [
+                  Icon(Icons.watch_later_outlined,
+                      color: expirationResult.color),
+                  const SizedBox(width: 6),
+                  Text(expirationResult.message,
+                      style: TextStyle(color: expirationResult.color))
+                ]),
                 leading: AspectRatio(
                   aspectRatio: 1,
                   child: ClipRRect(

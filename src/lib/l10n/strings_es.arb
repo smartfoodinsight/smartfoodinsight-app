@@ -1,4 +1,13 @@
 {
+    "years": "años",
+    "expiresYear": "Caduca en 1 año",
+    "months": "meses",
+    "expiresMonth": "Caduca en 1 mes",
+    "days": "días",
+    "expiresDay": "Caduca en 1 día",
+    "expired": "Caducado",
+    "expiresIn": "Caduca en",
+    "expiresToday": "Caduca hoy",
     "gallery": "Galería",
     "camera": "Cámara",
     "useByDate": "Fecha límite de consumo",
