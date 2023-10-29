@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:smartfoodinsight_app/common/utils/utis.dart';
 
 class AppTheme {
-  final _colorScheme = ColorScheme.fromSeed(
-      seedColor: HexColor("#aac6f9"),
-      primary: HexColor("#FF998C"),
-      secondary: HexColor("#001f3f"));
+  // final _colorScheme = ColorScheme.fromSeed(
+  //     seedColor: HexColor("#aac6f9"),
+  //     primary: HexColor("#FF998C"),
+  //     secondary: HexColor("#001f3f"));
 
   AppTheme();
 

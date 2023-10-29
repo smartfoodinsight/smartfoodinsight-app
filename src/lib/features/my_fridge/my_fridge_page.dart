@@ -146,7 +146,7 @@ class _CustomCard extends ConsumerWidget {
 
   Widget _selectImage(String image) {
     if (image.startsWith('http')) {
-      return Image.network(productFridge.image!, fit: BoxFit.cover,
+      return Image.network(image, fit: BoxFit.cover,
           loadingBuilder: (context, child, loadingProgress) {
         if (loadingProgress != null) {
           return const Center(
@@ -157,6 +157,6 @@ class _CustomCard extends ConsumerWidget {
       });
     }
 
-    return Image.file(File(image));
+    return Image.file(File(image), fit: BoxFit.cover);
   }
 }
