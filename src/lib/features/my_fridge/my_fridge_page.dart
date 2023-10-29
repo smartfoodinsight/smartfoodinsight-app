@@ -74,8 +74,16 @@ class _ShowProducts extends ConsumerWidget {
         data: (productsFridge) {
           if (productsFridge.isEmpty) {
             return Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(context.loc.myFridgeProducts),
+              padding: const EdgeInsets.all(40),
+              child: Column(children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(30.0),
+                    child: Image.asset('assets/images/foodwaste.png')),
+                const SizedBox(height: 16),
+                Text(context.loc.myFridgeProducts,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontWeight: FontWeight.bold))
+              ]),
             );
           } else {
             return ListView.builder(
