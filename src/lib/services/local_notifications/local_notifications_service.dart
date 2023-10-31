@@ -83,6 +83,16 @@ class LocalNotificationsService {
 
   Future<void> scheduleNotificationAsync(
       {String? title, String? body, required DateTime dateTime}) async {
+    tz.TZDateTime tzDateTIME = _getTZDateTime(dateTime);
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(i++, title, body,
+        tzDateTIME, NotificationDetails(android: _androidNotificationDetails),
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
+  }
+
+  tz.TZDateTime _getTZDateTime(DateTime dateTime) {
     final currentDate = DateTime.now();
     final newdateTime = DateTime(dateTime.year, dateTime.month, dateTime.day,
         currentDate.hour, currentDate.minute, currentDate.second);
@@ -96,12 +106,7 @@ class LocalNotificationsService {
     } else {
       tzDateTIME = tz.TZDateTime.from(newdateTime, tz.local);
     }
-
-    await flutterLocalNotificationsPlugin.zonedSchedule(i++, title, body,
-        tzDateTIME, NotificationDetails(android: _androidNotificationDetails),
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime);
+    return tzDateTIME;
   }
 
   Future<void> cancelNotificationAsync(int id) async {
