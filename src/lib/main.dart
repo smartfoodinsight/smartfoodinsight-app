@@ -5,8 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/themes/app_theme.dart';
+import 'package:smartfoodinsight_app/services/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  LocalNotificationsService().initAsync();
   runApp(const ProviderScope(child: MyApp()));
 }
 

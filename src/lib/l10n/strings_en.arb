@@ -1,4 +1,19 @@
 {
+  "openConfiguration": "Open configuration",
+  "@openConfiguration": {
+    "type": "text",
+    "description": "Open configuration"
+  },
+  "enableNotificationPermission": "Please enable notification permissions in app settings",
+  "@enableNotificationPermission": {
+    "type": "text",
+    "description": "Please enable notification permissions in app settings"
+  },
+  "notificationPermission": "Notification permissions denied",
+  "@notificationPermission": {
+    "type": "text",
+    "description": "Notification permissions denied"
+  },
   "years": "years",
   "@years": {
     "type": "text",

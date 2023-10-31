@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:app_settings/app_settings.dart' as app_settings;
 
-import 'package:smartfoodinsight_app/common/extensions/app_localizations_extension.dart';
+import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
-import 'package:smartfoodinsight_app/common/utils/app_settings.dart';
+import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
+import 'package:smartfoodinsight_app/services/services.dart';
 
-class HomeSideMenu extends ConsumerWidget {
+class HomeSideMenu extends ConsumerStatefulWidget {
   const HomeSideMenu({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  HomeSideMenuState createState() => HomeSideMenuState();
+}
+
+class HomeSideMenuState extends ConsumerState<HomeSideMenu> {
+  @override
+  void initState() {
+    super.initState();
+    checkStatus();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final selectedIndex = ref.watch(homeSideMenuNotifierProvider);
     final authNotifier = ref.read(authNotifierProvider.notifier);
     final homeSideMenuNotifier =
@@ -46,5 +60,31 @@ class HomeSideMenu extends ConsumerWidget {
           ]),
       body: menuItems[selectedIndex].page,
     );
+  }
+
+  void checkStatus() {
+    LocalNotificationsService()
+        .requestNotificationPermissionsAsync()
+        .then((status) {
+      if (status.isPermanentlyDenied) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(context.loc.notificationPermission),
+            content: Text(context.loc.enableNotificationPermission),
+            actions: [
+              TextButton(
+                child: Text(context.loc.openConfiguration),
+                onPressed: () {
+                  app_settings.AppSettings.openAppSettings(
+                      type: app_settings.AppSettingsType.notification);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      }
+    });
   }
 }

@@ -2,9 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
+import 'package:smartfoodinsight_app/services/local_notifications/local_notifications_service.dart';
 
 class AddProductMyFridgePage extends ConsumerWidget {
   final String ean;
@@ -23,11 +25,18 @@ class AddProductMyFridgePage extends ConsumerWidget {
           return Scaffold(
               appBar: AppBar(actions: [
                 IconButton(
-                    onPressed: () async => {
-                          await myFridgeNotifier
-                              .toggleProductFridgeAsync(productFridge)
-                              .whenComplete(() => context.pop())
-                        },
+                    onPressed: () async {
+                      final dateTime =
+                          DateFormat('dd/MM/yyyy').parse(productFridge.date!);
+
+                      await myFridgeNotifier
+                          .toggleProductFridgeAsync(productFridge);
+
+                      await LocalNotificationsService()
+                          .scheduleNotificationAsync(
+                              title: 'title', body: 'body', dateTime: dateTime)
+                          .whenComplete(() => context.pop());
+                    },
                     icon: const Icon(Icons.save_as))
               ]),
               body: Padding(

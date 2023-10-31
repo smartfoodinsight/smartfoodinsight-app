@@ -1,3 +1,5 @@
+export 'package:smartfoodinsight_app/services/local_notifications/local_notifications_service.dart';
+
 export 'package:smartfoodinsight_app/services/openfoodfacts/openfoodfacts_api_service.dart';
 
 export "package:smartfoodinsight_app/services/images/camera_gallery_service_interface.dart";

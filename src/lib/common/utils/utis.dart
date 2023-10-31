@@ -44,6 +44,8 @@ class Helper {
 
   int _calculateDaysRemaining(String expirationDate) {
     DateTime currentDate = DateTime.now();
+    currentDate =
+        DateTime(currentDate.year, currentDate.month, currentDate.day);
     DateFormat format = DateFormat('dd/MM/yyyy');
     DateTime expirationDateParsed = format.parse(expirationDate);
     Duration difference = expirationDateParsed.difference(currentDate);
