@@ -78,7 +78,7 @@ class HomeSideMenuState extends ConsumerState<HomeSideMenu> {
                 onPressed: () {
                   app_settings.AppSettings.openAppSettings(
                       type: app_settings.AppSettingsType.notification);
-                  Navigator.of(context).pop();
+                  context.pop();
                 },
               ),
             ],
