@@ -181,7 +181,7 @@ class _CustomSliverAppBar extends ConsumerWidget {
                       if (loadingProgress != null) return const SizedBox();
                       return FadeInRight(child: child);
                     })
-                  : Image.asset('images/imagenotavailable.png',
+                  : Image.asset('assets/images/imagenotavailable.png',
                       fit: BoxFit.cover)),
           const _CustomGradient(
             begin: Alignment.topRight,

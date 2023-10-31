@@ -9,6 +9,7 @@ import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/models/models.dart';
+import 'package:smartfoodinsight_app/services/services.dart';
 
 class MyFridgePage extends StatelessWidget {
   const MyFridgePage({super.key});
@@ -109,7 +110,6 @@ class _CustomCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final myFridgeNotifier = ref.read(myFridgeNotifierProvider.notifier);
-    final snackBarUtil = ref.read(snackbarUtilProvider);
     final loc = ref.read(appLocalizationsProvider);
     final expirationResult =
         Helper().calculateExpiration(productFridge.date!, loc);
@@ -129,10 +129,8 @@ class _CustomCard extends ConsumerWidget {
       ),
       onDismissed: (direction) {
         myFridgeNotifier.toggleProductFridgeAsync(productFridge);
-        snackBarUtil.showActionMessage(
-            context.loc.deletedProduct,
-            context.loc.undo,
-            () => myFridgeNotifier.toggleProductFridgeAsync(productFridge));
+        LocalNotificationsService()
+            .cancelNotificationAsync(productFridge.isarId!);
       },
       key: UniqueKey(),
       child: Padding(
@@ -155,13 +153,18 @@ class _CustomCard extends ConsumerWidget {
                   child: ClipRRect(
                       borderRadius:
                           const BorderRadius.all(Radius.circular(4.0)),
-                      child: _selectImage(productFridge.image!)),
+                      child: _selectImage(productFridge.image)),
                 ))),
       ),
     );
   }
 
-  Widget _selectImage(String image) {
+  Widget _selectImage(String? image) {
+    if (image == null) {
+      return Image.asset('assets/images/imagenotavailable.png',
+          fit: BoxFit.cover);
+    }
+
     if (image.startsWith('http')) {
       return Image.network(image, fit: BoxFit.cover,
           loadingBuilder: (context, child, loadingProgress) {

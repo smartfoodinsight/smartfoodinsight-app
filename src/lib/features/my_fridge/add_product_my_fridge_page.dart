@@ -31,10 +31,12 @@ class AddProductMyFridgePage extends ConsumerWidget {
 
                       await myFridgeNotifier
                           .toggleProductFridgeAsync(productFridge);
-
                       await LocalNotificationsService()
                           .scheduleNotificationAsync(
-                              title: 'title', body: 'body', dateTime: dateTime)
+                              id: productFridge.isarId!,
+                              title: 'title',
+                              body: 'body',
+                              dateTime: dateTime)
                           .whenComplete(() => context.pop());
                     },
                     icon: const Icon(Icons.save_as))

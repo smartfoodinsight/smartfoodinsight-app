@@ -82,10 +82,13 @@ class LocalNotificationsService {
   }
 
   Future<void> scheduleNotificationAsync(
-      {String? title, String? body, required DateTime dateTime}) async {
+      {int id = 0,
+      String? title,
+      String? body,
+      required DateTime dateTime}) async {
     tz.TZDateTime tzDateTIME = _getTZDateTime(dateTime);
 
-    await flutterLocalNotificationsPlugin.zonedSchedule(i++, title, body,
+    await flutterLocalNotificationsPlugin.zonedSchedule(id, title, body,
         tzDateTIME, NotificationDetails(android: _androidNotificationDetails),
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
