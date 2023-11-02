@@ -27,8 +27,8 @@ class _ScanPageState extends State<ScanPage> {
 
   @override
   void dispose() {
-    super.dispose();
     mobileScannerController.dispose();
+    super.dispose();
   }
 
   @override
