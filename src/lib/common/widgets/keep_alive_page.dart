@@ -15,7 +15,7 @@ class KeepAlivePageState extends State<KeepAlivePage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context); // To keep the state alive
+    super.build(context);
     return widget.child;
   }
 }
