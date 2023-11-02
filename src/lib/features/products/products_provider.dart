@@ -4,7 +4,7 @@ import 'package:smartfoodinsight_app/models/models.dart';
 
 part 'products_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 class ProductsNotifier extends _$ProductsNotifier {
   int page = 0;
 

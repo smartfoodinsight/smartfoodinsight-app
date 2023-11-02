@@ -4,7 +4,7 @@ import 'package:smartfoodinsight_app/models/models.dart';
 
 part 'my_fridge_page_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 class MyFridgeNotifier extends _$MyFridgeNotifier {
   int page = 0;
 

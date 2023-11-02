@@ -1,4 +1,14 @@
 {
+  "myProfile": "My Profile",
+  "@myProfile": {
+    "type": "text",
+    "description": "My Profile"
+  },
+  "pricesProducts": "Prices",
+  "@pricesProducts": {
+    "type": "text",
+    "description": "Prices"
+  },
   "openConfiguration": "Open configuration",
   "@openConfiguration": {
     "type": "text",

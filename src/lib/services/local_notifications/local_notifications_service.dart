@@ -82,7 +82,7 @@ class LocalNotificationsService {
   }
 
   Future<void> scheduleNotificationAsync(
-      {int id = 0,
+      {required int id,
       String? title,
       String? body,
       required DateTime dateTime}) async {
@@ -91,6 +91,7 @@ class LocalNotificationsService {
     await flutterLocalNotificationsPlugin.zonedSchedule(id, title, body,
         tzDateTIME, NotificationDetails(android: _androidNotificationDetails),
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        matchDateTimeComponents: DateTimeComponents.dateAndTime,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }

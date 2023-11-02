@@ -5,8 +5,6 @@ export 'package:smartfoodinsight_app/features/auth/auth_provider.dart';
 export 'package:smartfoodinsight_app/features/auth/register/register_page_provider.dart';
 export 'package:smartfoodinsight_app/features/auth/login/login_page_provider.dart';
 
-export 'package:smartfoodinsight_app/features/home/home_side_menu_provider.dart';
-
 export 'package:smartfoodinsight_app/services/images/camera_gallery_service_provider.dart';
 export 'package:smartfoodinsight_app/services/openfoodfacts/openfoodfacts_api_service_provider.dart';
 export 'package:smartfoodinsight_app/services/keystorage/key_storage_service_provider.dart';

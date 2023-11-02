@@ -38,7 +38,7 @@ class _ScanPageState extends State<ScanPage> {
         final barcode = barcodeCapture.barcodes.firstOrNull;
         if (barcode != null) {
           widget.action(barcode.rawValue);
-          mobileScannerController.dispose();
+          dispose();
         }
       },
       controller: mobileScannerController,

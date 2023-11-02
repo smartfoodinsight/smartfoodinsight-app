@@ -33,9 +33,10 @@ class AddProductMyFridgePage extends ConsumerWidget {
                           .toggleProductFridgeAsync(productFridge);
                       await LocalNotificationsService()
                           .scheduleNotificationAsync(
-                              id: productFridge.isarId!,
-                              title: 'title',
-                              body: 'body',
+                              id: productFridge.idNotification,
+                              title: '!Atención!',
+                              body:
+                                  'No te olvides de consumir el producto ${productFridge.date}',
                               dateTime: dateTime)
                           .whenComplete(() => context.pop());
                     },

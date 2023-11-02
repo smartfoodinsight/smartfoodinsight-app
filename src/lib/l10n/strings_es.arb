@@ -1,4 +1,6 @@
 {
+    "pricesProducts": "Precios",
+    "myProfile": "Mi perfil",
     "openConfiguration": "Abrir configuración",
     "enableNotificationPermission": "Por favor, habilite los permisos de notificación en la configuración de la aplicación",
     "notificationPermission": "Permisos de notificación denegados",
