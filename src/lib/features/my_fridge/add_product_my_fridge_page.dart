@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
-import 'package:smartfoodinsight_app/services/local_notifications/local_notifications_service.dart';
+import 'package:smartfoodinsight_app/services/services.dart';
 
 class AddProductMyFridgePage extends ConsumerWidget {
   final String ean;
@@ -19,6 +20,7 @@ class AddProductMyFridgePage extends ConsumerWidget {
         ref.read(addMyFridgeNotifierProvider(ean).notifier);
     final cameraGalleryService = ref.read(cameraGalleryServiceProvider);
     final myFridgeNotifier = ref.read(myFridgeNotifierProvider.notifier);
+    final loc = ref.read(appLocalizationsProvider);
 
     return productFridgeAsync.when(
         data: (productFridge) {
@@ -26,17 +28,17 @@ class AddProductMyFridgePage extends ConsumerWidget {
               appBar: AppBar(actions: [
                 IconButton(
                     onPressed: () async {
+                      await myFridgeNotifier
+                          .toggleProductFridgeAsync(productFridge);
+
                       final dateTime =
                           DateFormat('dd/MM/yyyy').parse(productFridge.date!);
 
-                      await myFridgeNotifier
-                          .toggleProductFridgeAsync(productFridge);
                       await LocalNotificationsService()
                           .scheduleNotificationAsync(
                               id: productFridge.idNotification,
-                              title: '!Atención!',
-                              body:
-                                  'No te olvides de consumir el producto ${productFridge.date}',
+                              title: productFridge.name,
+                              body: loc.theProductExpired,
                               dateTime: dateTime)
                           .whenComplete(() => context.pop());
                     },

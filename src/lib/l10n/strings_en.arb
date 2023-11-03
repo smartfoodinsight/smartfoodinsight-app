@@ -1,4 +1,9 @@
 {
+  "theProductExpired": "Attention! This product has expired, be careful when consuming it",
+  "@theProductExpired": {
+    "type": "text",
+    "description": "Attention! This product has expired, be careful when consuming it"
+  },
   "myProfile": "My Profile",
   "@myProfile": {
     "type": "text",

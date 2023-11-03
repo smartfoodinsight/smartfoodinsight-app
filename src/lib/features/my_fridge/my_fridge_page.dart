@@ -130,7 +130,7 @@ class _CustomCard extends ConsumerWidget {
       onDismissed: (direction) {
         myFridgeNotifier.toggleProductFridgeAsync(productFridge);
         LocalNotificationsService()
-            .cancelNotificationAsync(productFridge.isarId!);
+            .cancelNotificationAsync(productFridge.idNotification);
       },
       key: UniqueKey(),
       child: Padding(
