@@ -1,10 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
+import 'package:smartfoodinsight_app/common/providers/providers.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends ConsumerWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Container());
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authNotifer = ref.read(authNotifierProvider.notifier);
+
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Center(
+            child: Container(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                children: [
+                  const CircleAvatar(
+                    radius: 70,
+                    backgroundImage: AssetImage('assets/images/foodwaste.png'),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text('Pepito perez'),
+                  const Text('pepito@gmail.com'),
+                  const SizedBox(height: 16),
+                  const Divider(),
+                  ListTile(
+                      title: Text(context.loc.deleteAccount),
+                      leading: const Icon(Icons.warning),
+                      onTap: () {}),
+                  ListTile(
+                      title: Text(context.loc.logout),
+                      leading: const Icon(Icons.logout),
+                      onTap: () async {
+                        await authNotifer.logoutAsync();
+                      }),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

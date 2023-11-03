@@ -14,22 +14,25 @@ class ProductsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: const _ShowProducts(),
-        floatingActionButton: ElevatedButton(
-          onPressed: () => context.push(AppSettings.scandetails),
-          style: ElevatedButton.styleFrom(
-            shape: const CircleBorder(),
-            backgroundColor: HexColor("#aac6f9"),
-            padding: const EdgeInsets.all(15),
-          ),
-          child: SvgPicture.asset(
-            'assets/images/sb.svg',
-            width: 32.0,
-            height: 32.0,
-            colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
-          ),
-        ));
+    return SafeArea(
+      child: Scaffold(
+          body: const _ShowProducts(),
+          floatingActionButton: ElevatedButton(
+            onPressed: () => context.push(AppSettings.scandetails),
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              backgroundColor: HexColor("#aac6f9"),
+              padding: const EdgeInsets.all(15),
+            ),
+            child: SvgPicture.asset(
+              'assets/images/sb.svg',
+              width: 32.0,
+              height: 32.0,
+              colorFilter:
+                  const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+            ),
+          )),
+    );
   }
 }
 

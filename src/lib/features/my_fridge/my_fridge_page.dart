@@ -16,16 +16,18 @@ class MyFridgePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: const _ShowProducts(),
-        floatingActionButton: ElevatedButton(
-            onPressed: () => _showBottomSheet(context),
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              backgroundColor: HexColor("#aac6f9"),
-              padding: const EdgeInsets.all(15),
-            ),
-            child: const Icon(Icons.add, size: 32, color: Colors.black)));
+    return SafeArea(
+      child: Scaffold(
+          body: const _ShowProducts(),
+          floatingActionButton: ElevatedButton(
+              onPressed: () => _showBottomSheet(context),
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                backgroundColor: HexColor("#aac6f9"),
+                padding: const EdgeInsets.all(15),
+              ),
+              child: const Icon(Icons.add, size: 32, color: Colors.black))),
+    );
   }
 
   void _showBottomSheet(BuildContext context) {

@@ -1,4 +1,9 @@
 {
+  "deleteAccount": "Delete account",
+  "@deleteAccount": {
+    "type": "text",
+    "description": "Delete account"
+  },
   "theProductExpired": "Attention! This product has expired, be careful when consuming it",
   "@theProductExpired": {
     "type": "text",
