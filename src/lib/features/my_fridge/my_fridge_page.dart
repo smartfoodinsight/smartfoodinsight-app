@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
+import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 import 'package:smartfoodinsight_app/models/models.dart';
 import 'package:smartfoodinsight_app/services/services.dart';
 
@@ -18,6 +19,12 @@ class MyFridgePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                  onPressed: () => {}, icon: const Icon(Icons.notifications))
+            ],
+          ),
           body: const _ShowProducts(),
           floatingActionButton: ElevatedButton(
               onPressed: () => _showBottomSheet(context),
@@ -77,7 +84,7 @@ class _ShowProducts extends ConsumerWidget {
         data: (productsFridge) {
           if (productsFridge.isEmpty) {
             return Padding(
-              padding: const EdgeInsets.all(40),
+              padding: const EdgeInsets.only(top: 10, left: 40, right: 40),
               child: Column(children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(30.0),
@@ -98,7 +105,7 @@ class _ShowProducts extends ConsumerWidget {
           }
         },
         error: (error, stackTrace) => const Text('error'),
-        loading: () => const Center(child: CircularProgressIndicator()));
+        loading: () => const ProductsLoading());
   }
 }
 

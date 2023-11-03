@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
+import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 import 'package:smartfoodinsight_app/models/models.dart';
 
 class ProductsPage extends StatelessWidget {
@@ -60,7 +61,7 @@ class _ShowProducts extends ConsumerWidget {
           }
         },
         error: (error, stackTrace) => const Text('error'),
-        loading: () => const Center(child: CircularProgressIndicator()));
+        loading: () => const ProductsLoading());
   }
 }
 

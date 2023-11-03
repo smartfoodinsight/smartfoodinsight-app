@@ -1,10 +1,8 @@
+export 'package:smartfoodinsight_app/common/widgets/products_loading.dart';
 export 'package:smartfoodinsight_app/common/widgets/keep_alive_page.dart';
-
 export 'package:smartfoodinsight_app/common/widgets/custom_bottom_navigationbar.dart';
-
 export 'package:smartfoodinsight_app/common/widgets/date_text_form_field.dart';
 export 'package:smartfoodinsight_app/common/widgets/password_text_form_field.dart';
 export 'package:smartfoodinsight_app/common/widgets/normal_text_form_field.dart';
-
 export 'package:smartfoodinsight_app/common/widgets/general_filled_icon_button.dart';
 export "package:smartfoodinsight_app/common/widgets/general_elevated_button.dart";
