@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
     double width = MediaQuery.sizeOf(context).width;
     double imageHeight = height * 0.35;
     double sizedBoxHeight = height - imageHeight;
-    //double paddingTop = height - MediaQuery.viewPaddingOf(context).top;
+
     return Scaffold(
       backgroundColor: HexColor("#aac6f9"),
       extendBodyBehindAppBar: true,

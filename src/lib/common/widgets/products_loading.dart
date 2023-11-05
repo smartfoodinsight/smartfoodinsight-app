@@ -10,7 +10,7 @@ class ProductsLoading extends StatelessWidget {
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.grey.shade100,
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(16),
         child: ListView.separated(
             itemBuilder: (context, index) {
               return Container(
