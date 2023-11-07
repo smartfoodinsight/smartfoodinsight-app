@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 
@@ -23,8 +25,16 @@ class ProfilePage extends ConsumerWidget {
                     backgroundImage: AssetImage('assets/images/foodwaste.png'),
                   ),
                   const SizedBox(height: 16),
-                  const Text('Pepito perez'),
-                  const Text('pepito@gmail.com'),
+                  NormalTextFormField(
+                      initValue: 'Pepito Perez',
+                      label: context.loc.name,
+                      textInputType: TextInputType.name,
+                      icon: Icons.person),
+                  NormalTextFormField(
+                      initValue: 'Pepito@gmail.com',
+                      label: context.loc.email,
+                      textInputType: TextInputType.emailAddress,
+                      icon: Icons.email),
                   const SizedBox(height: 16),
                   const Divider(),
                   ListTile(

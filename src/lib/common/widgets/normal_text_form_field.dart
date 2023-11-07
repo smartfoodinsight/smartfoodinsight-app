@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 
 class NormalTextFormField extends StatefulWidget {
-  final String label;
   final String? initValue;
+  final String label;
   final IconData? icon;
   final String? errorMessage;
   final void Function(String)? onChanged;
@@ -12,13 +12,13 @@ class NormalTextFormField extends StatefulWidget {
 
   const NormalTextFormField({
     super.key,
+    this.initValue,
     required this.label,
     this.icon,
     this.errorMessage,
     this.onChanged,
     this.validator,
     this.textInputType,
-    this.initValue,
   });
 
   @override
