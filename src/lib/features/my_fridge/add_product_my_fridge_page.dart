@@ -18,7 +18,6 @@ class AddProductMyFridgePage extends ConsumerWidget {
     final productFridgeAsync = ref.watch(addMyFridgeNotifierProvider(ean));
     final addMyFridgeNotifier =
         ref.read(addMyFridgeNotifierProvider(ean).notifier);
-    final cameraGalleryService = ref.read(cameraGalleryServiceProvider);
     final myFridgeNotifier = ref.read(myFridgeNotifierProvider.notifier);
     final loc = ref.read(appLocalizationsProvider);
 
@@ -47,51 +46,12 @@ class AddProductMyFridgePage extends ConsumerWidget {
               body: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(children: [
-                  GestureDetector(
+                  ImageSelectionModal(
                     child: _selectImage(productFridge.image),
-                    onTap: () {
-                      showModalBottomSheet<void>(
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (BuildContext context) {
-                            return Padding(
-                              padding: MediaQuery.viewInsetsOf(context),
-                              child: SizedBox(
-                                height: 150,
-                                width: double.infinity,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ListTile(
-                                        title: Text(context.loc.camera),
-                                        leading:
-                                            const Icon(Icons.camera_alt_sharp),
-                                        onTap: () async {
-                                          context.pop();
-                                          final imagePath =
-                                              await cameraGalleryService
-                                                  .takePhotoAsync();
-                                          if (imagePath == null) return;
-                                          addMyFridgeNotifier
-                                              .updateImage(imagePath);
-                                        }),
-                                    ListTile(
-                                        title: Text(context.loc.gallery),
-                                        leading: const Icon(Icons.image),
-                                        onTap: () async {
-                                          context.pop();
-                                          final imagePath =
-                                              await cameraGalleryService
-                                                  .selectPhotoAsync();
-                                          if (imagePath == null) return;
-                                          addMyFridgeNotifier
-                                              .updateImage(imagePath);
-                                        }),
-                                  ],
-                                ),
-                              ),
-                            );
-                          });
+                    onImageSelected: (imagePath) {
+                      if (imagePath != null) {
+                        addMyFridgeNotifier.updateImage(imagePath);
+                      }
                     },
                   ),
                   NormalTextFormField(

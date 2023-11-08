@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
@@ -12,7 +11,6 @@ class ProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authNotifer = ref.read(authNotifierProvider.notifier);
-    final cameraGalleryService = ref.read(cameraGalleryServiceProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -22,7 +20,7 @@ class ProfilePage extends ConsumerWidget {
               padding: const EdgeInsets.all(30),
               child: Column(
                 children: [
-                  GestureDetector(
+                  ImageSelectionModal(
                     child: const CircleAvatar(
                       radius: 70,
                       backgroundImage:
@@ -38,45 +36,8 @@ class ProfilePage extends ConsumerWidget {
                                 ))
                       ]),
                     ),
-                    onTap: () => {
-                      showModalBottomSheet<void>(
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (BuildContext context) {
-                            return Padding(
-                              padding: MediaQuery.viewInsetsOf(context),
-                              child: SizedBox(
-                                height: 150,
-                                width: double.infinity,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ListTile(
-                                        title: Text(context.loc.camera),
-                                        leading:
-                                            const Icon(Icons.camera_alt_sharp),
-                                        onTap: () async {
-                                          context.pop();
-                                          final imagePath =
-                                              await cameraGalleryService
-                                                  .takePhotoAsync();
-                                          if (imagePath == null) return;
-                                        }),
-                                    ListTile(
-                                        title: Text(context.loc.gallery),
-                                        leading: const Icon(Icons.image),
-                                        onTap: () async {
-                                          context.pop();
-                                          final imagePath =
-                                              await cameraGalleryService
-                                                  .selectPhotoAsync();
-                                          if (imagePath == null) return;
-                                        }),
-                                  ],
-                                ),
-                              ),
-                            );
-                          })
+                    onImageSelected: (imagePath) {
+                      if (imagePath != null) {}
                     },
                   ),
                   const SizedBox(height: 16),
