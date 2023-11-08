@@ -1,4 +1,5 @@
-{
+{  
+    "save": "Guardar",
     "deleteAccount": "Eliminar cuenta",
     "theProductExpired": "¡Atención! este producto ha caducado, cuidado al consumirlo",
     "pricesProducts": "Precios",

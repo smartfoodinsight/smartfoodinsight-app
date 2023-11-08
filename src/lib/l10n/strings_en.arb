@@ -1,4 +1,9 @@
 {
+  "save": "Save",
+  "@save": {
+    "type": "text",
+    "description": "Save"
+  },
   "deleteAccount": "Delete account",
   "@deleteAccount": {
     "type": "text",
