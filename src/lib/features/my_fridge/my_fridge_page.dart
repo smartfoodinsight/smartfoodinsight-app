@@ -88,7 +88,8 @@ class _ShowProducts extends ConsumerWidget {
               child: Column(children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(30.0),
-                    child: Image.asset('assets/images/foodwaste.png')),
+                    child: Image.asset('assets/images/foodwaste.png',
+                        gaplessPlayback: true)),
                 const SizedBox(height: 16),
                 Text(context.loc.myFridgeProducts,
                     textAlign: TextAlign.center,
