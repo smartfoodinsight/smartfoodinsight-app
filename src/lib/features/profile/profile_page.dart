@@ -23,6 +23,21 @@ class ProfilePage extends ConsumerWidget {
               child: Column(
                 children: [
                   GestureDetector(
+                    child: const CircleAvatar(
+                      radius: 70,
+                      backgroundImage:
+                          AssetImage('assets/images/foodwaste.png'),
+                      child: Stack(children: [
+                        Align(
+                            alignment: Alignment.bottomRight,
+                            child: CircleAvatar(
+                                radius: 18,
+                                backgroundColor: Colors.grey,
+                                child: Icon(Icons.camera_alt,
+                                    color: Colors.black) // change this children
+                                ))
+                      ]),
+                    ),
                     onTap: () => {
                       showModalBottomSheet<void>(
                           context: context,
@@ -63,21 +78,6 @@ class ProfilePage extends ConsumerWidget {
                             );
                           })
                     },
-                    child: const CircleAvatar(
-                      radius: 70,
-                      backgroundImage:
-                          AssetImage('assets/images/foodwaste.png'),
-                      child: Stack(children: [
-                        Align(
-                            alignment: Alignment.bottomRight,
-                            child: CircleAvatar(
-                                radius: 18,
-                                backgroundColor: Colors.grey,
-                                child: Icon(Icons.camera_alt,
-                                    color: Colors.black) // change this children
-                                ))
-                      ]),
-                    ),
                   ),
                   const SizedBox(height: 16),
                   NormalTextFormField(
