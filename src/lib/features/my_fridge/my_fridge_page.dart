@@ -171,8 +171,7 @@ class _CustomCard extends ConsumerWidget {
 
   Widget _selectImage(String? image) {
     if (image == null) {
-      return Image.asset('assets/images/imagenotavailable.png',
-          fit: BoxFit.cover);
+      return const Icon(Icons.image, size: 48, color: Colors.black);
     }
 
     if (image.startsWith('http')) {
