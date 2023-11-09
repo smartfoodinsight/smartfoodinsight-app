@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:app_settings/app_settings.dart' as app_settings;
@@ -46,14 +47,22 @@ class _HomeTabsState extends State<HomeTabsPage> {
       pageController.jumpToPage(widget.pageIndex);
     }
 
-    return Scaffold(
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: pageController,
-        children: pages,
+    return AnnotatedRegion(
+      value: const SystemUiOverlayStyle(
+        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
       ),
-      bottomNavigationBar:
-          CustomBottomNavigationBar(currentIndex: widget.pageIndex),
+      child: Scaffold(
+        body: SafeArea(
+          child: PageView(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: pageController,
+            children: pages,
+          ),
+        ),
+        bottomNavigationBar:
+            CustomBottomNavigationBar(currentIndex: widget.pageIndex),
+      ),
     );
   }
 
