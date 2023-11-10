@@ -5,9 +5,9 @@ class NormalTextFormField extends StatefulWidget {
   final String? initValue;
   final String label;
   final IconData? icon;
+  final bool readOnly;
   final String? errorMessage;
   final void Function(String)? onChanged;
-  final String? Function(String?)? validator;
   final TextInputType? textInputType;
 
   const NormalTextFormField({
@@ -15,9 +15,9 @@ class NormalTextFormField extends StatefulWidget {
     this.initValue,
     required this.label,
     this.icon,
+    this.readOnly = false,
     this.errorMessage,
     this.onChanged,
-    this.validator,
     this.textInputType,
   });
 
@@ -50,9 +50,9 @@ class _NormalTextFormField extends State<NormalTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       onChanged: widget.onChanged,
-      validator: widget.validator,
       controller: textEditingController,
       keyboardType: widget.textInputType,
+      readOnly: widget.readOnly,
       decoration: InputDecoration(
           icon: Icon(widget.icon),
           label: Text(
@@ -68,7 +68,7 @@ class _NormalTextFormField extends State<NormalTextFormField> {
 
   Widget? _suffixIcon() {
     Color? color = Colors.grey[700];
-    return showClearButton
+    return showClearButton && !widget.readOnly
         ? IconButton(
             icon: Icon(Icons.clear, color: color), onPressed: () => _clear())
         : null;

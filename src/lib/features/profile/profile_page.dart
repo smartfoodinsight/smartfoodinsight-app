@@ -47,6 +47,7 @@ class ProfilePage extends ConsumerWidget {
                 NormalTextFormField(
                     initValue: 'Pepito@gmail.com',
                     label: context.loc.email,
+                    readOnly: true,
                     textInputType: TextInputType.emailAddress,
                     icon: Icons.email),
                 const SizedBox(height: 16),

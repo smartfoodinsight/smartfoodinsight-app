@@ -5,14 +5,12 @@ class PasswordTextFormField extends StatefulWidget {
   final String label;
   final String? errorMessage;
   final void Function(String)? onChanged;
-  final String? Function(String?)? validator;
 
   const PasswordTextFormField({
     Key? key,
     required this.label,
     this.errorMessage,
     this.onChanged,
-    this.validator,
   }) : super(key: key);
 
   @override
@@ -26,7 +24,6 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       onChanged: widget.onChanged,
-      validator: widget.validator,
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(
           icon: const Icon(Icons.lock),
