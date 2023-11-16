@@ -34,7 +34,7 @@ class _HomeTabsState extends State<HomeTabsPage> {
     super.dispose();
   }
 
-  final pages = const <Widget>[
+  final pages = const [
     KeepAlivePage(PriceComparisonPage()),
     KeepAlivePage(ProductsPage()),
     KeepAlivePage(MyFridgePage()),
