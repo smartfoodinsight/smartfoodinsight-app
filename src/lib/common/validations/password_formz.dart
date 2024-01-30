@@ -9,7 +9,7 @@ class PasswordFormz extends FormzInput<String, PasswordError> {
   );
 
   const PasswordFormz.pure() : super.pure('');
-  const PasswordFormz.dirty(String value) : super.dirty(value);
+  const PasswordFormz.dirty(super.value) : super.dirty();
 
   String? errorMessage(AppLocalizations loc) {
     if (isValid || isPure) return null;

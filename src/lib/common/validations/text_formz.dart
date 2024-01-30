@@ -5,7 +5,7 @@ enum TextError { empty }
 
 class TextFormz extends FormzInput<String, TextError> {
   const TextFormz.pure() : super.pure('');
-  const TextFormz.dirty(String value) : super.dirty(value);
+  const TextFormz.dirty(super.value) : super.dirty();
 
   String? errorMessage(AppLocalizations loc) {
     if (isValid || isPure) return null;

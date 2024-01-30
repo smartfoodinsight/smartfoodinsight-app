@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProductsLoading extends StatelessWidget {
-  const ProductsLoading({Key? key}) : super(key: key);
+  const ProductsLoading({super.key});
 
   @override
   Widget build(BuildContext context) {

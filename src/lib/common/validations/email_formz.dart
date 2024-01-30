@@ -9,7 +9,7 @@ class EmailFormz extends FormzInput<String, EmailError> {
   );
 
   const EmailFormz.pure() : super.pure('');
-  const EmailFormz.dirty(String value) : super.dirty(value);
+  const EmailFormz.dirty(super.value) : super.dirty();
 
   String? errorMessage(AppLocalizations loc) {
     if (isValid || isPure) return null;

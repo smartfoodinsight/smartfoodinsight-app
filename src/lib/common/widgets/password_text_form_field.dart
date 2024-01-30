@@ -7,11 +7,11 @@ class PasswordTextFormField extends StatefulWidget {
   final void Function(String)? onChanged;
 
   const PasswordTextFormField({
-    Key? key,
+    super.key,
     required this.label,
     this.errorMessage,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<PasswordTextFormField> createState() => _PasswordTextFormFieldState();

@@ -4,7 +4,7 @@ import 'package:smartfoodinsight_app/features/products/qr_overlay.dart';
 
 class ScanPage extends StatefulWidget {
   final void Function(String? barcode) action;
-  const ScanPage({Key? key, required this.action}) : super(key: key);
+  const ScanPage({super.key, required this.action});
 
   @override
   State<ScanPage> createState() => _ScanPageState();

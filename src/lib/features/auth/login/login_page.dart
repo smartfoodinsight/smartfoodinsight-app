@@ -10,7 +10,7 @@ import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/features/auth/exceptions/auth_exceptions.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {

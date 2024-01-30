@@ -6,7 +6,7 @@ import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 
 class ProfilePage extends ConsumerWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
