@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,10 +22,10 @@ class ProfilePage extends ConsumerWidget {
             child: Column(
               children: [
                 ImageSelectionModal(
-                  child: const CircleAvatar(
+                  child: CircleAvatar(
                     radius: 70,
-                    backgroundImage: AssetImage('assets/images/foodwaste.png'),
-                    child: Stack(children: [
+                    backgroundImage: _selectImage(null),
+                    child: const Stack(children: [
                       Align(
                           alignment: Alignment.bottomRight,
                           child: CircleAvatar(
@@ -72,4 +74,12 @@ class ProfilePage extends ConsumerWidget {
       ),
     );
   }
+}
+
+ImageProvider<Object> _selectImage(String? image) {
+  return image != null
+      ? image.startsWith('http')
+          ? NetworkImage(image) as ImageProvider
+          : FileImage(File(image))
+      : const AssetImage('assets/images/foodwaste.png');
 }
