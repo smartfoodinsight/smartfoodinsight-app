@@ -13,10 +13,10 @@ export "package:smartfoodinsight_app/common/utils/app_settings.dart";
 class Helper {
   String fileCloudinary(String path) {
     if (path.startsWith('http')) return path;
-
     String ex = path.substring(path.lastIndexOf('.')).replaceFirst('.', '');
+    String mimeType = 'image/$ex';
     String fileB64 = filePathToBase64(path);
-    String fileCloudinary = 'data:image/$ex;$fileB64';
+    String fileCloudinary = 'data:$mimeType;$fileB64';
     return fileCloudinary;
   }
 
