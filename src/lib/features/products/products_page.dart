@@ -40,13 +40,23 @@ class _ShowProducts extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productsAsync = ref.watch(productsNotifierProvider);
+    final loc = ref.read(appLocalizationsProvider);
 
     return productsAsync.when(
         data: (products) {
           if (products.isEmpty) {
             return Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(context.loc.productsEmpty),
+              padding: const EdgeInsets.only(top: 10, left: 40, right: 40),
+              child: Column(children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(30.0),
+                    child: Image.asset('assets/images/foodscan.png',
+                        gaplessPlayback: true)),
+                const SizedBox(height: 16),
+                Text(loc.productsEmpty,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontWeight: FontWeight.bold))
+              ]),
             );
           } else {
             return ListView.builder(
@@ -73,6 +83,7 @@ class _CustomCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final productsNotifier = ref.read(productsNotifierProvider.notifier);
     final snackBarUtil = ref.read(snackbarUtilProvider);
+    final loc = ref.read(appLocalizationsProvider);
 
     return Dismissible(
       direction: DismissDirection.endToStart,
@@ -89,9 +100,7 @@ class _CustomCard extends ConsumerWidget {
       ),
       onDismissed: (direction) {
         productsNotifier.toggleProductAsync(product);
-        snackBarUtil.showActionMessage(
-            context.loc.deletedProduct,
-            context.loc.undo,
+        snackBarUtil.showActionMessage(loc.deletedProduct, loc.undo,
             () => productsNotifier.toggleProductAsync(product));
       },
       key: UniqueKey(),

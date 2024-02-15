@@ -59,7 +59,6 @@ class _FormLogin extends ConsumerWidget {
     final password = loginPageState.password;
     final isFormPosted = loginPageState.isFormPosted;
     final loginPageNotifier = ref.read(loginPageNotifierProvider.notifier);
-
     final loc = ref.read(appLocalizationsProvider);
 
     ref.listen(authNotifierProvider, (previous, next) {
@@ -75,14 +74,14 @@ class _FormLogin extends ConsumerWidget {
 
     return Column(children: [
       NormalTextFormField(
-        label: context.loc.email,
+        label: loc.email,
         icon: Icons.email,
         textInputType: TextInputType.emailAddress,
         onChanged: loginPageNotifier.onEmailChanged,
         errorMessage: isFormPosted ? email.errorMessage(loc) : null,
       ),
       PasswordTextFormField(
-          label: context.loc.password,
+          label: loc.password,
           onChanged: loginPageNotifier.onPasswordChanged,
           errorMessage: isFormPosted ? password.errorMessage(loc) : null),
       const _ForgotPasswordButton(),
@@ -93,7 +92,7 @@ class _FormLogin extends ConsumerWidget {
               : () => loginPageNotifier.onFormSubmit(),
           child: authState.isLoading
               ? const CircularProgressIndicator()
-              : Text(context.loc.login)),
+              : Text(loc.login)),
       const SizedBox(height: 16),
       const _DivederOr(),
       const _SocialButtons(),

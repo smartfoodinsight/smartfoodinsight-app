@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 import 'package:smartfoodinsight_app/services/services.dart';
@@ -56,13 +55,13 @@ class AddProductMyFridgePage extends ConsumerWidget {
                   ),
                   NormalTextFormField(
                       initValue: productFridge.name,
-                      label: context.loc.name,
+                      label: loc.name,
                       onChanged: addMyFridgeNotifier.onNameChanged,
                       icon: Icons.edit_document),
                   const SizedBox(height: 16),
                   DateTextFormField(
                     onChanged: addMyFridgeNotifier.onDateChanged,
-                    label: context.loc.useByDate,
+                    label: loc.useByDate,
                   )
                 ]),
               ));

@@ -77,6 +77,7 @@ class _ShowProducts extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productsFridge = ref.watch(myFridgeNotifierProvider);
+    final loc = ref.read(appLocalizationsProvider);
 
     return productsFridge.when(
         data: (productsFridge) {
@@ -89,7 +90,7 @@ class _ShowProducts extends ConsumerWidget {
                     child: Image.asset('assets/images/foodwaste.png',
                         gaplessPlayback: true)),
                 const SizedBox(height: 16),
-                Text(context.loc.myFridgeProducts,
+                Text(loc.myFridgeProducts,
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontWeight: FontWeight.bold))
               ]),

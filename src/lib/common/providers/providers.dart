@@ -1,3 +1,5 @@
+export 'package:smartfoodinsight_app/features/profile/profile_page_provider.dart';
+
 export 'package:smartfoodinsight_app/features/my_fridge/my_fridge_page_provider.dart';
 export 'package:smartfoodinsight_app/features/products/products_provider.dart';
 
