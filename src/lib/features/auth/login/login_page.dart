@@ -71,7 +71,7 @@ class _FormLogin extends ConsumerWidget {
       }
     });
 
-    final authSate = ref.watch(authNotifierProvider);
+    final authState = ref.watch(authNotifierProvider);
 
     return Column(children: [
       NormalTextFormField(
@@ -88,10 +88,10 @@ class _FormLogin extends ConsumerWidget {
       const _ForgotPasswordButton(),
       const SizedBox(height: 16),
       GeneralElevatedButton(
-          onPressed: authSate.isLoading
+          onPressed: authState.isLoading
               ? null
               : () => loginPageNotifier.onFormSubmit(),
-          child: authSate.isLoading
+          child: authState.isLoading
               ? const CircularProgressIndicator()
               : Text(context.loc.login)),
       const SizedBox(height: 16),

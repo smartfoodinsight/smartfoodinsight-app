@@ -6,5 +6,5 @@ part 'smartfoodinsight_api_service.provider.g.dart';
 
 @riverpod
 SmartFoodInsightApiService apiService(ApiServiceRef ref) {
-  return SmartFoodInsightApiService();
+  return SmartFoodInsightApiService(ref: ref);
 }

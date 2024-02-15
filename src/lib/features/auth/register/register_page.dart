@@ -77,7 +77,7 @@ class _FormRegister extends ConsumerWidget {
           loading: () {});
     });
 
-    final authSate = ref.watch(authNotifierProvider);
+    final authState = ref.watch(authNotifierProvider);
 
     return Column(
       children: [
@@ -99,10 +99,10 @@ class _FormRegister extends ConsumerWidget {
             errorMessage: isFormPosted ? password.errorMessage(loc) : null),
         const SizedBox(height: 16),
         GeneralElevatedButton(
-            onPressed: authSate.isLoading
+            onPressed: authState.isLoading
                 ? null
                 : () => registerPageNotifier.onFormSubmit(),
-            child: authSate.isLoading
+            child: authState.isLoading
                 ? const CircularProgressIndicator()
                 : Text(context.loc.signup))
       ],

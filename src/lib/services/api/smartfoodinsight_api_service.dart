@@ -1,20 +1,26 @@
 import 'package:dio/dio.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/features/auth/exceptions/auth_exceptions.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 import 'package:smartfoodinsight_app/services/services.dart';
+import 'package:smartfoodinsight_app/common/providers/providers.dart';
 
 class SmartFoodInsightApiService extends ISmartFoodIngishtService {
+  final ProviderRef ref;
+
   var options = Options(headers: {"requiresToken": false});
   final dio = Dio(BaseOptions(baseUrl: AppSettings.apiUrl));
 
-  SmartFoodInsightApiService() {
+  SmartFoodInsightApiService({required this.ref}) {
     dio.interceptors.add(
       InterceptorsWrapper(
-        onRequest: (options, handler) {
+        onRequest: (options, handler) async {
           // get access_token
-          options.headers['Authorization'] = 'Bearer your_access_token';
+          final user =
+              await ref.read(authNotifierProvider.notifier).userAsync();
+          options.headers['Authorization'] = 'bearer ${user?.accessToken}';
           return handler.next(options);
         },
         onError: (DioException e, handler) async {
@@ -22,8 +28,10 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
             if (e.response?.statusCode == 401 ||
                 e.response?.statusCode == 403) {
               // get referesh_token
-              //String newAccessToken = await refreshToken();
-              //e.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
+              final user =
+                  await ref.read(authNotifierProvider.notifier).userAsync();
+              e.requestOptions.headers['Authorization'] =
+                  'bearer ${user?.accessToken}';
               return handler.resolve(await dio.fetch(e.requestOptions));
             }
           }
@@ -34,11 +42,24 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
   }
 
   @override
+  Future<UserResponse> updateUserAsync(UserRequest userRequest) async {
+    try {
+      final userJson = userRequest.toJson();
+      final response = await dio.patch(AppSettings.apiUser, data: userJson);
+      final apiResponse = ApiUtils.parseData(
+          response.data, (json) => UserResponse.fromJson(json));
+      return apiResponse;
+    } catch (e) {
+      throw WrongCredentials();
+    }
+  }
+
+  @override
   Future<LoginResponse> loginAsync(LoginRequest loginRequest) async {
     try {
-      final json = loginRequest.toJson();
-      final response =
-          await dio.post(AppSettings.apiLogin, data: json, options: options);
+      final loginJson = loginRequest.toJson();
+      final response = await dio.post(AppSettings.apiLogin,
+          data: loginJson, options: options);
       final apiResponse = ApiUtils.parseData(
           response.data, (json) => LoginResponse.fromJson(json));
       return apiResponse;
@@ -50,8 +71,9 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
   @override
   Future<void> registerAsync(RegisterRequest registerRequest) async {
     try {
-      final json = registerRequest.toJson();
-      await dio.post(AppSettings.apiRegister, data: json, options: options);
+      final registerJson = registerRequest.toJson();
+      await dio.post(AppSettings.apiRegister,
+          data: registerJson, options: options);
     } catch (e) {
       throw WrongRegistration();
     }

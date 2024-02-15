@@ -18,20 +18,20 @@ class AuthNotifier extends _$AuthNotifier {
 
   Future<AuthState> _loginRecoveryAttempt() async {
     try {
-      final loginReponse = await _tokenAsync();
+      final loginReponse = await userAsync();
       if (loginReponse == null) return const AuthState();
 
       return AuthState(
           authStatus: AuthStatus.authenticated, loginResponse: loginReponse);
     } catch (_, __) {
-      await _clearTokenAsync();
+      await _clearUserAsync();
       return const AuthState();
     }
   }
 
   Future<void> logoutAsync() async {
     state = await AsyncValue.guard(() async {
-      await _clearTokenAsync();
+      await _clearUserAsync();
       return const AuthState();
     });
   }
@@ -52,7 +52,7 @@ class AuthNotifier extends _$AuthNotifier {
       final keyStorageService = ref.read(keyStorageServiceProvider);
       final response = await apiService.loginAsync(loginRequest);
       String json = jsonEncode(response.toJson());
-      await keyStorageService.setKeyValue(_sharedPrefsKey, json);
+      await keyStorageService.writeSecureData(_sharedPrefsKey, json);
       return AuthState(
           authStatus: AuthStatus.authenticated, loginResponse: response);
     });
@@ -62,23 +62,23 @@ class AuthNotifier extends _$AuthNotifier {
     ref.listenSelf((_, next) async {
       if (next.isLoading) return;
       if (next.hasError) {
-        await _clearTokenAsync();
+        await _clearUserAsync();
         return;
       }
     });
   }
 
-  Future<LoginResponse?> _tokenAsync() async {
+  Future<LoginResponse?> userAsync() async {
     final keyStorageService = ref.read(keyStorageServiceProvider);
-    String? json = await keyStorageService.getValue<String>(_sharedPrefsKey);
+    String? json = await keyStorageService.readSecureData(_sharedPrefsKey);
     if (json != null) {
       return LoginResponse.fromJson(jsonDecode(json));
     }
     return null;
   }
 
-  Future<void> _clearTokenAsync() async {
+  Future<void> _clearUserAsync() async {
     final keyStorageService = ref.read(keyStorageServiceProvider);
-    await keyStorageService.removeKey(_sharedPrefsKey);
+    await keyStorageService.deleteSecureData(_sharedPrefsKey);
   }
 }
