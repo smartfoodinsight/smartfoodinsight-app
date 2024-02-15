@@ -1,5 +1,9 @@
+import 'dart:io';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 
 export 'package:hexcolor/hexcolor.dart';
@@ -7,6 +11,21 @@ export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 export "package:smartfoodinsight_app/common/utils/app_settings.dart";
 
 class Helper {
+  String fileCloudinary(String path) {
+    if (path.startsWith('http')) return path;
+
+    String ex = path.substring(path.lastIndexOf('.')).replaceFirst('.', '');
+    String fileB64 = filePathToBase64(path);
+    String fileCloudinary = 'data:image/$ex;$fileB64';
+    return fileCloudinary;
+  }
+
+  String filePathToBase64(String path) {
+    final bytes = File(path).readAsBytesSync();
+    String img64 = base64Encode(bytes);
+    return img64;
+  }
+
   ExpirationResult calculateExpiration(
       String expirationDate, AppLocalizations loc) {
     int daysRemaining = _calculateDaysRemaining(expirationDate);

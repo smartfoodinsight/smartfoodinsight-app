@@ -1,6 +1,7 @@
 import 'package:formz/formz.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
+import 'package:smartfoodinsight_app/common/utils/utis.dart';
 
 import 'package:smartfoodinsight_app/common/validations/validations.dart';
 import 'package:smartfoodinsight_app/features/profile/forms/profile_state.dart';
@@ -47,11 +48,13 @@ class ProfilePageNotifier extends _$ProfilePageNotifier {
 
     if (!formsState.isValid) return;
 
+    String picture = Helper().fileCloudinary(formsState.picture!);
+
     var userRequest = UserRequest(
         id: id,
         name: formsState.name.value,
         email: formsState.email.value,
-        picture: formsState.picture);
+        picture: picture);
 
     final apiService = ref.read(apiServiceProvider);
     await apiService.updateUserAsync(userRequest);
