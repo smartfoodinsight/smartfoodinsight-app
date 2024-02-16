@@ -21,8 +21,7 @@ class AuthNotifier extends _$AuthNotifier {
       final loginReponse = await userAsync();
       if (loginReponse == null) return const AuthState();
 
-      return AuthState(
-          authStatus: AuthStatus.authenticated, loginResponse: loginReponse);
+      return const AuthState(authStatus: AuthStatus.authenticated);
     } catch (_, __) {
       await _clearUserAsync();
       return const AuthState();
@@ -49,12 +48,9 @@ class AuthNotifier extends _$AuthNotifier {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final apiService = ref.read(apiServiceProvider);
-      final keyStorageService = ref.read(keyStorageServiceProvider);
-      final response = await apiService.loginAsync(loginRequest);
-      String json = jsonEncode(response.toJson());
-      await keyStorageService.writeSecureData(_sharedPrefsKey, json);
-      return AuthState(
-          authStatus: AuthStatus.authenticated, loginResponse: response);
+      final loginResponse = await apiService.loginAsync(loginRequest);
+      await saveUserAsync(loginResponse);
+      return const AuthState(authStatus: AuthStatus.authenticated);
     });
   }
 
@@ -75,6 +71,12 @@ class AuthNotifier extends _$AuthNotifier {
       return LoginResponse.fromJson(jsonDecode(json));
     }
     return null;
+  }
+
+  Future<void> saveUserAsync(LoginResponse loginResponse) async {
+    final keyStorageService = ref.read(keyStorageServiceProvider);
+    String json = jsonEncode(loginResponse.toJson());
+    await keyStorageService.writeSecureData(_sharedPrefsKey, json);
   }
 
   Future<void> _clearUserAsync() async {

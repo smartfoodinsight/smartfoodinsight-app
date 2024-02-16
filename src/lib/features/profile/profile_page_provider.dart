@@ -11,12 +11,14 @@ part 'profile_page_provider.g.dart';
 
 @riverpod
 class ProfilePageNotifier extends _$ProfilePageNotifier {
+  late LoginResponse loginResponse;
+
   @override
   FutureOr<ProfileFormsState> build() async {
-    final loginResponse =
-        await ref.read(authNotifierProvider.notifier).userAsync();
+    loginResponse = await ref.read(authNotifierProvider.notifier).userAsync()
+        as LoginResponse;
 
-    final id = loginResponse!.user.id;
+    final id = loginResponse.user.id;
     final name = TextFormz.dirty(loginResponse.user.name);
     final email = EmailFormz.dirty(loginResponse.user.email);
     final picture = loginResponse.user.picture;
@@ -56,8 +58,13 @@ class ProfilePageNotifier extends _$ProfilePageNotifier {
         email: formsState.email.value,
         picture: picture);
 
-    final apiService = ref.read(apiServiceProvider);
-    await apiService.updateUserAsync(userRequest);
+    final userResponse =
+        await ref.read(apiServiceProvider).updateUserAsync(userRequest);
+    final newLoginResponse = loginResponse.copyWith(user: userResponse);
+
+    await ref
+        .read(authNotifierProvider.notifier)
+        .saveUserAsync(newLoginResponse);
   }
 
   void _touchEveryField() {
