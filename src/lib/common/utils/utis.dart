@@ -16,7 +16,7 @@ class Helper {
     String ex = path.substring(path.lastIndexOf('.')).replaceFirst('.', '');
     String mimeType = 'image/$ex';
     String fileB64 = filePathToBase64(path);
-    String fileCloudinary = 'data:$mimeType;$fileB64';
+    String fileCloudinary = 'data:$mimeType;base64,$fileB64';
     return fileCloudinary;
   }
 
