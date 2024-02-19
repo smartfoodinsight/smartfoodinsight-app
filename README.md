@@ -1,6 +1,12 @@
 # Smart Food Insight
 
-A new Flutter project.
+Transforma la gestión de tu despensa en una experiencia inteligente y conveniente, asegurándote de que nunca más olvides una fecha de caducidad. Mediante la configuración de recordatorios personalizados, recibirás notificaciones oportunas cuando los alimentos estén próximos a vencer, lo que te permite planificar tus comidas de manera más eficiente y reducir el desperdicio.
+
+Además, te ofrece la capacidad de acceder rápidamente a información nutricional detallada de cada artículo mediante el escaneo de sus códigos QR. Con solo unos pocos toques en la pantalla, podrás conocer los valores nutricionales, ingredientes y recomendaciones de consumo, lo que te ayuda a tomar decisiones más informadas y saludables para ti y tu familia.
+
+Pero eso no es todo. También te permite comparar precios de alimentos en diferentes supermercados, brindándote la oportunidad de encontrar las mejores ofertas y ahorrar dinero en tus compras. Esta función te ayuda a optimizar tu presupuesto familiar y aprovechar al máximo cada visita al supermercado.
+
+En resumen, Smart Food Insight simplifica tu vida diaria al proporcionarte una herramienta todo en uno para gestionar tu despensa de manera eficiente, tomar decisiones más saludables y ahorrar dinero. Ya no tendrás que preocuparte por desperdiciar alimentos o gastar de más en el supermercado. ¡Descarga Smart Food Insight ahora y descubre cómo puede transformar tu experiencia en la cocina!"
 
 # Architecture
 The application has a clean and tidy architecture, applying the best practices, and pattern feature-oriented.
