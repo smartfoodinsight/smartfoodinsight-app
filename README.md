@@ -6,7 +6,7 @@ Además, te ofrece la capacidad de acceder rápidamente a información nutricion
 
 Pero eso no es todo. También te permite comparar precios de alimentos en diferentes supermercados, brindándote la oportunidad de encontrar las mejores ofertas y ahorrar dinero en tus compras. Esta función te ayuda a optimizar tu presupuesto familiar y aprovechar al máximo cada visita al supermercado.
 
-En resumen, **Smart Food Insight** simplifica tu vida diaria al proporcionarte una herramienta todo en uno para gestionar tu despensa de manera eficiente, tomar decisiones más saludables y ahorrar dinero. Ya no tendrás que preocuparte por desperdiciar alimentos o gastar de más en el supermercado. ¡Descarga Smart Food Insight ahora y descubre cómo puede transformar tu experiencia en la cocina!
+En resumen, **Smart Food Insight** simplifica tu vida diaria al proporcionarte una herramienta todo en uno para gestionar tu despensa de manera eficiente, tomar decisiones más saludables y ahorrar dinero. Ya no tendrás que preocuparte por desperdiciar alimentos o gastar de más en el supermercado. ¡Descarga **Smart Food Insight** ahora y descubre cómo puede transformar tu experiencia en la cocina!
 
 # Architecture
 The application has a clean and tidy architecture, applying the best practices, and pattern feature-oriented.
