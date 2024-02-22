@@ -10,6 +10,7 @@ class AppSettings {
 
   static const String apiUser = "/api/user";
 
+  static const String apiToken = "/api/auth/token";
   static const String apiRegister = "/api/auth/register";
   static const String apiLogin = "/api/auth/login";
 

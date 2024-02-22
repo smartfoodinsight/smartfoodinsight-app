@@ -13,14 +13,19 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
   var options = Options(headers: {"requiresToken": false});
   final dio = Dio(BaseOptions(baseUrl: AppSettings.apiUrl));
 
+  bool isLogin(RequestOptions options) {
+    return options.path == '/api/auth/login';
+  }
+
   SmartFoodInsightApiService({required this.ref}) {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           // get access_token
-          final user =
+          final loginResponse =
               await ref.read(authNotifierProvider.notifier).userAsync();
-          options.headers['Authorization'] = 'bearer ${user?.accessToken}';
+          options.headers['Authorization'] =
+              'bearer ${loginResponse?.accessToken}';
           return handler.next(options);
         },
         onError: (DioException e, handler) async {
@@ -28,10 +33,23 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
             if (e.response?.statusCode == 401 ||
                 e.response?.statusCode == 403) {
               // get referesh_token
-              final user =
+              final loginResponse =
                   await ref.read(authNotifierProvider.notifier).userAsync();
+
+              final tokenResponse = await tokenAsync(TokenRequest(
+                  id: loginResponse!.user.id,
+                  token: loginResponse.refreshToken));
+
+              final newLoginResponse = loginResponse.copyWith(
+                  accessToken: tokenResponse.accessToken,
+                  refreshToken: tokenResponse.refreshToken);
+
+              await ref
+                  .read(authNotifierProvider.notifier)
+                  .saveUserAsync(newLoginResponse);
+
               e.requestOptions.headers['Authorization'] =
-                  'bearer ${user?.accessToken}';
+                  'bearer ${tokenResponse.accessToken}';
               return handler.resolve(await dio.fetch(e.requestOptions));
             }
           }
@@ -79,7 +97,17 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
     }
   }
 
-  bool isLogin(RequestOptions options) {
-    return options.path == '/api/auth/login';
+  @override
+  Future<TokenResponse> tokenAsync(TokenRequest tokenRequest) async {
+    try {
+      final tokenJson = tokenRequest.toJson();
+      final response = await dio.post(AppSettings.apiToken,
+          data: tokenJson, options: options);
+      final apiResponse = ApiUtils.parseData(
+          response.data, (json) => TokenResponse.fromJson(json));
+      return apiResponse;
+    } catch (e) {
+      throw WrongCredentials();
+    }
   }
 }
