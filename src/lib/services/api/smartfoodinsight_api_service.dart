@@ -21,7 +21,6 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          // get access_token
           final loginResponse =
               await ref.read(authNotifierProvider.notifier).userAsync();
           options.headers['Authorization'] =
@@ -32,7 +31,6 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
           if (!isLogin(e.requestOptions)) {
             if (e.response?.statusCode == 401 ||
                 e.response?.statusCode == 403) {
-              // get referesh_token
               final loginResponse =
                   await ref.read(authNotifierProvider.notifier).userAsync();
 
@@ -48,8 +46,6 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
                   .read(authNotifierProvider.notifier)
                   .saveUserAsync(newLoginResponse);
 
-              e.requestOptions.headers['Authorization'] =
-                  'bearer ${tokenResponse.accessToken}';
               return handler.resolve(await dio.fetch(e.requestOptions));
             }
           }
@@ -105,6 +101,27 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
           data: tokenJson, options: options);
       final apiResponse = ApiUtils.parseData(
           response.data, (json) => TokenResponse.fromJson(json));
+      return apiResponse;
+    } catch (e) {
+      throw WrongCredentials();
+    }
+  }
+
+  @override
+  Future<List<SupermarketProductResponse>> supermarketsAsync(
+      SupermarketRequest supermarketRequest) async {
+    try {
+      final supermarketJson = supermarketRequest.toJson();
+      final response = await dio.post(AppSettings.apiSupermarketFinder,
+          data: supermarketJson);
+
+      var apiResponse = ApiUtils.parseData(response.data, (json) {
+        final myList = json as List;
+        return myList
+            .map((item) => SupermarketProductResponse.fromJson(item))
+            .toList();
+      });
+
       return apiResponse;
     } catch (e) {
       throw WrongCredentials();

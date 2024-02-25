@@ -8,6 +8,8 @@ class AppSettings {
   //API
   static const String apiUrl = "https://smartfoodinsight.onrender.com";
 
+  static const String apiSupermarketFinder = "/api/supermarket/finder";
+
   static const String apiUser = "/api/user";
 
   static const String apiToken = "/api/auth/token";

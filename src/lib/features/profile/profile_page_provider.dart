@@ -60,7 +60,11 @@ class ProfilePageNotifier extends _$ProfilePageNotifier {
 
     final userResponse =
         await ref.read(apiServiceProvider).updateUserAsync(userRequest);
-    final newLoginResponse = loginResponse.copyWith(user: userResponse);
+
+    final loginResponse =
+        await ref.read(authNotifierProvider.notifier).userAsync();
+
+    var newLoginResponse = loginResponse!.copyWith(user: userResponse);
 
     await ref
         .read(authNotifierProvider.notifier)

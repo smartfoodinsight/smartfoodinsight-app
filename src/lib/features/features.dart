@@ -1,6 +1,6 @@
 export 'package:smartfoodinsight_app/features/profile/profile_page.dart';
 
-export 'package:smartfoodinsight_app/features/price_comparison/price_comparison_page.dart';
+export 'package:smartfoodinsight_app/features/supermarket_finder/supermarket_finder_page.dart';
 
 export 'package:smartfoodinsight_app/features/my_fridge/add_product_my_fridge_page.dart';
 export 'package:smartfoodinsight_app/features/my_fridge/my_fridge_page.dart';

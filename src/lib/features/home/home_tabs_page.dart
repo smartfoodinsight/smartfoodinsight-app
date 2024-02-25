@@ -35,7 +35,7 @@ class _HomeTabsState extends State<HomeTabsPage> {
   }
 
   final pages = const [
-    KeepAlivePage(PriceComparisonPage()),
+    KeepAlivePage(SuperMarketFinderPage()),
     KeepAlivePage(ProductsPage()),
     KeepAlivePage(MyFridgePage()),
     KeepAlivePage(ProfilePage()),
