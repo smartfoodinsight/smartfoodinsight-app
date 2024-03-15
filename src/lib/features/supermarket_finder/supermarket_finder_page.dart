@@ -162,6 +162,14 @@ class SearchBarState extends ConsumerState<_SearchBar> {
             .superMarketFinderAsync([1], value),
         leading: const Icon(Icons.search),
         trailing: [
+          IconButton(
+              icon: const Icon(Icons.shopping_bag),
+              onPressed: () async {
+                textEditingController.clear();
+                await ref
+                    .read(superMarketFinderNotifierProvider.notifier)
+                    .clearAsync();
+              }),
           if (showClearButton)
             IconButton(
                 icon: const Icon(Icons.clear),
