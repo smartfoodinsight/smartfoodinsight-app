@@ -158,7 +158,6 @@ class SearchBarState extends ConsumerState<_SearchBar> {
   @override
   Widget build(BuildContext context) {
     final marketsAsync = ref.watch(supermarketsProvider);
-    List<int> selectedMarkets = [];
 
     return marketsAsync.when(
         data: (superMarkets) {
@@ -167,15 +166,20 @@ class SearchBarState extends ConsumerState<_SearchBar> {
           } else {
             return SearchBar(
                 controller: textEditingController,
-                onSubmitted: (value) => ref
-                    .read(superMarketFinderNotifierProvider.notifier)
-                    .superMarketFinderAsync([1], value),
+                onSubmitted: (value) {
+                  final supermarkets = ref
+                      .read(superMarketsFilterNotifierProvider.notifier)
+                      .selectedSupermarkets();
+                  ref
+                      .read(superMarketFinderNotifierProvider.notifier)
+                      .superMarketFinderAsync(supermarkets, value);
+                },
                 leading: const Icon(Icons.search),
                 trailing: [
                   IconButton(
                       icon: const Icon(Icons.shopping_bag),
                       onPressed: () {
-                        _showMarketsFilter(superMarkets, selectedMarkets);
+                        _showMarketsFilter(superMarkets);
                       }),
                   if (showClearButton)
                     IconButton(
@@ -193,28 +197,14 @@ class SearchBarState extends ConsumerState<_SearchBar> {
         loading: () => const CircularProgressIndicator());
   }
 
-  void _showMarketsFilter(
-      List<SupermarketResponse> markets, List<int> seletedMarkets) {
+  void _showMarketsFilter(List<SupermarketResponse> superMarkets) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text(context.loc.supermarkets),
           content: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: markets.map((market) {
-                return ListTileTheme(
-                  horizontalTitleGap: 0,
-                  child: CheckboxListTile(
-                    title: Text(market.name),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    value: seletedMarkets.contains(market.id),
-                    onChanged: (bool? value) {},
-                  ),
-                );
-              }).toList(),
-            ),
+            child: SupermarketsFilter(superMarkets: superMarkets),
           ),
           actions: [
             TextButton(
@@ -226,6 +216,35 @@ class SearchBarState extends ConsumerState<_SearchBar> {
           ],
         );
       },
+    );
+  }
+}
+
+class SupermarketsFilter extends ConsumerWidget {
+  const SupermarketsFilter({super.key, required this.superMarkets});
+
+  final List<SupermarketResponse> superMarkets;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedMarkets = ref.watch(superMarketsFilterNotifierProvider);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: superMarkets.map((market) {
+        return ListTileTheme(
+          horizontalTitleGap: 0,
+          child: CheckboxListTile(
+            title: Text(market.name),
+            controlAffinity: ListTileControlAffinity.leading,
+            value: selectedMarkets.contains(market.id),
+            onChanged: (bool? value) {
+              ref
+                  .read(superMarketsFilterNotifierProvider.notifier)
+                  .toggleSupermarket(market.id);
+            },
+          ),
+        );
+      }).toList(),
     );
   }
 }

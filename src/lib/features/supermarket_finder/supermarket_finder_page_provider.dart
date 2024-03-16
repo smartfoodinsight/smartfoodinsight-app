@@ -5,6 +5,29 @@ import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
 part 'supermarket_finder_page_provider.g.dart';
 
+@Riverpod(keepAlive: true)
+class SuperMarketsFilterNotifier extends _$SuperMarketsFilterNotifier {
+  final List<int> _selectedSupermarkets = [];
+
+  @override
+  List<int> build() {
+    return _selectedSupermarkets;
+  }
+
+  List<int> selectedSupermarkets() {
+    return _selectedSupermarkets;
+  }
+
+  void toggleSupermarket(int supermarket) {
+    if (_selectedSupermarkets.contains(supermarket)) {
+      _selectedSupermarkets.remove(supermarket);
+    } else {
+      _selectedSupermarkets.add(supermarket);
+    }
+    state = [..._selectedSupermarkets];
+  }
+}
+
 @riverpod
 class SuperMarketFinderNotifier extends _$SuperMarketFinderNotifier {
   @override
