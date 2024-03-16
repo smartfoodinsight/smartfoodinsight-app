@@ -1,4 +1,5 @@
 export 'package:smartfoodinsight_app/services/api/dto/supermarket_finder/response/supermarket_response.dart';
+export 'package:smartfoodinsight_app/services/api/dto/supermarket_finder/response/supermarket_product_response.dart';
 export 'package:smartfoodinsight_app/services/api/dto/supermarket_finder/request/supermarket_request.dart';
 
 export 'package:smartfoodinsight_app/services/api/dto/user/response/user_response.dart';

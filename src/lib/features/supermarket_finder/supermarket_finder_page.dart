@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smartfoodinsight_app/common/extensions/app_localizations_extension.dart';
+import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/features/supermarket_finder/supermarket_finder_page_provider.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
@@ -30,7 +32,7 @@ class _SupermarketProducts extends ConsumerWidget {
     return marketsAsync.when(
         data: (superMarkets) {
           if (superMarkets.isEmpty) {
-            return const Placeholder();
+            return Container();
           } else {
             return Expanded(
               child: GridView.builder(
@@ -55,12 +57,12 @@ class _SupermarketProducts extends ConsumerWidget {
   }
 }
 
-class _CustomProduct extends ConsumerWidget {
+class _CustomProduct extends StatelessWidget {
   final SupermarketProductResponse product;
   const _CustomProduct(this.product);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async => {
         await context.push('${AppSettings.productDetails}${product.ean13}'),
@@ -155,30 +157,75 @@ class SearchBarState extends ConsumerState<_SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SearchBar(
-        controller: textEditingController,
-        onSubmitted: (value) => ref
-            .read(superMarketFinderNotifierProvider.notifier)
-            .superMarketFinderAsync([1], value),
-        leading: const Icon(Icons.search),
-        trailing: [
-          IconButton(
-              icon: const Icon(Icons.shopping_bag),
-              onPressed: () async {
-                textEditingController.clear();
-                await ref
+    final marketsAsync = ref.watch(supermarketsProvider);
+    List<int> selectedMarkets = [];
+
+    return marketsAsync.when(
+        data: (superMarkets) {
+          if (superMarkets.isEmpty) {
+            return const Text('Error');
+          } else {
+            return SearchBar(
+                controller: textEditingController,
+                onSubmitted: (value) => ref
                     .read(superMarketFinderNotifierProvider.notifier)
-                    .clearAsync();
-              }),
-          if (showClearButton)
-            IconButton(
-                icon: const Icon(Icons.clear),
-                onPressed: () async {
-                  textEditingController.clear();
-                  await ref
-                      .read(superMarketFinderNotifierProvider.notifier)
-                      .clearAsync();
-                }),
-        ]);
+                    .superMarketFinderAsync([1], value),
+                leading: const Icon(Icons.search),
+                trailing: [
+                  IconButton(
+                      icon: const Icon(Icons.shopping_bag),
+                      onPressed: () {
+                        _showMarketsFilter(superMarkets, selectedMarkets);
+                      }),
+                  if (showClearButton)
+                    IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: () async {
+                          textEditingController.clear();
+                          await ref
+                              .read(superMarketFinderNotifierProvider.notifier)
+                              .clearAsync();
+                        }),
+                ]);
+          }
+        },
+        error: (error, stackTrace) => const Text('error'),
+        loading: () => const CircularProgressIndicator());
+  }
+
+  void _showMarketsFilter(
+      List<SupermarketResponse> markets, List<int> seletedMarkets) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(context.loc.supermarkets),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: markets.map((market) {
+                return ListTileTheme(
+                  horizontalTitleGap: 0,
+                  child: CheckboxListTile(
+                    title: Text(market.name),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    value: seletedMarkets.contains(market.id),
+                    onChanged: (bool? value) {},
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

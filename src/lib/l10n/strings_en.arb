@@ -1,4 +1,9 @@
 {
+  "supermarkets": "Supermarkets",
+  "@save": {
+    "type": "text",
+    "description": "Supermarkets"
+  },
   "save": "Save",
   "@save": {
     "type": "text",

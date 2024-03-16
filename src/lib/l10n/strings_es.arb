@@ -1,4 +1,5 @@
 {  
+    "supermarkets": "Supermercados",
     "save": "Guardar",
     "deleteAccount": "Eliminar cuenta",
     "theProductExpired": "¡Atención! este producto ha caducado, cuidado al consumirlo",

@@ -4,17 +4,12 @@ part 'supermarket_response.freezed.dart';
 part 'supermarket_response.g.dart';
 
 @freezed
-class SupermarketProductResponse with _$SupermarketProductResponse {
-  const factory SupermarketProductResponse({
+class SupermarketResponse with _$SupermarketResponse {
+  const factory SupermarketResponse({
     required int id,
-    required String market,
     required String name,
-    required String ean13,
-    required String image,
-    required String price,
-    required String priceUnit,
-  }) = _SupermarketProductResponse;
+  }) = _SupermarketResponse;
 
-  factory SupermarketProductResponse.fromJson(Map<String, Object?> json) =>
-      _$SupermarketProductResponseFromJson(json);
+  factory SupermarketResponse.fromJson(Map<String, Object?> json) =>
+      _$SupermarketResponseFromJson(json);
 }

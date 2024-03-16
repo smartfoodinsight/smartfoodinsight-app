@@ -108,7 +108,7 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
   }
 
   @override
-  Future<List<SupermarketProductResponse>> supermarketsAsync(
+  Future<List<SupermarketProductResponse>> supermarketsProductsAsync(
       SupermarketRequest supermarketRequest) async {
     try {
       final supermarketJson = supermarketRequest.toJson();
@@ -119,6 +119,24 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
         final myList = json as List;
         return myList
             .map((item) => SupermarketProductResponse.fromJson(item))
+            .toList();
+      });
+
+      return apiResponse;
+    } catch (e) {
+      throw WrongCredentials();
+    }
+  }
+
+  @override
+  Future<List<SupermarketResponse>> supermarketsAsync() async {
+    try {
+      final response = await dio.get(AppSettings.apiSupermarket);
+
+      var apiResponse = ApiUtils.parseData(response.data, (json) {
+        final myList = json as List;
+        return myList
+            .map((item) => SupermarketResponse.fromJson(item))
             .toList();
       });
 
