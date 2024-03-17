@@ -58,8 +58,9 @@ class _SupermarketProducts extends ConsumerWidget {
 }
 
 class _CustomProduct extends StatelessWidget {
-  final SupermarketProductResponse product;
   const _CustomProduct(this.product);
+
+  final SupermarketProductResponse product;
 
   @override
   Widget build(BuildContext context) {
@@ -204,7 +205,7 @@ class SearchBarState extends ConsumerState<_SearchBar> {
         return AlertDialog(
           title: Text(context.loc.supermarkets),
           content: SingleChildScrollView(
-            child: SupermarketsFilter(superMarkets: superMarkets),
+            child: _SupermarketsFilter(superMarkets),
           ),
           actions: [
             TextButton(
@@ -220,8 +221,8 @@ class SearchBarState extends ConsumerState<_SearchBar> {
   }
 }
 
-class SupermarketsFilter extends ConsumerWidget {
-  const SupermarketsFilter({super.key, required this.superMarkets});
+class _SupermarketsFilter extends ConsumerWidget {
+  const _SupermarketsFilter(this.superMarkets);
 
   final List<SupermarketResponse> superMarkets;
 
@@ -231,19 +232,14 @@ class SupermarketsFilter extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: superMarkets.map((market) {
-        return ListTileTheme(
-          horizontalTitleGap: 0,
-          child: CheckboxListTile(
+        return CheckboxListTile(
             title: Text(market.name),
-            controlAffinity: ListTileControlAffinity.leading,
             value: selectedMarkets.contains(market.id),
             onChanged: (bool? value) {
               ref
                   .read(superMarketsFilterNotifierProvider.notifier)
                   .toggleSupermarket(market.id);
-            },
-          ),
-        );
+            });
       }).toList(),
     );
   }
