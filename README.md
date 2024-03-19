@@ -14,6 +14,9 @@ En resumen, **Smart Food Insight** simplifica tu vida diaria al proporcionarte u
 # Architecture
 The application has a clean and tidy architecture, applying the best practices, and pattern feature-oriented.
 
+# Open Food Facts API
+[Open Food Facts](https://world.openfoodfacts.org/data)
+
 # Tools used
 * [Flutter](https://flutter.dev/)
 * [Riverpod](https://pub.dev/packages/riverpod)
@@ -34,3 +37,4 @@ The application has a clean and tidy architecture, applying the best practices, 
 * [Flutter secure storage](https://pub.dev/packages/flutter_secure_storage)
 * [Flutter time zone](https://pub.dev/packages/flutter_timezone)
 * [Flutter svg](https://pub.dev/packages/flutter_svg)
+* [Open Food Facts](https://pub.dev/packages/openfoodfacts)
