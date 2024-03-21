@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:smartfoodinsight_app/common/extensions/app_localizations_extension.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
+import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 import 'package:smartfoodinsight_app/features/supermarket_finder/supermarket_finder_page_provider.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
@@ -52,8 +53,9 @@ class _SupermarketProducts extends ConsumerWidget {
             );
           }
         },
-        error: (error, stackTrace) => const Text('error'),
-        loading: () => const CircularProgressIndicator());
+        error: (error, stackTrace) => ErrorPage(
+            onPressed: () => ref.invalidate(superMarketFinderNotifierProvider)),
+        loading: () => const ProductsMarketLoading());
   }
 }
 
@@ -194,7 +196,8 @@ class SearchBarState extends ConsumerState<_SearchBar> {
                 ]);
           }
         },
-        error: (error, stackTrace) => const Text('error'),
+        error: (error, stackTrace) =>
+            ErrorPage(onPressed: () => ref.invalidate(supermarketsProvider)),
         loading: () => const CircularProgressIndicator());
   }
 

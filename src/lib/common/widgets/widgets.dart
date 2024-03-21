@@ -1,3 +1,4 @@
+export 'package:smartfoodinsight_app/common/widgets/error_page.dart';
 export 'package:smartfoodinsight_app/common/widgets/image_selection_modal.dart';
 export 'package:smartfoodinsight_app/common/widgets/products_loading.dart';
 export 'package:smartfoodinsight_app/common/widgets/keep_alive_page.dart';

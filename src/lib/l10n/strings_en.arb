@@ -1,6 +1,11 @@
 {
+  "tryagain": "Try again",
+  "@tryagain": {
+    "type": "text",
+    "description": "Try again"
+  },
   "supermarkets": "Supermarkets",
-  "@save": {
+  "@supermarkets": {
     "type": "text",
     "description": "Supermarkets"
   },
