@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smartfoodinsight_app/features/products/products_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
@@ -149,24 +150,17 @@ class _CustomIconTitle extends StatelessWidget {
   }
 }
 
-class _CustomSliverAppBar extends ConsumerWidget {
+class _CustomSliverAppBar extends StatelessWidget {
   final ProductDetail product;
 
   const _CustomSliverAppBar({required this.product});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    final productsNotifier = ref.read(productsNotifierProvider.notifier);
-
     return SliverAppBar(
-      actions: [
-        IconButton(
-            onPressed: () async =>
-                await productsNotifier.toggleProductAsync(product),
-            icon: const Icon(Icons.favorite_border))
-      ],
+      actions: [_FavoriteButton(product: product)],
       backgroundColor: Colors.black,
       expandedHeight: size.height * 0.5,
       foregroundColor: Colors.white,
@@ -203,6 +197,32 @@ class _CustomSliverAppBar extends ConsumerWidget {
         ]),
       ),
     );
+  }
+}
+
+class _FavoriteButton extends ConsumerWidget {
+  const _FavoriteButton({
+    required this.product,
+  });
+
+  final ProductDetail product;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final productsNotifier = ref.read(productsNotifierProvider.notifier);
+    final isFavorite = ref.watch(isFavoriteProductProvider(product.barCode));
+
+    return IconButton(
+        onPressed: () async => {
+              await productsNotifier.toggleProductAsync(product),
+              ref.invalidate(isFavoriteProductProvider(product.barCode))
+            },
+        icon: isFavorite.when(
+            data: (isFavorite) => isFavorite
+                ? const Icon(Icons.favorite_rounded, color: Colors.red)
+                : const Icon(Icons.favorite_border),
+            error: (_, __) => throw UnimplementedError(),
+            loading: () => const CircularProgressIndicator(strokeWidth: 2)));
   }
 }
 
