@@ -11,6 +11,7 @@ class AppSettings {
   static const String apiSupermarket = "/api/supermarket";
   static const String apiSupermarketFinder = "/api/supermarket/finder";
 
+  static const String apiUserEmail = "/api/user/resetEmailPass";
   static const String apiUser = "/api/user";
 
   static const String apiToken = "/api/auth/token";

@@ -4,9 +4,40 @@ import 'package:formz/formz.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/validations/validations.dart';
 import 'package:smartfoodinsight_app/features/auth/forms/auth_forms_state.dart';
+import 'package:smartfoodinsight_app/features/auth/forms/reset_password_forms_state.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
 part 'login_page_provider.g.dart';
+
+@riverpod
+class ResetPasswordNotifier extends _$ResetPasswordNotifier {
+  @override
+  ResetPassowrdFormsState build() {
+    return const ResetPassowrdFormsState();
+  }
+
+  void onEmailChanged(String value) {
+    final email = EmailFormz.dirty(value);
+    state = state.copyWith(email: email, isValid: Formz.validate([email]));
+  }
+
+  Future<bool> onFormSubmitAsync() async {
+    final email = EmailFormz.dirty(state.email.value);
+
+    state = state.copyWith(
+        isFormPosted: true, email: email, isValid: Formz.validate([email]));
+
+    if (!state.isValid) return false;
+
+    state = state.copyWith(isLoading: true);
+
+    var userEmailRequest = UserEmailRequest(email: state.email.value);
+    await ref.read(apiServiceProvider).resetPasswordAsync(userEmailRequest);
+
+    state = state.copyWith(isLoading: false);
+    return true;
+  }
+}
 
 @riverpod
 class LoginPageNotifier extends _$LoginPageNotifier {

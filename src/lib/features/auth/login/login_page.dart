@@ -166,26 +166,64 @@ class _ForgotPasswordButton extends StatelessWidget {
         builder: (BuildContext context) {
           return Padding(
             padding: MediaQuery.viewInsetsOf(context),
-            child: SizedBox(
+            child: const SizedBox(
                 height: 250,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
-                  child: Column(
-                    children: [
-                      Text(context.loc.passwordEmail),
-                      const SizedBox(height: 16),
-                      NormalTextFormField(
-                          label: context.loc.email, icon: Icons.email),
-                      const SizedBox(height: 16),
-                      GeneralElevatedButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text(context.loc.send))
-                    ],
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 30, horizontal: 16),
+                    child: _ResetPassword(),
                   ),
                 )),
           );
         });
+  }
+}
+
+class _ResetPassword extends ConsumerWidget {
+  const _ResetPassword();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final resetPasswordFormsState = ref.watch(resetPasswordNotifierProvider);
+
+    final email = resetPasswordFormsState.email;
+    final isFormPosted = resetPasswordFormsState.isFormPosted;
+    final isLoading = resetPasswordFormsState.isLoading;
+
+    final resetPasswordNotifier =
+        ref.read(resetPasswordNotifierProvider.notifier);
+    final loc = ref.read(appLocalizationsProvider);
+
+    return Column(
+      children: [
+        Text(context.loc.passwordEmail),
+        const SizedBox(height: 16),
+        NormalTextFormField(
+            label: context.loc.email,
+            icon: Icons.email,
+            textInputType: TextInputType.emailAddress,
+            onChanged: resetPasswordNotifier.onEmailChanged,
+            errorMessage: isFormPosted ? email.errorMessage(loc) : null),
+        const SizedBox(height: 16),
+        GeneralElevatedButton(
+            onPressed: isLoading
+                ? null
+                : () async {
+                    final result =
+                        await resetPasswordNotifier.onFormSubmitAsync();
+
+                    if (context.mounted && result) {
+                      ref
+                          .read(snackbarUtilProvider)
+                          .showSuccessMessage(loc.registerSucess);
+                      context.pop();
+                    }
+                  },
+            child: isLoading
+                ? const CircularProgressIndicator()
+                : Text(context.loc.send)),
+      ],
+    );
   }
 }
 

@@ -6,6 +6,7 @@ abstract class ISmartFoodIngishtService {
       SupermarketRequest supermarketRequest);
   Future<TokenResponse> tokenAsync(TokenRequest tokenRequest);
   Future<UserResponse> updateUserAsync(UserRequest userRequest);
+  Future<void> resetPasswordAsync(UserEmailRequest userEmailRequest);
   Future<void> registerAsync(RegisterRequest registerRequest);
   Future<LoginResponse> loginAsync(LoginRequest loginRequest);
 }

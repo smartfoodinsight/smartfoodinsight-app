@@ -56,6 +56,17 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
   }
 
   @override
+  Future<void> resetPasswordAsync(UserEmailRequest userEmailRequest) async {
+    try {
+      final userEmailJson = userEmailRequest.toJson();
+      await dio.post(AppSettings.apiUserEmail,
+          data: userEmailJson, options: options);
+    } catch (e) {
+      throw WrongRegistration();
+    }
+  }
+
+  @override
   Future<UserResponse> updateUserAsync(UserRequest userRequest) async {
     try {
       final userJson = userRequest.toJson();
