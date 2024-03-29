@@ -33,7 +33,7 @@ class ProductsNotifier extends _$ProductsNotifier {
 
   Future<List<ProductDetail>> _productsAsync() async {
     final keyStorageService = ref.read(keyStorageServiceProvider);
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     final products =
         await keyStorageService.loadProductsAsync(offset: page * 10);
     page++;

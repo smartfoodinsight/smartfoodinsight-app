@@ -33,7 +33,7 @@ class MyFridgeNotifier extends _$MyFridgeNotifier {
 
   Future<List<ProductFridge>> _productsFridgeAsync() async {
     final keyStorageService = ref.read(keyStorageServiceProvider);
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     final productsFridge =
         await keyStorageService.loadProductsFridgeAsync(offset: page * 10);
     page++;
