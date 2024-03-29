@@ -227,29 +227,19 @@ class SearchBarState extends ConsumerState<_SearchBar> {
   }
 }
 
-class _SortProductsButton extends ConsumerStatefulWidget {
+class _SortProductsButton extends ConsumerWidget {
   const _SortProductsButton();
 
   @override
-  SortProductsButtonState createState() => SortProductsButtonState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedSortProducts = ref.watch(sortProductsNotifierProvider);
 
-class SortProductsButtonState extends ConsumerState<_SortProductsButton> {
-  SortProducts? selectedItem;
-
-  @override
-  Widget build(BuildContext context) {
     return PopupMenuButton(
         icon: const Icon(Icons.tune),
-        initialValue: selectedItem,
-        onSelected: (sortProducts) => {
-              ref
-                  .read(superMarketFinderNotifierProvider.notifier)
-                  .sortProducts(sortProducts),
-              setState(() {
-                selectedItem = sortProducts;
-              })
-            },
+        initialValue: selectedSortProducts,
+        onSelected: (sortProducts) => ref
+            .read(sortProductsNotifierProvider.notifier)
+            .selectedSort(sortProducts),
         itemBuilder: (context) => <PopupMenuEntry<SortProducts>>[
               PopupMenuItem<SortProducts>(
                 value: SortProducts.lowestPrice,

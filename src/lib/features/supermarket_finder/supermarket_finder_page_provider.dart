@@ -7,6 +7,21 @@ import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 part 'supermarket_finder_page_provider.g.dart';
 
 @Riverpod(keepAlive: true)
+class SortProductsNotifier extends _$SortProductsNotifier {
+  @override
+  SortProducts build() {
+    return SortProducts.none;
+  }
+
+  void selectedSort(SortProducts sortProducts) {
+    state = sortProducts;
+    ref
+        .read(superMarketFinderNotifierProvider.notifier)
+        .sortProducts(sortProducts);
+  }
+}
+
+@Riverpod(keepAlive: true)
 class SuperMarketsFilterNotifier extends _$SuperMarketsFilterNotifier {
   final List<int> _selectedSupermarkets = [];
 
