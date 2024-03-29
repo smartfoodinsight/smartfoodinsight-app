@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 import 'package:smartfoodinsight_app/features/products/products_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,9 +35,10 @@ class ProductDetailsPage extends ConsumerWidget {
               ),
             ),
         error: (error, stackTrace) => Scaffold(
-              appBar: AppBar(),
-              body: const Center(child: Text('Error')),
-            ),
+            appBar: AppBar(),
+            body: ErrorPage(
+              onPressed: () => ref.invalidate(productInfoProvider(ean)),
+            )),
         loading: () => const Scaffold(
               body: Center(child: CircularProgressIndicator()),
             ));
