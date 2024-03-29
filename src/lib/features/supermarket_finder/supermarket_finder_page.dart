@@ -5,6 +5,7 @@ import 'package:smartfoodinsight_app/common/extensions/app_localizations_extensi
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
+import 'package:smartfoodinsight_app/features/supermarket_finder/sort_products.dart';
 import 'package:smartfoodinsight_app/features/supermarket_finder/supermarket_finder_page_provider.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
@@ -165,7 +166,8 @@ class SearchBarState extends ConsumerState<_SearchBar> {
     return marketsAsync.when(
         data: (superMarkets) {
           if (superMarkets.isEmpty) {
-            return const Text('Error');
+            return ErrorPage(
+                onPressed: () => ref.invalidate(supermarketsProvider));
           } else {
             return SearchBar(
                 controller: textEditingController,
@@ -184,6 +186,7 @@ class SearchBarState extends ConsumerState<_SearchBar> {
                       onPressed: () {
                         _showMarketsFilter(superMarkets);
                       }),
+                  const _SortProductsButton(),
                   if (showClearButton)
                     IconButton(
                         icon: const Icon(Icons.clear),
@@ -215,12 +218,48 @@ class SearchBarState extends ConsumerState<_SearchBar> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Aceptar'),
+              child: Text(context.loc.accept),
             ),
           ],
         );
       },
     );
+  }
+}
+
+class _SortProductsButton extends ConsumerStatefulWidget {
+  const _SortProductsButton();
+
+  @override
+  SortProductsButtonState createState() => SortProductsButtonState();
+}
+
+class SortProductsButtonState extends ConsumerState<_SortProductsButton> {
+  SortProducts? selectedItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+        icon: const Icon(Icons.tune),
+        initialValue: selectedItem,
+        onSelected: (sortProducts) => {
+              ref
+                  .read(superMarketFinderNotifierProvider.notifier)
+                  .sortProducts(sortProducts),
+              setState(() {
+                selectedItem = sortProducts;
+              })
+            },
+        itemBuilder: (context) => <PopupMenuEntry<SortProducts>>[
+              PopupMenuItem<SortProducts>(
+                value: SortProducts.lowestPrice,
+                child: Text(context.loc.lowestPrice),
+              ),
+              PopupMenuItem<SortProducts>(
+                value: SortProducts.highestPrice,
+                child: Text(context.loc.highestPrice),
+              ),
+            ]);
   }
 }
 

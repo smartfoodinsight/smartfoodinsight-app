@@ -1,6 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
+import 'package:smartfoodinsight_app/features/supermarket_finder/sort_products.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
 part 'supermarket_finder_page_provider.g.dart';
@@ -33,6 +36,17 @@ class SuperMarketFinderNotifier extends _$SuperMarketFinderNotifier {
   @override
   FutureOr<List<SupermarketProductResponse>> build() {
     return [];
+  }
+
+  void sortProducts(SortProducts sortProducts) {
+    update((products) {
+      if (sortProducts.index == SortProducts.lowestPrice.index) {
+        products.sort((a, b) => a.price.compareTo(b.price));
+      } else {
+        products.sort((a, b) => b.price.compareTo(a.price));
+      }
+      return products;
+    });
   }
 
   Future<void> superMarketFinderAsync(List<int> markets, String term) async {

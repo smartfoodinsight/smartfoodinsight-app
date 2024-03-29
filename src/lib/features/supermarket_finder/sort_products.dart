@@ -1,0 +1,1 @@
+enum SortProducts { highestPrice, lowestPrice }

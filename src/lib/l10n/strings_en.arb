@@ -1,4 +1,14 @@
 {
+  "highestPrice": "Highest price",
+  "@highestPrice": {
+    "type": "text",
+    "description": "Highest price"
+  },
+  "lowestPrice": "Lowest price",
+  "@lowestPrice": {
+    "type": "text",
+    "description": "Lowest price"
+  },
   "tryagain": "Try again",
   "@tryagain": {
     "type": "text",
@@ -278,5 +288,10 @@
   "@signup": {
     "type": "text",
     "description": "Signup to the app"
+  },
+  "accept": "Accept",
+  "@accept": {
+    "type": "text",
+    "description": "Accept"
   }
 }

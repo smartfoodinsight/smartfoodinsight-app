@@ -1,4 +1,6 @@
 {    
+    "highestPrice": "Precio más alto",
+    "lowestPrice": "Precio más bajo",
     "tryagain": "Inténtalo de nuevo",
     "supermarkets": "Supermercados",
     "save": "Guardar",
@@ -54,5 +56,6 @@
     "email": "Correo",
     "logout": "Cerrar sesión",
     "login": "Iniciar sesión",
-    "signup": "Regístrate"
+    "signup": "Regístrate",
+    "accept": "Aceptar"
 }
