@@ -33,16 +33,40 @@ class ProductsPage extends StatelessWidget {
   }
 }
 
-class _ShowProducts extends ConsumerWidget {
+class _ShowProducts extends ConsumerStatefulWidget {
   const _ShowProducts();
+  @override
+  _ShowProductsState createState() => _ShowProductsState();
+}
+
+class _ShowProductsState extends ConsumerState<_ShowProducts> {
+  final scrollController = ScrollController();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+    scrollController.addListener(() async {
+      if (scrollController.position.pixels + 150 >=
+          scrollController.position.maxScrollExtent) {
+        await ref.read(productsNotifierProvider.notifier).nextPageAsync();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final productsAsync = ref.watch(productsNotifierProvider);
     final loc = ref.read(appLocalizationsProvider);
 
     return productsAsync.when(
-        data: (products) {
+        data: (myProduct) {
+          final products = myProduct.products;
           if (products.isEmpty) {
             return Padding(
               padding: const EdgeInsets.only(top: 10, left: 40, right: 40),
@@ -59,14 +83,25 @@ class _ShowProducts extends ConsumerWidget {
             );
           } else {
             return ListView.builder(
-                itemCount: products.length,
+                controller: scrollController,
+                itemCount: products.length + 1,
                 itemBuilder: (context, index) {
-                  final product = products[index];
-                  return _CustomCard(product: product);
+                  if (index < products.length) {
+                    final product = products[index];
+                    return _CustomCard(product: product);
+                  }
+
+                  return myProduct.lastPage
+                      ? Container()
+                      : const Center(
+                          child: Padding(
+                              padding: EdgeInsets.only(bottom: 8),
+                              child: CircularProgressIndicator()));
                 });
           }
         },
-        error: (error, stackTrace) => const Text('error'),
+        error: (error, stackTrace) => ErrorPage(
+            onPressed: () => ref.invalidate(productsNotifierProvider)),
         loading: () => const ProductsLoading());
   }
 }

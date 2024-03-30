@@ -7,27 +7,50 @@ part 'products_provider.g.dart';
 @riverpod
 class ProductsNotifier extends _$ProductsNotifier {
   int page = 0;
+  bool loadMore = false;
 
   @override
-  FutureOr<List<ProductDetail>> build() {
-    return _productsAsync();
+  FutureOr<MyProduct> build() async {
+    final products = await _productsAsync();
+    return MyProduct(products: products);
+  }
+
+  Future<void> nextPageAsync() async {
+    final myProduct = state.value!;
+
+    if (loadMore || myProduct.lastPage) return;
+
+    loadMore = true;
+
+    await update((myProduct) async {
+      final newProducts = await _productsAsync();
+      if (newProducts.isEmpty) {
+        myProduct.lastPage = true;
+        return myProduct;
+      }
+      myProduct.products.addAll(newProducts);
+
+      return myProduct;
+    });
+
+    loadMore = false;
   }
 
   Future<void> toggleProductAsync(ProductDetail productDetail) async {
     final keyStorageService = ref.read(keyStorageServiceProvider);
     await keyStorageService.toggleProductAsync(productDetail);
 
-    await update((products) {
-      final bool existsProduct =
-          products.any((product) => product.barCode == productDetail.barCode);
+    await update((myProduct) {
+      final bool existsProduct = myProduct.products
+          .any((product) => product.barCode == productDetail.barCode);
 
       if (existsProduct) {
-        products
+        myProduct.products
             .removeWhere((product) => product.barCode == productDetail.barCode);
       } else {
-        products.add(productDetail);
+        myProduct.products.add(productDetail);
       }
-      return products;
+      return myProduct;
     });
   }
 
