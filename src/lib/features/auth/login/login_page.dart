@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -234,35 +236,30 @@ class _SocialButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final googleService = ref.read(googleServiceProvider);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(
-          onPressed: () => {},
-          style: ElevatedButton.styleFrom(
-            shape: const CircleBorder(),
-            backgroundColor: Colors.black,
-            padding: const EdgeInsets.all(15),
-          ),
-          child: const Icon(
-            FontAwesomeIcons.apple,
-            color: Colors.white,
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () => googleService.signInAsync(),
-          style: ElevatedButton.styleFrom(
-            shape: const CircleBorder(),
-            backgroundColor: HexColor("#DF4A32"),
-            padding: const EdgeInsets.all(15),
-          ),
-          child: const Icon(
-            FontAwesomeIcons.google,
-            color: Colors.white,
-          ),
-        )
-      ],
-    );
+    return Platform.isAndroid
+        ? ElevatedButton(
+            onPressed: () => googleService.signInAsync(),
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              backgroundColor: HexColor("#DF4A32"),
+              padding: const EdgeInsets.all(15),
+            ),
+            child: const Icon(
+              FontAwesomeIcons.google,
+              color: Colors.white,
+            ),
+          )
+        : ElevatedButton(
+            onPressed: () => {},
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              backgroundColor: Colors.black,
+              padding: const EdgeInsets.all(15),
+            ),
+            child: const Icon(
+              FontAwesomeIcons.apple,
+              color: Colors.white,
+            ));
   }
 }
 
