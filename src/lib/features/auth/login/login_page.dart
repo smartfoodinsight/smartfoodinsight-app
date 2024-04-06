@@ -227,11 +227,13 @@ class _ResetPassword extends ConsumerWidget {
   }
 }
 
-class _SocialButtons extends StatelessWidget {
+class _SocialButtons extends ConsumerWidget {
   const _SocialButtons();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final googleService = ref.read(googleServiceProvider);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -248,7 +250,7 @@ class _SocialButtons extends StatelessWidget {
           ),
         ),
         ElevatedButton(
-          onPressed: () => {},
+          onPressed: () => googleService.signInAsync(),
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),
             backgroundColor: HexColor("#DF4A32"),
