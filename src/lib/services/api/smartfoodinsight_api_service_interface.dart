@@ -1,6 +1,7 @@
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
 abstract class ISmartFoodIngishtService {
+  Future<LoginResponse> loginGoogleAsync(LoginGoogleRequest loginGoogleRequest);
   Future<List<SupermarketResponse>> supermarketsAsync();
   Future<List<SupermarketProductResponse>> supermarketsProductsAsync(
       SupermarketRequest supermarketRequest);

@@ -234,21 +234,23 @@ class _SocialButtons extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final googleService = ref.read(googleServiceProvider);
+    final authState = ref.watch(authNotifierProvider);
+    final authNotifier = ref.read(authNotifierProvider.notifier);
 
     return Platform.isAndroid
-        ? ElevatedButton(
-            onPressed: () => googleService.signInAsync(),
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              backgroundColor: HexColor("#DF4A32"),
-              padding: const EdgeInsets.all(15),
-            ),
-            child: const Icon(
-              FontAwesomeIcons.google,
-              color: Colors.white,
-            ),
-          )
+        ? authState.isLoading
+            ? const SizedBox()
+            : ElevatedButton(
+                onPressed: () => authNotifier.loginGoogleAsync(),
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  backgroundColor: HexColor("#DF4A32"),
+                  padding: const EdgeInsets.all(15),
+                ),
+                child: const Icon(
+                  FontAwesomeIcons.google,
+                  color: Colors.white,
+                ))
         : ElevatedButton(
             onPressed: () => {},
             style: ElevatedButton.styleFrom(

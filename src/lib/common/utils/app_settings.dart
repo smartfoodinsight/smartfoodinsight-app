@@ -16,6 +16,7 @@ class AppSettings {
 
   static const String apiToken = "/api/auth/token";
   static const String apiRegister = "/api/auth/register";
+  static const String apiLoginGoogle = "/api/auth/google";
   static const String apiLogin = "/api/auth/login";
 
   //ROUTES

@@ -44,6 +44,21 @@ class AuthNotifier extends _$AuthNotifier {
     });
   }
 
+  Future<void> loginGoogleAsync() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final googleService = ref.read(googleServiceProvider);
+      final apiService = ref.read(apiServiceProvider);
+
+      final idToken = await googleService.signInAsync();
+      final loginGoogleRequest = LoginGoogleRequest(idToken: idToken);
+      final loginResponse =
+          await apiService.loginGoogleAsync(loginGoogleRequest);
+      await saveUserAsync(loginResponse);
+      return const AuthState(authStatus: AuthStatus.authenticated);
+    });
+  }
+
   Future<void> loginAsync(LoginRequest loginRequest) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {

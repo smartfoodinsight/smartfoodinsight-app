@@ -156,4 +156,19 @@ class SmartFoodInsightApiService extends ISmartFoodIngishtService {
       throw WrongCredentials();
     }
   }
+
+  @override
+  Future<LoginResponse> loginGoogleAsync(
+      LoginGoogleRequest loginGoogleRequest) async {
+    try {
+      final loginJson = loginGoogleRequest.toJson();
+      final response = await dio.post(AppSettings.apiLoginGoogle,
+          data: loginJson, options: options);
+      final apiResponse = ApiUtils.parseData(
+          response.data, (json) => LoginResponse.fromJson(json));
+      return apiResponse;
+    } catch (e) {
+      throw WrongCredentials();
+    }
+  }
 }
