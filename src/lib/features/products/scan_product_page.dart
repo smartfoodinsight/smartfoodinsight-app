@@ -42,7 +42,8 @@ class _ScanPageState extends State<ScanPage> {
         }
       },
       controller: mobileScannerController,
-      overlay: QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.5)),
+      overlayBuilder: (context, constraints) =>
+          QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.5)),
     );
   }
 }
