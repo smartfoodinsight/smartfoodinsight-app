@@ -9,7 +9,7 @@ class SupermarketProductResponse with _$SupermarketProductResponse {
     required int id,
     required String market,
     required String name,
-    required String ean13,
+    String? ean13,
     required String image,
     required String price,
     required String priceUnit,
