@@ -71,6 +71,7 @@ class _HomeTabsState extends State<HomeTabsPage> {
         .requestNotificationPermissionsAsync()
         .then((status) {
       if (status.isPermanentlyDenied) {
+        if (!mounted) return;
         showDialog(
           context: context,
           builder: (context) => AlertDialog(

@@ -7,28 +7,36 @@ part 'products_provider.g.dart';
 @riverpod
 class ProductsNotifier extends _$ProductsNotifier {
   int page = 0;
+  int lengthProducts = 10;
   bool loadMore = false;
 
   @override
   FutureOr<MyProduct> build() async {
     final products = await _productsAsync();
-    return MyProduct(products: products);
+    final lastPage = products.length < lengthProducts;
+    return MyProduct(products: products, lastPage: lastPage);
   }
 
   Future<void> nextPageAsync() async {
-    final myProduct = state.value!;
+    final myProduct = state.value;
 
-    if (loadMore || myProduct.lastPage) return;
+    if (loadMore || myProduct?.lastPage == true) return;
 
     loadMore = true;
 
     await update((myProduct) async {
       final newProducts = await _productsAsync();
+
       if (newProducts.isEmpty) {
         myProduct.lastPage = true;
         return myProduct;
       }
+
       myProduct.products.addAll(newProducts);
+
+      if (newProducts.length < lengthProducts) {
+        myProduct.lastPage = true;
+      }
 
       return myProduct;
     });
@@ -57,8 +65,8 @@ class ProductsNotifier extends _$ProductsNotifier {
   Future<List<ProductDetail>> _productsAsync() async {
     final keyStorageService = ref.read(keyStorageServiceProvider);
     await Future.delayed(const Duration(milliseconds: 500));
-    final products =
-        await keyStorageService.loadProductsAsync(offset: page * 10);
+    final products = await keyStorageService.loadProductsAsync(
+        offset: page * lengthProducts);
     page++;
     return products;
   }

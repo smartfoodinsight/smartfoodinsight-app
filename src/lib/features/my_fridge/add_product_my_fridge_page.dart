@@ -19,6 +19,7 @@ class AddProductMyFridgePage extends ConsumerWidget {
         ref.read(addMyFridgeNotifierProvider(ean).notifier);
     final myFridgeNotifier = ref.read(myFridgeNotifierProvider.notifier);
     final loc = ref.read(appLocalizationsProvider);
+    final goRouter = GoRouter.of(context);
 
     return productFridgeAsync.when(
         data: (productFridge) {
@@ -37,8 +38,9 @@ class AddProductMyFridgePage extends ConsumerWidget {
                               id: productFridge.idNotification,
                               title: productFridge.name,
                               body: loc.theProductExpired,
-                              dateTime: dateTime)
-                          .whenComplete(() => context.pop());
+                              dateTime: dateTime);
+
+                      goRouter.pop();
                     },
                     icon: const Icon(Icons.save_as))
               ]),
