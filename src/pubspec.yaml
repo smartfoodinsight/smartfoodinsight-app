@@ -3,6 +3,7 @@ description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+isar_version: &isar_version 3.1.8 # define the version to be used
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -51,8 +52,12 @@ dependencies:
   hexcolor: ^3.0.1
   image_picker: ^1.0.4
   intl: any
-  isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
+  isar: 
+    version: *isar_version
+    hosted: https://pub.isar-community.dev/
+  isar_flutter_libs: # contains Isar Core
+    version: *isar_version
+    hosted: https://pub.isar-community.dev/
   json_annotation: ^4.8.1
   mobile_scanner: ^5.1.1
   openfoodfacts: ^3.0.0
@@ -72,7 +77,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.4.3
-  isar_generator: ^3.1.0+1
+  isar_generator: 
+    version: *isar_version
+    hosted: https://pub.isar-community.dev/
   json_serializable: ^6.7.1
   riverpod_generator: ^2.3.1
   riverpod_lint: ^2.0.3
