@@ -58,6 +58,8 @@ class ProfilePageNotifier extends _$ProfilePageNotifier {
         email: formsState.email.value,
         picture: picture);
 
+    state = AsyncValue.data(formsState.copyWith(isLoading: true));
+
     final userResponse =
         await ref.read(apiServiceProvider).updateUserAsync(userRequest);
 
@@ -69,6 +71,8 @@ class ProfilePageNotifier extends _$ProfilePageNotifier {
     await ref
         .read(authNotifierProvider.notifier)
         .saveUserAsync(newLoginResponse);
+
+    state = AsyncValue.data(formsState.copyWith(isLoading: false));
   }
 
   void _touchEveryField() {

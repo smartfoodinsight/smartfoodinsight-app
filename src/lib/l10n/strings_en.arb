@@ -1,4 +1,9 @@
 {
+  "aboutMe": "About me",
+  "@aboutMe": {
+    "type": "text",
+    "description": "About me"
+  },
   "highestPrice": "Highest price",
   "@highestPrice": {
     "type": "text",

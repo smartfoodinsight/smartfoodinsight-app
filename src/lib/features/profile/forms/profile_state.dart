@@ -12,5 +12,6 @@ class ProfileFormsState with _$ProfileFormsState {
     String? picture,
     @Default(false) bool isFormPosted,
     @Default(false) bool isValid,
+    @Default(false) bool isLoading,
   }) = _ProfileFormsState;
 }

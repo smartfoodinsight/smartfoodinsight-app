@@ -37,9 +37,10 @@ class _FormsProfile extends ConsumerWidget {
           final email = profileFormsState.email;
           final picture = profileFormsState.picture;
           final isFormPosted = profileFormsState.isFormPosted;
+          final isLoading = profileFormsState.isLoading;
 
           return Column(
-            children: [
+            children: <Widget>[
               ImageSelectionModal(
                 child: CircleAvatar(
                   radius: 70,
@@ -78,14 +79,21 @@ class _FormsProfile extends ConsumerWidget {
                   icon: Icons.email),
               const SizedBox(height: 16),
               GeneralElevatedButton(
-                  onPressed: () => profilePageNotifier.onFormSubmit(id),
-                  child: Text(loc.save)),
+                  onPressed: () =>
+                      isLoading ? null : profilePageNotifier.onFormSubmit(id),
+                  child: isLoading
+                      ? const CircularProgressIndicator()
+                      : Text(loc.save)),
               const SizedBox(height: 16),
               const Divider(),
               ListTile(
-                  title: Text(loc.deleteAccount),
-                  leading: const Icon(Icons.warning),
+                  title: Text(loc.aboutMe),
+                  leading: const Icon(Icons.info),
                   onTap: () {}),
+              // ListTile(
+              //     title: Text(loc.deleteAccount),
+              //     leading: const Icon(Icons.warning),
+              //     onTap: () {}),
               ListTile(
                   title: Text(loc.logout),
                   leading: const Icon(Icons.logout),
