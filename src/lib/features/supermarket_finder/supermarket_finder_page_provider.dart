@@ -24,10 +24,19 @@ class SortProductsNotifier extends _$SortProductsNotifier {
 @Riverpod(keepAlive: true)
 class SuperMarketsFilterNotifier extends _$SuperMarketsFilterNotifier {
   final List<int> _selectedSupermarkets = [];
+  String _selectedTerm = '';
 
   @override
   List<int> build() {
     return _selectedSupermarkets;
+  }
+
+  void setTerm(String term) {
+    _selectedTerm = term;
+  }
+
+  String selectedTerm() {
+    return _selectedTerm;
   }
 
   List<int> selectedSupermarkets() {
@@ -65,11 +74,15 @@ class SuperMarketFinderNotifier extends _$SuperMarketFinderNotifier {
   Future<void> superMarketFinderAsync(List<int> markets, String term) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      final marketRequest = SupermarketRequest(markets: markets, term: term);
-      final products = await ref
-          .read(apiServiceProvider)
-          .supermarketsProductsAsync(marketRequest);
-      return products;
+      bool isValidTerm = term.trim().isNotEmpty;
+      if (markets.isNotEmpty && isValidTerm) {
+        final marketRequest = SupermarketRequest(markets: markets, term: term);
+        final products = await ref
+            .read(apiServiceProvider)
+            .supermarketsProductsAsync(marketRequest);
+        return products;
+      }
+      return [];
     });
   }
 

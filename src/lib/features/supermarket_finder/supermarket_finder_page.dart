@@ -52,8 +52,18 @@ class _SupermarketProducts extends ConsumerWidget {
             );
           }
         },
-        error: (error, stackTrace) => ErrorPage(
-            onPressed: () => ref.invalidate(superMarketFinderNotifierProvider)),
+        error: (error, stackTrace) => ErrorPage(onPressed: () {
+              final term = ref
+                  .read(superMarketsFilterNotifierProvider.notifier)
+                  .selectedTerm();
+
+              final supermarkets = ref
+                  .read(superMarketsFilterNotifierProvider.notifier)
+                  .selectedSupermarkets();
+              ref
+                  .read(superMarketFinderNotifierProvider.notifier)
+                  .superMarketFinderAsync(supermarkets, term);
+            }),
         loading: () => const ProductsMarketLoading());
   }
 }
@@ -173,6 +183,9 @@ class SearchBarState extends ConsumerState<_SearchBar> {
                   final supermarkets = ref
                       .read(superMarketsFilterNotifierProvider.notifier)
                       .selectedSupermarkets();
+                  ref
+                      .read(superMarketsFilterNotifierProvider.notifier)
+                      .setTerm(value);
                   ref
                       .read(superMarketFinderNotifierProvider.notifier)
                       .superMarketFinderAsync(supermarkets, value);
