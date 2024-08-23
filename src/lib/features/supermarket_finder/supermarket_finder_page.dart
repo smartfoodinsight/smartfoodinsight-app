@@ -29,6 +29,11 @@ class _SupermarketProducts extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final marketsAsync = ref.watch(superMarketFinderNotifierProvider);
+    final superMarketNotifer =
+        ref.read(superMarketFinderNotifierProvider.notifier);
+    final superMarketsNotifer =
+        ref.read(superMarketsFilterNotifierProvider.notifier);
+
     return marketsAsync.when(
         data: (superMarkets) {
           if (superMarkets.isEmpty) {
@@ -53,16 +58,9 @@ class _SupermarketProducts extends ConsumerWidget {
           }
         },
         error: (error, stackTrace) => ErrorPage(onPressed: () {
-              final term = ref
-                  .read(superMarketsFilterNotifierProvider.notifier)
-                  .selectedTerm();
-
-              final supermarkets = ref
-                  .read(superMarketsFilterNotifierProvider.notifier)
-                  .selectedSupermarkets();
-              ref
-                  .read(superMarketFinderNotifierProvider.notifier)
-                  .superMarketFinderAsync(supermarkets, term);
+              final term = superMarketsNotifer.selectedTerm();
+              final supermarkets = superMarketsNotifer.selectedSupermarkets();
+              superMarketNotifer.superMarketFinderAsync(supermarkets, term);
             }),
         loading: () => const ProductsMarketLoading());
   }
@@ -170,6 +168,10 @@ class SearchBarState extends ConsumerState<_SearchBar> {
   @override
   Widget build(BuildContext context) {
     final marketsAsync = ref.watch(supermarketsProvider);
+    final superMarketNotifer =
+        ref.read(superMarketFinderNotifierProvider.notifier);
+    final superMarketsNotifer =
+        ref.read(superMarketsFilterNotifierProvider.notifier);
 
     return marketsAsync.when(
         data: (superMarkets) {
@@ -180,15 +182,11 @@ class SearchBarState extends ConsumerState<_SearchBar> {
             return SearchBar(
                 controller: textEditingController,
                 onSubmitted: (value) {
-                  final supermarkets = ref
-                      .read(superMarketsFilterNotifierProvider.notifier)
-                      .selectedSupermarkets();
-                  ref
-                      .read(superMarketsFilterNotifierProvider.notifier)
-                      .setTerm(value);
-                  ref
-                      .read(superMarketFinderNotifierProvider.notifier)
-                      .superMarketFinderAsync(supermarkets, value);
+                  final supermarkets =
+                      superMarketsNotifer.selectedSupermarkets();
+                  superMarketsNotifer.setTerm(value);
+                  superMarketNotifer.superMarketFinderAsync(
+                      supermarkets, value);
                 },
                 leading: const Icon(Icons.search),
                 trailing: [
@@ -203,9 +201,7 @@ class SearchBarState extends ConsumerState<_SearchBar> {
                         icon: const Icon(Icons.clear),
                         onPressed: () async {
                           textEditingController.clear();
-                          await ref
-                              .read(superMarketFinderNotifierProvider.notifier)
-                              .clearAsync();
+                          await superMarketNotifer.clearAsync();
                         }),
                 ]);
           }
@@ -272,6 +268,9 @@ class _SupermarketsFilter extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedMarkets = ref.watch(superMarketsFilterNotifierProvider);
+    final superMarketsFilterNotifier =
+        ref.read(superMarketsFilterNotifierProvider.notifier);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: superMarkets.map((market) {
@@ -279,9 +278,7 @@ class _SupermarketsFilter extends ConsumerWidget {
             title: Text(market.name),
             value: selectedMarkets.contains(market.id),
             onChanged: (bool? value) {
-              ref
-                  .read(superMarketsFilterNotifierProvider.notifier)
-                  .toggleSupermarket(market.id);
+              superMarketsFilterNotifier.toggleSupermarket(market.id);
             });
       }).toList(),
     );
