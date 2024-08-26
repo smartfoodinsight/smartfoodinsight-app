@@ -29,9 +29,6 @@ GoRouter appRouter(AppRouterRef ref) {
           ),
         ),
         GoRoute(
-            path: AppSettings.information,
-            builder: (context, state) => const InformationPage()),
-        GoRoute(
             path: AppSettings.scanfridge,
             builder: (context, state) => ScanPage(
                 action: (barcode) => context.pushReplacement(

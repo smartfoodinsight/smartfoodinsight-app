@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
@@ -89,10 +89,14 @@ class _FormsProfile extends ConsumerWidget {
               const SizedBox(height: 16),
               const Divider(),
               ListTile(
-                  title: Text(loc.information),
-                  leading: const Icon(Icons.info),
-                  onTap: () async =>
-                      await context.push(AppSettings.information)),
+                  title: Text(loc.privacyPolicy),
+                  leading: const Icon(Icons.privacy_tip_outlined),
+                  onTap: () async {
+                    Uri uri = Uri.parse(AppSettings.smartPrivacy);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    }
+                  }),
               // ListTile(
               //     title: Text(loc.deleteAccount),
               //     leading: const Icon(Icons.warning),

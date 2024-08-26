@@ -1,4 +1,9 @@
 {
+  "privacyPolicy": "Privacy policy",
+  "@privacyPolicy": {
+    "type": "text",
+    "description": "Privacy policy"
+  },
   "information": "Information",
   "@information": {
     "type": "text",

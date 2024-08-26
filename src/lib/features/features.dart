@@ -1,4 +1,3 @@
-export 'package:smartfoodinsight_app/features/profile/information/information_page.dart';
 export 'package:smartfoodinsight_app/features/profile/profile_page.dart';
 
 export 'package:smartfoodinsight_app/features/supermarket_finder/supermarket_finder_page.dart';
