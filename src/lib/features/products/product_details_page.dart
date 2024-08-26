@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
-import 'package:smartfoodinsight_app/features/products/products_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 import 'package:smartfoodinsight_app/common/extensions/extensions.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/utils/utis.dart';

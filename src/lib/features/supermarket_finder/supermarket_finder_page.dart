@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:smartfoodinsight_app/common/extensions/app_localizations_extension.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
-import 'package:smartfoodinsight_app/features/supermarket_finder/sort_products.dart';
-import 'package:smartfoodinsight_app/features/supermarket_finder/supermarket_finder_page_provider.dart';
+import 'package:smartfoodinsight_app/models/models.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
 class SuperMarketFinderPage extends StatelessWidget {

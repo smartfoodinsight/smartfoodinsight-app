@@ -1,8 +1,8 @@
 {
-  "aboutMe": "About me",
-  "@aboutMe": {
+  "information": "Information",
+  "@information": {
     "type": "text",
-    "description": "About me"
+    "description": "information"
   },
   "highestPrice": "Highest price",
   "@highestPrice": {

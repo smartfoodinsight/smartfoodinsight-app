@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
+import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/common/widgets/widgets.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -87,9 +89,10 @@ class _FormsProfile extends ConsumerWidget {
               const SizedBox(height: 16),
               const Divider(),
               ListTile(
-                  title: Text(loc.aboutMe),
+                  title: Text(loc.information),
                   leading: const Icon(Icons.info),
-                  onTap: () {}),
+                  onTap: () async =>
+                      await context.push(AppSettings.information)),
               // ListTile(
               //     title: Text(loc.deleteAccount),
               //     leading: const Icon(Icons.warning),

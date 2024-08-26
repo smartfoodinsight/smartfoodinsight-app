@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
-import 'package:smartfoodinsight_app/features/supermarket_finder/sort_products.dart';
+import 'package:smartfoodinsight_app/models/sort_products.dart';
 import 'package:smartfoodinsight_app/services/api/dto/dto.dart';
 
 part 'supermarket_finder_page_provider.g.dart';
