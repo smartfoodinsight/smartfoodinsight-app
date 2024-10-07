@@ -47,6 +47,7 @@ class _DateTextFormField extends State<DateTextFormField> {
             widget.label,
             style: TextStyle(color: Colors.grey[770]),
           ),
+          floatingLabelStyle: const TextStyle(overflow: TextOverflow.ellipsis),
           focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: HexColor("#001f3f"))),
           errorText: widget.errorMessage),

@@ -124,7 +124,7 @@
     "type": "text",
     "description": "Camera"
   },
-  "useByDate": "Use by date",
+  "useByDate": "Use by date (the moment when you will receive the notification)",
   "@useByDate": {
     "type": "text",
     "description": "Use by date"

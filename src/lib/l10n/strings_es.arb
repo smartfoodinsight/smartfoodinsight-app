@@ -1,4 +1,4 @@
-{    
+{      
     "privacyPolicy": "Política de privacidad",
     "information": "Información",
     "highestPrice": "Precio más alto",
@@ -24,7 +24,7 @@
     "expiresToday": "Caduca hoy",
     "gallery": "Galería",
     "camera": "Cámara",
-    "useByDate": "Fecha límite de consumo",
+    "useByDate": "Fecha límite de consumo (momento en el que recibirás la notificación)",
     "addProductManually": "Añadir producto manualmente",
     "scanProduct": "Escanea un producto",
     "myFridgeProducts": "Añade productos contra el desperdicio alimentario para cuidar el planeta",
