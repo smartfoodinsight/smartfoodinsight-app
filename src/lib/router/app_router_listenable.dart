@@ -39,7 +39,7 @@ class RouterListenable extends _$RouterListenable implements Listenable {
       _authStatus = AuthStatus.nothing;
     }
 
-    ref.listenSelf((_, __) {
+    listenSelf((_, __) {
       // One could write more conditional logic for when to call redirection
       if (state.isLoading) return;
       _routerListener?.call();

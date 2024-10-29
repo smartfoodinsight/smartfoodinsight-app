@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 import 'package:smartfoodinsight_app/models/models.dart';
@@ -73,13 +74,13 @@ class ProductsNotifier extends _$ProductsNotifier {
 }
 
 @riverpod
-Future<bool> isFavoriteProduct(IsFavoriteProductRef ref, String barCode) async {
+Future<bool> isFavoriteProduct(Ref ref, String barCode) async {
   final keyStorageService = ref.read(keyStorageServiceProvider);
   return keyStorageService.isFavoriteProductAsync(barCode);
 }
 
 @riverpod
-Future<ProductDetail> productInfo(ProductInfoRef ref, String ean) async {
+Future<ProductDetail> productInfo(Ref ref, String ean) async {
   final openFoodFactsApiService = ref.read(openFoodFactsApiServiceProvider);
   return openFoodFactsApiService.getProductAsync(ean);
 }

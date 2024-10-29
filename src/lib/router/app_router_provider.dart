@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -9,7 +10,7 @@ import 'package:smartfoodinsight_app/features/features.dart';
 part 'app_router_provider.g.dart';
 
 @riverpod
-GoRouter appRouter(AppRouterRef ref) {
+GoRouter appRouter(Ref ref) {
   final routerListenable = ref.watch(routerListenableProvider.notifier);
   return GoRouter(
       initialLocation: AppSettings.login,

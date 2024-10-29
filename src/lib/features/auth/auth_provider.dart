@@ -70,7 +70,7 @@ class AuthNotifier extends _$AuthNotifier {
   }
 
   void _persistenceRefreshLogic() {
-    ref.listenSelf((_, next) async {
+    listenSelf((_, next) async {
       if (next.isLoading) return;
       if (next.hasError) {
         await _clearUserAsync();

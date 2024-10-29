@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:smartfoodinsight_app/common/utils/utis.dart';
 import 'package:smartfoodinsight_app/features/auth/exceptions/auth_exceptions.dart';
@@ -8,7 +8,7 @@ import 'package:smartfoodinsight_app/services/services.dart';
 import 'package:smartfoodinsight_app/common/providers/providers.dart';
 
 class SmartFoodInsightApiService extends ISmartFoodIngishtService {
-  final ProviderRef ref;
+  final Ref ref;
 
   var options = Options(headers: {"requiresToken": false});
   final dio = Dio(BaseOptions(baseUrl: AppSettings.apiUrl));
