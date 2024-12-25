@@ -5,7 +5,7 @@ class AppSettings {
   static const String openFoodFacts =
       "https://es.openfoodfacts.org/terms-of-use";
   static const String smartPrivacy =
-      "https://www.angelruben.es/smartfoodinsight.html";
+      "https://smartfoodinsight.github.io/#/privacy-policy";
 
   //API
   static const String apiUrl = "https://smartfoodinsight.onrender.com";

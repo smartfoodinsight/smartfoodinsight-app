@@ -54,6 +54,8 @@
     "name": "Nombre",
     "forgotPassowrd": "¿Has olvidado la contraseña?",
     "dontAccount": "¿No tienes una cuenta?",
+    "passwordFormat": "Debe de tener una mayúscula, letras y un número",
+    "passwordLength": "Mínimo 6 caracteres",
     "password": "Contraseña",
     "email": "Correo",
     "logout": "Cerrar sesión",

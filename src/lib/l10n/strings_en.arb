@@ -279,6 +279,16 @@
     "type": "text",
     "description": "Email field"
   },
+  "passwordFormat": "It must have a capital letter, letters and a number",
+  "@passwordFormat": {
+    "type": "text",
+    "description": "Password format"
+  },
+  "passwordLength": "Minimum 6 characters",
+  "@passwordLength": {
+    "type": "text",
+    "description": "Password length"
+  },
   "password": "Password",
   "@password": {
     "type": "text",
