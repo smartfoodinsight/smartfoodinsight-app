@@ -26,9 +26,7 @@ class KeyStorageService extends IKeyStorageService {
 
   final _storage = const FlutterSecureStorage();
 
-  AndroidOptions _getAndroidOptions() => const AndroidOptions(
-        encryptedSharedPreferences: true,
-      );
+  AndroidOptions _getAndroidOptions() => const AndroidOptions();
 
   Future<SharedPreferences> getSharedPrefs() async {
     return await SharedPreferences.getInstance();
