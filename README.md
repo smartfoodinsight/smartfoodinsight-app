@@ -44,7 +44,7 @@ The application has a clean and tidy architecture, applying the best practices, 
   * iOS
  
 # Download
-<a href="https://play.google.com/store/apps/details?id=es.smartfoodinsight.smartfoodinsight&hl=es" target="_blank">
+<a href="https://play.google.com/store/apps/details?id=es.smartfoodinsight.smartfoodinsight" target="_blank">
   <img width="200" src="/images/googleplay.png?raw=true"/>
 </a>
 
