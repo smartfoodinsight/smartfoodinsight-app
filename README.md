@@ -1,6 +1,6 @@
 # Smart Food Insight
 <p align="center">
-  <img src ="/src/assets/images/icon.png?raw=true" width="200" />
+  <img src ="/images/icon.png?raw=true" width="200" />
 </p>
 
 Transforma la gestión de tu despensa en una experiencia inteligente y conveniente, asegurándote de que nunca más olvides una fecha de caducidad. Mediante la configuración de recordatorios personalizados, recibirás notificaciones oportunas cuando los alimentos estén próximos a vencer, lo que te permite planificar tus comidas de manera más eficiente y reducir el desperdicio.
@@ -38,3 +38,18 @@ The application has a clean and tidy architecture, applying the best practices, 
 * [Flutter time zone](https://pub.dev/packages/flutter_timezone)
 * [Flutter svg](https://pub.dev/packages/flutter_svg)
 * [Open food facts](https://pub.dev/packages/openfoodfacts)
+
+# Platforms
+  * Android
+  * iOS
+ 
+# Download
+<a href="https://play.google.com/store/apps/details?id=es.smartfoodinsight.smartfoodinsight&hl=es" target="_blank">
+  <img width="200" src="/images/googleplay.png?raw=true"/>
+</a>
+
+
+# Copyright and license
+Copyright 2025 by Ángel Rubén
+
+Code released under the [MIT license](https://en.wikipedia.org/wiki/MIT_License)
