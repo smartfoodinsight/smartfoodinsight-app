@@ -28,31 +28,34 @@ class ImageSelectionModal extends ConsumerWidget {
             builder: (BuildContext context) {
               return Padding(
                 padding: MediaQuery.viewInsetsOf(context),
-                child: SizedBox(
-                  height: 150,
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ListTile(
-                          title: Text(context.loc.camera),
-                          leading: const Icon(Icons.camera_alt_sharp),
-                          onTap: () async {
-                            context.pop();
-                            final imagePath =
-                                await cameraGalleryService.takePhotoAsync();
-                            onImageSelected(imagePath);
-                          }),
-                      ListTile(
-                          title: Text(context.loc.gallery),
-                          leading: const Icon(Icons.image),
-                          onTap: () async {
-                            context.pop();
-                            final imagePath =
-                                await cameraGalleryService.selectPhotoAsync();
-                            onImageSelected(imagePath);
-                          }),
-                    ],
+                child: SafeArea(
+                  bottom: true,
+                  child: SizedBox(
+                    height: 150,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ListTile(
+                            title: Text(context.loc.camera),
+                            leading: const Icon(Icons.camera_alt_sharp),
+                            onTap: () async {
+                              context.pop();
+                              final imagePath =
+                                  await cameraGalleryService.takePhotoAsync();
+                              onImageSelected(imagePath);
+                            }),
+                        ListTile(
+                            title: Text(context.loc.gallery),
+                            leading: const Icon(Icons.image),
+                            onTap: () async {
+                              context.pop();
+                              final imagePath =
+                                  await cameraGalleryService.selectPhotoAsync();
+                              onImageSelected(imagePath);
+                            }),
+                      ],
+                    ),
                   ),
                 ),
               );

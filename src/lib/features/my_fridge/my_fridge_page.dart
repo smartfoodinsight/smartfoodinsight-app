@@ -42,28 +42,31 @@ class MyFridgePage extends StatelessWidget {
         builder: (BuildContext context) {
           return Padding(
             padding: MediaQuery.viewInsetsOf(context),
-            child: SizedBox(
-              height: 150,
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ListTile(
-                      title: Text(context.loc.scanProduct),
-                      leading: const Icon(FontAwesomeIcons.barcode),
-                      onTap: () => {
-                            context.push(AppSettings.scanfridge),
-                            context.pop()
-                          }),
-                  ListTile(
-                      title: Text(context.loc.addProductManually),
-                      leading: const Icon(Icons.edit_document),
-                      onTap: () => {
-                            context
-                                .push('${AppSettings.addProductMyFridge}new'),
-                            context.pop(),
-                          }),
-                ],
+            child: SafeArea(
+              bottom: true,
+              child: SizedBox(
+                height: 150,
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ListTile(
+                        title: Text(context.loc.scanProduct),
+                        leading: const Icon(FontAwesomeIcons.barcode),
+                        onTap: () => {
+                              context.push(AppSettings.scanfridge),
+                              context.pop()
+                            }),
+                    ListTile(
+                        title: Text(context.loc.addProductManually),
+                        leading: const Icon(Icons.edit_document),
+                        onTap: () => {
+                              context
+                                  .push('${AppSettings.addProductMyFridge}new'),
+                              context.pop(),
+                            }),
+                  ],
+                ),
               ),
             ),
           );

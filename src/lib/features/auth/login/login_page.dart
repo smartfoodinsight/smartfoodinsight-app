@@ -18,8 +18,11 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
+
+    double bottomPadding = MediaQuery.paddingOf(context).bottom;
+
     double imageHeight = height * 0.35;
-    double sizedBoxHeight = height - imageHeight;
+    double sizedBoxHeight = height - imageHeight - bottomPadding;
 
     return Scaffold(
       backgroundColor: HexColor("#aac6f9"),
@@ -163,21 +166,25 @@ class _ForgotPasswordButton extends StatelessWidget {
 
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet<void>(
-        context: context,
-        isScrollControlled: true,
-        builder: (BuildContext context) {
-          return Padding(
-            padding: MediaQuery.viewInsetsOf(context),
-            child: const SizedBox(
-                height: 250,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 30, horizontal: 16),
-                    child: _ResetPassword(),
-                  ),
-                )),
-          );
-        });
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return AnimatedPadding(
+          padding: MediaQuery.of(context).viewInsets,
+          duration: Duration(milliseconds: 100),
+          curve: Curves.easeOut,
+          child: SafeArea(
+            bottom: true,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+              child: SingleChildScrollView(
+                child: _ResetPassword(),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 
