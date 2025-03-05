@@ -169,12 +169,9 @@ class _ForgotPasswordButton extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
-        return AnimatedPadding(
+        return Padding(
           padding: MediaQuery.of(context).viewInsets,
-          duration: Duration(milliseconds: 100),
-          curve: Curves.easeOut,
           child: SafeArea(
-            bottom: true,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
               child: SingleChildScrollView(
