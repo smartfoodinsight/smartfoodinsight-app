@@ -36,13 +36,13 @@ class RegisterPageNotifier extends _$RegisterPageNotifier {
 
     if (!state.isValid) return;
 
-    var reqgistrRequest = RegisterRequest(
+    var registerRequest = RegisterRequest(
         name: state.name.value,
         email: state.email.value,
         password: state.password.value);
 
     final authNotifier = ref.read(authNotifierProvider.notifier);
-    await authNotifier.registerAsync(reqgistrRequest);
+    await authNotifier.registerAsync(registerRequest);
   }
 
   void _touchEveryField() {
